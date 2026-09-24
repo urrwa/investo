@@ -1,0 +1,6 @@
+{
+  "name": "Investo Immobilien",
+  "description": "Interactive, highly polished high-end real estate hero section with custom animations, interactive tabs, and visual assets.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

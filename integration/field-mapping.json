@@ -1,0 +1,608 @@
+{
+  "schema_version": "investo.inquiry.v1",
+  "form_id": "strategy-check-v1",
+  "account_ids_source": "Supplied contract, not newly verified against the live account",
+  "CRM": {
+    "source": 364441,
+    "status": 348539,
+    "inquiryCategory": 734823,
+    "phase": 355771,
+    "ceoIds": [
+      443333,
+      443427
+    ]
+  },
+  "incomeIds": {
+    "Unter 3.000 €": 320198,
+    "3.000–5.000 €": 320199,
+    "5.001–8.000 €": 320200,
+    "8.001–12.000 €": 320201,
+    "Über 12.000 €": 320202
+  },
+  "goalIds": {
+    "Altersvorsorge": 320180,
+    "Cashflow": 320181,
+    "Diversifikation": 320184,
+    "Kapitalerhalt": 320183,
+    "Steueroptimierung": 320182,
+    "Vermögensaufbau": 320179
+  },
+  "fields": [
+    {
+      "source": "answers.purchase_intent",
+      "required": false,
+      "type": "enum",
+      "labels": {
+        "de": "Kaufabsicht",
+        "en": "Purchase purpose",
+        "fr": "Objectif d’achat"
+      },
+      "options": [
+        {
+          "value": "investment",
+          "label": {
+            "de": "Kapitalanlage",
+            "en": "Investment",
+            "fr": "Investissement"
+          }
+        },
+        {
+          "value": "own_use",
+          "label": {
+            "de": "Eigennutzung",
+            "en": "Personal use",
+            "fr": "Usage personnel"
+          }
+        },
+        {
+          "value": "both",
+          "label": {
+            "de": "Beides",
+            "en": "Both",
+            "fr": "Les deux"
+          }
+        }
+      ],
+      "max_string_length": 80,
+      "new_contact_target": "Inquiry body only",
+      "existing_contact_target": "Inquiry body only; no contact mutation"
+    },
+    {
+      "source": "answers.purchase_timeframe",
+      "required": false,
+      "type": "enum",
+      "labels": {
+        "de": "Kaufzeitraum",
+        "en": "Purchase timeframe",
+        "fr": "Délai d’achat"
+      },
+      "options": [
+        {
+          "value": "0_3_months",
+          "label": {
+            "de": "In 0–3 Monaten",
+            "en": "Within 0–3 months",
+            "fr": "Dans 0 à 3 mois"
+          }
+        },
+        {
+          "value": "3_6_months",
+          "label": {
+            "de": "In 3–6 Monaten",
+            "en": "Within 3–6 months",
+            "fr": "Dans 3 à 6 mois"
+          }
+        },
+        {
+          "value": "6_12_months",
+          "label": {
+            "de": "In 6–12 Monaten",
+            "en": "Within 6–12 months",
+            "fr": "Dans 6 à 12 mois"
+          }
+        },
+        {
+          "value": "over_12_months",
+          "label": {
+            "de": "Später als 12 Monate",
+            "en": "More than 12 months",
+            "fr": "Dans plus de 12 mois"
+          }
+        },
+        {
+          "value": "exploring",
+          "label": {
+            "de": "Noch offen",
+            "en": "Still exploring",
+            "fr": "À définir"
+          }
+        }
+      ],
+      "max_string_length": 80,
+      "new_contact_target": "Inquiry body only",
+      "existing_contact_target": "Inquiry body only; no contact mutation"
+    },
+    {
+      "source": "answers.preferred_region",
+      "required": false,
+      "type": "text",
+      "labels": {
+        "de": "Wunschregion",
+        "en": "Preferred region",
+        "fr": "Région souhaitée"
+      },
+      "max_length": 160,
+      "new_contact_target": "Inquiry body only",
+      "existing_contact_target": "Inquiry body only; no contact mutation"
+    },
+    {
+      "source": "answers.property_type",
+      "required": false,
+      "type": "enum",
+      "labels": {
+        "de": "Bevorzugte Objektart",
+        "en": "Preferred property type",
+        "fr": "Type de bien souhaité"
+      },
+      "options": [
+        {
+          "value": "apartment",
+          "label": {
+            "de": "Wohnung",
+            "en": "Apartment",
+            "fr": "Appartement"
+          }
+        },
+        {
+          "value": "house",
+          "label": {
+            "de": "Haus",
+            "en": "House",
+            "fr": "Maison"
+          }
+        },
+        {
+          "value": "apartment_building",
+          "label": {
+            "de": "Mehrfamilienhaus",
+            "en": "Apartment building",
+            "fr": "Immeuble de rapport"
+          }
+        },
+        {
+          "value": "commercial",
+          "label": {
+            "de": "Gewerbeimmobilie",
+            "en": "Commercial property",
+            "fr": "Immobilier commercial"
+          }
+        },
+        {
+          "value": "open",
+          "label": {
+            "de": "Noch offen",
+            "en": "Open to options",
+            "fr": "Sans préférence"
+          }
+        }
+      ],
+      "max_string_length": 80,
+      "new_contact_target": "Inquiry body only",
+      "existing_contact_target": "Inquiry body only; no contact mutation"
+    },
+    {
+      "source": "answers.investment_goals",
+      "required": true,
+      "type": "array",
+      "labels": {
+        "de": "Investmentziele",
+        "en": "Investment goals",
+        "fr": "Objectifs d’investissement"
+      },
+      "options": [
+        {
+          "value": "Altersvorsorge",
+          "label": {
+            "de": "Altersvorsorge",
+            "en": "Retirement planning",
+            "fr": "Préparation de la retraite"
+          }
+        },
+        {
+          "value": "Cashflow",
+          "label": {
+            "de": "Cashflow",
+            "en": "Cash flow",
+            "fr": "Revenus réguliers"
+          }
+        },
+        {
+          "value": "Diversifikation",
+          "label": {
+            "de": "Diversifikation",
+            "en": "Diversification",
+            "fr": "Diversification"
+          }
+        },
+        {
+          "value": "Kapitalerhalt",
+          "label": {
+            "de": "Kapitalerhalt",
+            "en": "Capital preservation",
+            "fr": "Préservation du capital"
+          }
+        },
+        {
+          "value": "Steueroptimierung",
+          "label": {
+            "de": "Steueroptimierung",
+            "en": "Tax optimisation",
+            "fr": "Optimisation fiscale"
+          }
+        },
+        {
+          "value": "Vermögensaufbau",
+          "label": {
+            "de": "Vermögensaufbau",
+            "en": "Wealth building",
+            "fr": "Constitution de patrimoine"
+          }
+        }
+      ],
+      "max_items": 6,
+      "max_string_length": 80,
+      "new_contact_target": "client.partial_custom_fields.investmentziel (comma-separated numeric option IDs)",
+      "existing_contact_target": "Inquiry body only; no contact mutation"
+    },
+    {
+      "source": "answers.available_equity_eur",
+      "required": false,
+      "type": "number",
+      "labels": {
+        "de": "Verfügbares Eigenkapital (€)",
+        "en": "Available equity (€)",
+        "fr": "Apport disponible (€)"
+      },
+      "min": 0,
+      "max": 1000000000,
+      "new_contact_target": "Inquiry body only",
+      "existing_contact_target": "Inquiry body only; no contact mutation"
+    },
+    {
+      "source": "answers.purchase_budget_eur",
+      "required": false,
+      "type": "number",
+      "labels": {
+        "de": "Geplantes Kaufbudget (€)",
+        "en": "Planned purchase budget (€)",
+        "fr": "Budget d’achat prévu (€)"
+      },
+      "min": 1,
+      "max": 1000000000,
+      "new_contact_target": "Inquiry body only",
+      "existing_contact_target": "Inquiry body only; no contact mutation"
+    },
+    {
+      "source": "answers.income_band",
+      "required": true,
+      "type": "enum",
+      "labels": {
+        "de": "Monatliches Nettohaushaltseinkommen",
+        "en": "Monthly net household income",
+        "fr": "Revenu net mensuel du foyer"
+      },
+      "options": [
+        {
+          "value": "Unter 3.000 €",
+          "label": {
+            "de": "Unter 3.000 €",
+            "en": "Under €3,000",
+            "fr": "Moins de 3 000 €"
+          }
+        },
+        {
+          "value": "3.000–5.000 €",
+          "label": {
+            "de": "3.000–5.000 €",
+            "en": "€3,000–5,000",
+            "fr": "3 000–5 000 €"
+          }
+        },
+        {
+          "value": "5.001–8.000 €",
+          "label": {
+            "de": "5.001–8.000 €",
+            "en": "€5,001–8,000",
+            "fr": "5 001–8 000 €"
+          }
+        },
+        {
+          "value": "8.001–12.000 €",
+          "label": {
+            "de": "8.001–12.000 €",
+            "en": "€8,001–12,000",
+            "fr": "8 001–12 000 €"
+          }
+        },
+        {
+          "value": "Über 12.000 €",
+          "label": {
+            "de": "Über 12.000 €",
+            "en": "Over €12,000",
+            "fr": "Plus de 12 000 €"
+          }
+        }
+      ],
+      "max_string_length": 80,
+      "new_contact_target": "client.partial_custom_fields.nettohaushaltseinkommen (numeric option ID)",
+      "existing_contact_target": "Inquiry body only; no contact mutation"
+    },
+    {
+      "source": "answers.experience_raw",
+      "required": true,
+      "type": "enum",
+      "labels": {
+        "de": "Erfahrung mit Immobilien",
+        "en": "Property investment experience",
+        "fr": "Expérience immobilière"
+      },
+      "options": [
+        {
+          "value": "Einsteiger",
+          "label": {
+            "de": "Einsteiger",
+            "en": "Beginner",
+            "fr": "Débutant"
+          }
+        },
+        {
+          "value": "Erste Erfahrungen",
+          "label": {
+            "de": "Erste Erfahrungen",
+            "en": "Some experience",
+            "fr": "Premières expériences"
+          }
+        },
+        {
+          "value": "Erfahren",
+          "label": {
+            "de": "Erfahren",
+            "en": "Experienced",
+            "fr": "Expérimenté"
+          }
+        }
+      ],
+      "max_string_length": 80,
+      "new_contact_target": "Inquiry body only",
+      "existing_contact_target": "Inquiry body only; no contact mutation"
+    },
+    {
+      "source": "answers.employment_status",
+      "required": false,
+      "type": "enum",
+      "labels": {
+        "de": "Beruflicher Status",
+        "en": "Employment status",
+        "fr": "Situation professionnelle"
+      },
+      "options": [
+        {
+          "value": "employed",
+          "label": {
+            "de": "Angestellt",
+            "en": "Employed",
+            "fr": "Salarié"
+          }
+        },
+        {
+          "value": "self_employed",
+          "label": {
+            "de": "Selbstständig / Unternehmer",
+            "en": "Self-employed / business owner",
+            "fr": "Indépendant / entrepreneur"
+          }
+        },
+        {
+          "value": "civil_servant",
+          "label": {
+            "de": "Verbeamtet",
+            "en": "Civil servant",
+            "fr": "Fonctionnaire"
+          }
+        },
+        {
+          "value": "retired",
+          "label": {
+            "de": "Im Ruhestand",
+            "en": "Retired",
+            "fr": "Retraité"
+          }
+        },
+        {
+          "value": "student",
+          "label": {
+            "de": "In Ausbildung / Studium",
+            "en": "In education",
+            "fr": "Étudiant / en formation"
+          }
+        },
+        {
+          "value": "other",
+          "label": {
+            "de": "Sonstiges",
+            "en": "Other",
+            "fr": "Autre"
+          }
+        }
+      ],
+      "max_string_length": 80,
+      "new_contact_target": "Inquiry body only",
+      "existing_contact_target": "Inquiry body only; no contact mutation"
+    },
+    {
+      "source": "answers.existing_property_count",
+      "required": false,
+      "type": "number",
+      "labels": {
+        "de": "Anzahl bestehender Immobilien",
+        "en": "Properties currently owned",
+        "fr": "Nombre de biens déjà détenus"
+      },
+      "min": 0,
+      "max": 10000,
+      "new_contact_target": "Inquiry body only",
+      "existing_contact_target": "Inquiry body only; no contact mutation"
+    },
+    {
+      "source": "contact.first_name",
+      "required": true,
+      "type": "text",
+      "labels": {
+        "de": "Vorname",
+        "en": "First name",
+        "fr": "Prénom"
+      },
+      "max_length": 80,
+      "new_contact_target": "client.first_name",
+      "existing_contact_target": "Inquiry body only; no contact mutation"
+    },
+    {
+      "source": "contact.last_name",
+      "required": true,
+      "type": "text",
+      "labels": {
+        "de": "Nachname",
+        "en": "Last name",
+        "fr": "Nom"
+      },
+      "max_length": 80,
+      "new_contact_target": "client.last_name",
+      "existing_contact_target": "Inquiry body only; no contact mutation"
+    },
+    {
+      "source": "contact.email",
+      "required": true,
+      "type": "email",
+      "labels": {
+        "de": "E-Mail-Adresse",
+        "en": "Email address",
+        "fr": "Adresse e-mail"
+      },
+      "max_length": 254,
+      "new_contact_target": "client.email",
+      "existing_contact_target": "Inquiry body only; no contact mutation"
+    },
+    {
+      "source": "contact.phone",
+      "required": true,
+      "type": "tel",
+      "labels": {
+        "de": "Telefonnummer mit Ländervorwahl (+49 …)",
+        "en": "Phone with country code (+49 …)",
+        "fr": "Téléphone avec indicatif (+33 …)"
+      },
+      "max_length": 40,
+      "new_contact_target": "client.home_cell",
+      "existing_contact_target": "Inquiry body only; no contact mutation"
+    },
+    {
+      "source": "answers.preferred_contact_method",
+      "required": false,
+      "type": "enum",
+      "labels": {
+        "de": "Bevorzugter Kontaktweg",
+        "en": "Preferred contact method",
+        "fr": "Moyen de contact préféré"
+      },
+      "options": [
+        {
+          "value": "email",
+          "label": {
+            "de": "E-Mail",
+            "en": "Email",
+            "fr": "E-mail"
+          }
+        },
+        {
+          "value": "phone",
+          "label": {
+            "de": "Telefon",
+            "en": "Phone",
+            "fr": "Téléphone"
+          }
+        },
+        {
+          "value": "either",
+          "label": {
+            "de": "Telefon oder E-Mail",
+            "en": "Phone or email",
+            "fr": "Téléphone ou e-mail"
+          }
+        }
+      ],
+      "max_string_length": 80,
+      "new_contact_target": "Inquiry body only",
+      "existing_contact_target": "Inquiry body only; no contact mutation"
+    },
+    {
+      "source": "answers.preferred_contact_time",
+      "required": false,
+      "type": "enum",
+      "labels": {
+        "de": "Bevorzugte Kontaktzeit",
+        "en": "Preferred contact time",
+        "fr": "Horaire de contact préféré"
+      },
+      "options": [
+        {
+          "value": "morning",
+          "label": {
+            "de": "Vormittags (9–12 Uhr)",
+            "en": "Morning (09:00–12:00)",
+            "fr": "Matin (9 h–12 h)"
+          }
+        },
+        {
+          "value": "afternoon",
+          "label": {
+            "de": "Nachmittags (12–17 Uhr)",
+            "en": "Afternoon (12:00–17:00)",
+            "fr": "Après-midi (12 h–17 h)"
+          }
+        },
+        {
+          "value": "evening",
+          "label": {
+            "de": "Abends (17–20 Uhr)",
+            "en": "Evening (17:00–20:00)",
+            "fr": "Soir (17 h–20 h)"
+          }
+        },
+        {
+          "value": "anytime",
+          "label": {
+            "de": "Keine Präferenz",
+            "en": "No preference",
+            "fr": "Sans préférence"
+          }
+        }
+      ],
+      "max_string_length": 80,
+      "new_contact_target": "Inquiry body only",
+      "existing_contact_target": "Inquiry body only; no contact mutation"
+    }
+  ],
+  "attribution": {
+    "new_contact": {
+      "utm_source": "utm_quelle",
+      "utm_medium": "utm_medium",
+      "utm_campaign": "utm_kampagne"
+    },
+    "all_inquiries": "Escaped original attribution in body; existing acquisition values preserved"
+  },
+  "consent": {
+    "contact_permission": "Inquiry purpose, exact text/version, authoritative server received_at; valid permission sets accept_contact only for new contact",
+    "newsletter_preference": "Separate evidence in inquiry only; never sets native newsletter or gdpr_status"
+  },
+  "operation": "One exact contact per inquiry. Propstack sends its signed event to the existing n8n worker; website does not call n8n."
+}

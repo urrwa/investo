@@ -1,0 +1,14 @@
+{
+  "version": "2026-09-24-v1",
+  "approval_status": "Pending owner approval; live intake disabled by default",
+  "contact": {
+    "de": "Ich willige ein, dass Investo Immobilien meine Angaben zur Bearbeitung meiner Anfrage verarbeitet und mich über den gewählten Kontaktweg kontaktiert. Ich kann diese Einwilligung jederzeit mit Wirkung für die Zukunft unter info@investo-immobilien.de widerrufen. Weitere Informationen stehen in der Datenschutzerklärung.",
+    "en": "I consent to Investo Immobilien processing my details to handle my enquiry and contacting me by my chosen contact method. I can withdraw this consent at any time for the future by emailing info@investo-immobilien.de. Further information is available in the privacy policy.",
+    "fr": "J’accepte qu’Investo Immobilien traite mes informations pour répondre à ma demande et me contacte par le moyen choisi. Je peux retirer ce consentement à tout moment pour l’avenir à info@investo-immobilien.de. Consultez la politique de confidentialité pour plus d’informations."
+  },
+  "newsletter": {
+    "de": "Ich möchte zusätzlich den E-Mail-Newsletter von Investo Immobilien erhalten. Diese Einwilligung ist freiwillig und unabhängig von meiner Anfrage. Ich kann sie jederzeit über den Abmeldelink oder per E-Mail an info@investo-immobilien.de widerrufen.",
+    "en": "I would also like to receive the Investo Immobilien email newsletter. This consent is optional and independent of my enquiry. I can withdraw it at any time using the unsubscribe link or by emailing info@investo-immobilien.de.",
+    "fr": "Je souhaite également recevoir la newsletter d’Investo Immobilien par e-mail. Ce consentement est facultatif et indépendant de ma demande. Je peux le retirer à tout moment via le lien de désinscription ou à info@investo-immobilien.de."
+  }
+}

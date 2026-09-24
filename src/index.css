@@ -1,0 +1,124 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Inter:wght@300;400;500;600;700;800&family=Cinzel:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "Lora", Georgia, serif;
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --font-logo: "Cinzel", serif;
+  
+  --color-investo-gold: #d4b27c;
+  --color-investo-gold-light: #e5cc9c;
+  --color-investo-gold-dark: #b0915c;
+  --color-investo-bg: #16273D;
+  --color-investo-card: #1c324e;
+  --color-investo-white: #f5f6f8;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  body {
+    background-color: #16273D;
+    color: var(--color-investo-white);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+}
+
+/* Custom styles for animations and premium look */
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.6);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+}
+
+.hotspot-pulse::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: inherit;
+  animation: pulse-ring 2s cubic-bezier(0.215, 0.610, 0.355, 1) infinite;
+  z-index: -1;
+}
+
+/* Continuous partner logo marquee */
+@keyframes partner-marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-partner-marquee {
+  display: flex;
+  width: max-content;
+  animation: partner-marquee 40s linear infinite;
+}
+
+.animate-partner-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* Custom scrollbar for premium touch */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #16273D;
+}
+::-webkit-scrollbar-thumb {
+  background: #1c324e;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #d4b27c;
+}
+
+/* Header logo strict sizing override */
+#nav-logo img,
+header img[alt*="Investo"],
+header img[alt*="INVESTO"] {
+  width: 170px !important;
+  max-width: 170px !important;
+  height: auto !important;
+  object-fit: contain !important;
+  transform: none !important;
+  scale: 1 !important;
+  flex-shrink: 0 !important;
+}
+
+@media (max-width: 1024px) {
+  #nav-logo img,
+  header img[alt*="Investo"],
+  header img[alt*="INVESTO"] {
+    width: 150px !important;
+    max-width: 150px !important;
+  }
+}
+
+@media (max-width: 640px) {
+  #nav-logo img,
+  header img[alt*="Investo"],
+  header img[alt*="INVESTO"] {
+    width: 130px !important;
+    max-width: 130px !important;
+  }
+}

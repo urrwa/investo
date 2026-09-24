@@ -1,0 +1,32 @@
+{
+  "schema_version": "investo.inquiry.v1",
+  "submission_id": "fc50777d-e630-4773-bfcc-9f09150af6a4",
+  "form_id": "strategy-check-v1",
+  "language": "en",
+  "contact": {
+    "first_name": "Alex",
+    "last_name": "Example",
+    "email": "alex@example.com",
+    "phone": "+49 170 1234567"
+  },
+  "answers": {
+    "income_band": "3.000–5.000 €",
+    "investment_goals": [
+      "Vermögensaufbau",
+      "Altersvorsorge"
+    ],
+    "experience_raw": "Einsteiger",
+    "preferred_region": "Berlin"
+  },
+  "contact_permission": {
+    "granted": true,
+    "text_version": "2026-09-24-v1"
+  },
+  "newsletter_preference": false,
+  "attribution": {
+    "utm_source": "google",
+    "utm_medium": "cpc",
+    "utm_campaign": "strategy"
+  },
+  "bot_token": "REPLACE_WITH_FRESH_TURNSTILE_TOKEN"
+}
