@@ -1,6 +1,7 @@
+import OptimizedImage from './OptimizedImage';
 import { useLanguage } from '../i18n';
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { m as motion, AnimatePresence } from 'motion/react';
 import { 
   X, Check, AlertTriangle, ShieldCheck, Search, TrendingUp, Home, Target, ArrowRight, HelpCircle 
 } from 'lucide-react';
@@ -87,8 +88,8 @@ export default function ProblemSolutionSection() {
     <section className="relative bg-[#16273D] text-white py-24 px-4 md:px-8 lg:px-12 overflow-hidden border-t border-white/5" id="strategie-check">
       
       {/* Decorative background radial grids */}
-      <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-indigo-950/10 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-blue-950/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] rounded-full pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(30,27,75,0.10), transparent 70%)' }} />
+      <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] rounded-full pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(23,37,84,0.10), transparent 70%)' }} />
 
       <div className="max-w-7xl mx-auto relative z-10">
         
@@ -111,18 +112,15 @@ export default function ProblemSolutionSection() {
           </div>
 
           {/* LEFT SIDE: "DAS PROBLEM" */}
-          <motion.div 
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: '-100px' }}
-            transition={{ type: 'spring', stiffness: 50, damping: 15 }}
-            className="bg-[#040911]/60 border border-red-500/10 rounded-3xl p-6 md:p-8 xl:p-10 flex flex-col justify-between relative overflow-hidden backdrop-blur-md shadow-[0_20px_50px_rgba(0,0,0,0.4)]"
+          <div
+            className="bg-[#040911]/60 border border-red-500/10 rounded-3xl p-6 md:p-8 xl:p-10 flex flex-col justify-between relative overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.4)]"
             id="problem-card"
           >
             {/* Dark moody background image overlay for "The Problem" */}
             <div className="absolute inset-0 z-0 pointer-events-none opacity-10 mix-blend-luminosity">
-              <img
+              <OptimizedImage
                 src="https://res.cloudinary.com/dpwfzo2vk/image/upload/v1788219187/Courtyard_House_1-13_jj0ch6.jpg"
+                sizes="(min-width: 1376px) 614px, (min-width: 1024px) calc(50vw - 74px), (min-width: 768px) calc(100vw - 66px), calc(100vw - 34px)"
                 alt={t("Courtyard House Architecture")}
                 referrerPolicy="no-referrer"
                 className="w-full h-full object-cover object-center filter grayscale contrast-125"
@@ -204,21 +202,18 @@ export default function ProblemSolutionSection() {
               </div>
             </div>
 
-          </motion.div>
+          </div>
 
           {/* RIGHT SIDE: "DIE LÖSUNG" */}
-          <motion.div 
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: '-100px' }}
-            transition={{ type: 'spring', stiffness: 50, damping: 15 }}
-            className="bg-[#091726]/60 border border-investo-gold/10 rounded-3xl p-6 md:p-8 xl:p-10 flex flex-col justify-between relative overflow-hidden backdrop-blur-md shadow-[0_20px_50px_rgba(0,0,0,0.4)]"
+          <div
+            className="bg-[#091726]/60 border border-investo-gold/10 rounded-3xl p-6 md:p-8 xl:p-10 flex flex-col justify-between relative overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.4)]"
             id="solution-card"
           >
             {/* Glowing traditional house background image overlay for "The Solution" */}
             <div className="absolute inset-0 z-0 pointer-events-none opacity-15">
-              <img
+              <OptimizedImage
                 src="https://res.cloudinary.com/dpwfzo2vk/image/upload/v1788219205/202600530_xbxzux.jpg"
+                sizes="(min-width: 1376px) 614px, (min-width: 1024px) calc(50vw - 74px), (min-width: 768px) calc(100vw - 66px), calc(100vw - 34px)"
                 alt={t("Unser Ansatz Architektur Hintergrund")}
                 referrerPolicy="no-referrer"
                 className="w-full h-full object-cover object-center"
@@ -309,7 +304,7 @@ export default function ProblemSolutionSection() {
               </div>
             </div>
 
-          </motion.div>
+          </div>
 
         </div>
 

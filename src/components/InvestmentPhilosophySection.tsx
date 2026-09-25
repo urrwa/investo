@@ -1,6 +1,7 @@
 import { useLanguage } from '../i18n';
+import { useActiveAnimation } from '../hooks/useActiveAnimation';
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { m as motion, AnimatePresence } from 'motion/react';
 import { ArrowRight, CheckCircle2, X } from 'lucide-react';
 
 interface PrincipleDetail {
@@ -58,6 +59,7 @@ const StrategieIcon = () => (
 
 export default function InvestmentPhilosophySection({ onCtaClick }: InvestmentPhilosophySectionProps) {
   const { t } = useLanguage();
+  const { ref: animationRef, active: animateDecorations } = useActiveAnimation();
   const [activePrinciple, setActivePrinciple] = useState<string | null>(null);
   const [hoveredPrinciple, setHoveredPrinciple] = useState<string | null>(null);
 
@@ -127,11 +129,11 @@ export default function InvestmentPhilosophySection({ onCtaClick }: InvestmentPh
   const activeData = principles.find(p => p.id === activePrinciple);
 
   return (
-    <section className="relative bg-[#16273D] text-white py-24 px-6 md:px-12 lg:py-32 overflow-hidden border-t border-white/5" id="investment-philosophy-section">
+    <section ref={animationRef} className="relative bg-[#16273D] text-white py-24 px-6 md:px-12 lg:py-32 overflow-hidden border-t border-white/5" id="investment-philosophy-section">
       
       {/* Soft warm background gradients */}
-      <div className="absolute top-0 left-0 w-[400px] h-[400px] bg-amber-500/[0.01] rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-gray-500/[0.02] rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-0 left-0 w-[400px] h-[400px] rounded-full pointer-events-none" style={{ backgroundImage: 'radial-gradient(ellipse at center, oklch(76.9% 0.188 70.08 / 0.01) 0%, transparent 72%)' }} />
+      <div className="absolute bottom-0 right-0 w-[500px] h-[500px] rounded-full pointer-events-none" style={{ backgroundImage: 'radial-gradient(ellipse at center, oklch(55.1% 0.027 264.364 / 0.02) 0%, transparent 72%)' }} />
 
       <div className="max-w-7xl mx-auto relative z-10">
         
@@ -140,11 +142,7 @@ export default function InvestmentPhilosophySection({ onCtaClick }: InvestmentPh
           
           {/* LEFT SIDE: Heading block, intro and primary action CTA */}
           <div className="col-span-1 lg:col-span-5 text-left pt-4 lg:sticky lg:top-32">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-100px' }}
-              transition={{ duration: 0.5 }}
+            <div
             >
               {/* Gold uppercase brand subtitle */}
               <span className="text-[10px] md:text-xs font-sans font-extrabold tracking-[0.25em] text-[#d4b27c] uppercase block mb-4">{t("INVESTMENTPHILOSOPHIE")}</span>
@@ -163,7 +161,7 @@ export default function InvestmentPhilosophySection({ onCtaClick }: InvestmentPh
                 <span className="mr-4">{t("STRATEGIE-CHECK STARTEN")}</span>
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </button>
-            </motion.div>
+            </div>
           </div>
 
           {/* RIGHT SIDE: Immersive Interactive Wave Timeline */}
@@ -184,20 +182,14 @@ export default function InvestmentPhilosophySection({ onCtaClick }: InvestmentPh
                   />
 
                   {/* Animated overlay glowing dash to represent flowing capital/strategy along the timeline */}
-                  <motion.path
+                  <path
                     d="M 0,360 C 80,360 100,310 150,310 C 250,310 400,210 500,210 C 600,210 750,110 850,110 C 900,110 920,80 1000,80"
                     stroke="#e5cc9c"
                     strokeWidth="3.5"
                     strokeDasharray="40 180"
                     fill="none"
-                    animate={{
-                      strokeDashoffset: [440, 0]
-                    }}
-                    transition={{
-                      duration: 5,
-                      repeat: Infinity,
-                      ease: 'linear'
-                    }}
+                    className="investo-decorative-dash-long"
+                    style={{ animationName: animateDecorations ? undefined : 'none' }}
                   />
 
                   {/* Linear Gradients for the waves */}
@@ -251,16 +243,12 @@ export default function InvestmentPhilosophySection({ onCtaClick }: InvestmentPh
                       <div className="w-1.5 h-1.5 rounded-full bg-[#d4b27c] absolute top-[120px] left-1/2 -translate-x-1/2" />
 
                       {/* Highly styled circular gold button node with responsive drop shadows & gradients */}
-                      <motion.div
-                        animate={!isHovered ? {
-                          y: [0, -6, 0],
-                        } : {}}
-                        transition={{
-                          duration: 3 + idx * 0.5,
-                          repeat: Infinity,
-                          ease: 'easeInOut'
+                      <div
+                        style={{
+                          animationDuration: `${3 + idx * 0.5}s`,
+                          animationName: animateDecorations && !isHovered ? undefined : 'none',
                         }}
-                        className={`w-20 h-20 rounded-full flex items-center justify-center relative transition-all duration-300 ${
+                        className={`investo-decorative-float investo-decorative-float-large w-20 h-20 rounded-full flex items-center justify-center relative transition-all duration-300 ${
                           isSelected || isHovered
                             ? 'bg-[#102035] scale-105 shadow-[0_15px_35px_rgba(212,178,124,0.25)]'
                             : 'bg-[#102035]/90 shadow-[0_10px_25px_rgba(0,0,0,0.2)]'
@@ -278,7 +266,7 @@ export default function InvestmentPhilosophySection({ onCtaClick }: InvestmentPh
                         
                         {/* Info trigger badge */}
                         <span className="absolute bottom-0 right-0 w-5.5 h-5.5 rounded-full bg-[#d4b27c] text-black text-[9px] font-sans font-extrabold flex items-center justify-center border-2 border-[#16273D] shadow-sm">{t("i")}</span>
-                      </motion.div>
+                      </div>
 
                       {/* Principle Titles & Content description text */}
                       <div className="mt-16 text-center flex flex-col items-center max-w-[220px]">

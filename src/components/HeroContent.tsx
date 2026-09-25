@@ -1,6 +1,5 @@
 import { useLanguage } from '../i18n';
 import React from 'react';
-import { motion } from 'motion/react';
 import { ArrowRight } from 'lucide-react';
 
 interface HeroContentProps {
@@ -9,75 +8,32 @@ interface HeroContentProps {
 
 export default function HeroContent({ onCtaClick }: HeroContentProps) {
   const { t } = useLanguage();
-  // Stagger animation variants for headings
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.12,
-        delayChildren: 0.2,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 35 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        type: 'spring',
-        stiffness: 70,
-        damping: 15,
-      },
-    },
-  };
-
-  const buttonVariants = {
-    hidden: { opacity: 0, scale: 0.95 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      transition: {
-        type: 'spring',
-        stiffness: 90,
-        delay: 0.8,
-      },
-    },
-  };
-
   return (
-    <motion.div
-      variants={containerVariants}
-      initial="hidden"
-      animate="visible"
+    <div
       className="flex flex-col items-start text-left max-w-xl xl:max-w-2xl"
     >
       {/* Decorative tag */}
-      <motion.div 
-        variants={itemVariants}
-        className="inline-flex items-center space-x-2 bg-white/5 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/10 mb-6"
+      <div
+        className="inline-flex items-center space-x-2 bg-[#223247] px-3.5 py-1.5 rounded-full border border-white/10 mb-6"
       >
         <span className="w-2 h-2 rounded-full bg-investo-gold animate-pulse" />
         <span className="text-[10px] md:text-xs font-sans font-bold tracking-widest text-white/90 uppercase">{t("IMMOBILIEN ALS KAPITALANLAGE")}</span>
-      </motion.div>
+      </div>
 
       {/* Main Elegant Heading */}
       <h1 className="font-serif text-3xl sm:text-4xl md:text-[44px] lg:text-[40px] xl:text-[48px] 2xl:text-[52px] font-normal leading-[1.15] tracking-tight text-white mb-6">
-        <motion.span variants={itemVariants} className="block font-serif text-white/95 whitespace-nowrap">{t("Erst die Strategie.")}</motion.span>
-        <motion.span variants={itemVariants} className="block font-serif text-white/95 mt-1 sm:mt-1.5">{t("Dann die")}</motion.span>
-        <motion.span variants={itemVariants} className="block font-serif text-investo-gold font-normal drop-shadow-sm select-none mt-1 sm:mt-1.5 whitespace-nowrap">{t("passende Immobilie.")}</motion.span>
+        <span className="block font-serif text-white/95 whitespace-nowrap">{t("Erst die Strategie.")}</span>
+        <span className="block font-serif text-white/95 mt-1 sm:mt-1.5">{t("Dann die")}</span>
+        <span className="block font-serif text-investo-gold font-normal [text-shadow:0_1px_2px_rgba(0,0,0,0.15)] select-none mt-1 sm:mt-1.5 whitespace-nowrap">{t("passende Immobilie.")}</span>
       </h1>
 
       {/* Concise Subheadline */}
-      <motion.p
-        variants={itemVariants}
+      <p
         className="text-xs md:text-sm lg:text-[15px] font-sans font-light leading-relaxed text-slate-300 mb-8 max-w-lg"
-      >{t("Mit unserem kostenfreien Strategie-Check erfahren Sie, welche Immobilienstrategie zu Ihren Zielen und finanziellen Möglichkeiten passt.")}</motion.p>
+      >{t("Mit unserem kostenfreien Strategie-Check erfahren Sie, welche Immobilienstrategie zu Ihren Zielen und finanziellen Möglichkeiten passt.")}</p>
 
       {/* Primary Gold Pill CTA Button */}
-      <motion.div variants={buttonVariants} className="relative z-10">
+      <div className="relative z-10">
         <button
           onClick={onCtaClick}
           className="group relative inline-flex items-center justify-between px-7 py-4 bg-gradient-to-r from-investo-gold to-investo-gold-light text-[#040911] text-xs font-sans font-bold tracking-[0.15em] rounded-full uppercase shadow-[0_10px_30px_rgba(212,178,124,0.15)] transition-all duration-300 hover:shadow-[0_15px_40px_rgba(212,178,124,0.3)] hover:-translate-y-0.5 cursor-pointer overflow-hidden"
@@ -92,7 +48,7 @@ export default function HeroContent({ onCtaClick }: HeroContentProps) {
             <ArrowRight className="w-3.5 h-3.5" />
           </span>
         </button>
-      </motion.div>
-    </motion.div>
+      </div>
+    </div>
   );
 }

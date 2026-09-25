@@ -1,0 +1,68 @@
+/* Native decorative loops avoid mounting Motion controllers for offscreen art. */
+.investo-decorative-dash {
+  animation: investo-decorative-dash 4s linear infinite;
+}
+
+.investo-decorative-dash-long {
+  animation: investo-decorative-dash-long 5s linear infinite;
+}
+
+.investo-decorative-float {
+  animation: investo-decorative-float 3s ease-in-out infinite;
+}
+
+.investo-decorative-float-small {
+  --investo-float-height: -3px;
+}
+
+.investo-decorative-float-medium {
+  --investo-float-height: -4px;
+}
+
+.investo-decorative-float-large {
+  --investo-float-height: -6px;
+}
+
+.investo-decorative-flow-horizontal {
+  animation: investo-decorative-flow-horizontal 6s linear infinite;
+}
+
+.investo-decorative-flow-vertical {
+  animation: investo-decorative-flow-vertical 4s linear infinite;
+}
+
+@keyframes investo-decorative-dash {
+  from { stroke-dashoffset: 90; }
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes investo-decorative-dash-long {
+  from { stroke-dashoffset: 440; }
+  to { stroke-dashoffset: 0; }
+}
+
+/* Individual translate leaves Tailwind's hover scale independent of the loop. */
+@keyframes investo-decorative-float {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 var(--investo-float-height); }
+}
+
+@keyframes investo-decorative-flow-horizontal {
+  from { translate: -20% 0; }
+  to { translate: 110% 0; }
+}
+
+@keyframes investo-decorative-flow-vertical {
+  from { translate: 0 -200px; }
+  to { translate: 0 200px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .investo-decorative-dash,
+  .investo-decorative-dash-long,
+  .investo-decorative-float,
+  .investo-decorative-flow-horizontal,
+  .investo-decorative-flow-vertical {
+    animation: none !important;
+  }
+}

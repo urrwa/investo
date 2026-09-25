@@ -1,6 +1,7 @@
+import OptimizedImage from './OptimizedImage';
 import { useLanguage } from '../i18n';
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { m as motion, AnimatePresence } from 'motion/react';
 import { Target, Calculator, Home, Users, ArrowUpRight, ShieldCheck, TrendingUp, Sparkles, X, Check, FileText, BarChart3, HelpCircle } from 'lucide-react';
 
 interface PromiseCardProps {
@@ -111,11 +112,12 @@ export default function PromiseSection() {
       
       {/* Subtle Background Luxury Villa Facade Outline */}
       <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.04]">
-        <img
+        <OptimizedImage
           src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1500&q=80"
+          sizes="100vw"
           alt={t("Luxury architectural background")}
           referrerPolicy="no-referrer"
-          className="w-full h-full object-cover filter grayscale"
+          className="w-full h-full object-cover"
         />
       </div>
 
@@ -128,37 +130,25 @@ export default function PromiseSection() {
         {/* Header Block exactly matching reference */}
         <div className="text-center mb-16 md:mb-24 flex flex-col items-center">
           
-          <motion.div 
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-100px' }}
-            transition={{ duration: 0.5 }}
+          <div
             className="flex flex-col items-center"
           >
             {/* Small caps header */}
             <span className="text-[10px] md:text-xs font-sans font-extrabold tracking-[0.25em] text-[#d4b27c] uppercase">{t("KLARHEIT VOR DEM IMMOBILIENKAUF")}</span>
             {/* Small golden line matching mockup */}
             <div className="w-10 h-[1.5px] bg-[#d4b27c] mt-3 mb-6" />
-          </motion.div>
+          </div>
 
           {/* Main heading */}
-          <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-100px' }}
-            transition={{ duration: 0.6, delay: 0.1 }}
+          <h2
             className="font-serif text-3xl md:text-4xl lg:text-5xl font-normal tracking-tight text-white max-w-3xl leading-[1.15]"
           >{t("Fundierte Immobilienentscheidungen beginnen mit einer ")}<span className="text-[#d4b27c] font-normal italic font-serif">{t("klaren Strategie.")}</span>
-          </motion.h2>
+          </h2>
 
           {/* Subtext description */}
-          <motion.p 
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-100px' }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+          <p
             className="text-xs md:text-sm lg:text-base font-sans font-light text-slate-300 max-w-xl leading-relaxed mt-6"
-          >{t("Wir verbinden persönliche Ziele, realistische Finanzierung und ausgewählte Immobilien zu einem nachvollziehbaren Entscheidungsprozess.")}</motion.p>
+          >{t("Wir verbinden persönliche Ziele, realistische Finanzierung und ausgewählte Immobilien zu einem nachvollziehbaren Entscheidungsprozess.")}</p>
         </div>
 
         {/* The Overlapping Layout Container */}
@@ -171,15 +161,6 @@ export default function PromiseSection() {
               return (
                 <motion.div
                   key={pillar.id}
-                  initial={{ opacity: 0, y: 40 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: '-50px' }}
-                  transition={{ 
-                    type: 'spring', 
-                    stiffness: 70, 
-                    damping: 15,
-                    delay: idx * 0.1 
-                  }}
                   whileHover={{ 
                     y: -10,
                     transition: { duration: 0.25, ease: 'easeOut' }

@@ -1,0 +1,206 @@
+{
+  "/images/berlin-apartments.jpg": {
+    "src": "/images/optimized/berlin-apartments-5169ce63-640.webp",
+    "srcSet": "/images/optimized/berlin-apartments-5169ce63-160.webp 160w, /images/optimized/berlin-apartments-5169ce63-320.webp 320w, /images/optimized/berlin-apartments-5169ce63-640.webp 640w, /images/optimized/berlin-apartments-5169ce63-960.webp 960w, /images/optimized/berlin-apartments-5169ce63-1280.webp 1280w, /images/optimized/berlin-apartments-5169ce63-1600.webp 1600w",
+    "width": 5760,
+    "height": 3840
+  },
+  "/images/faq-property-consultation.jpg": {
+    "src": "/images/optimized/faq-property-consultation-46ea23e3-640.webp",
+    "srcSet": "/images/optimized/faq-property-consultation-46ea23e3-160.webp 160w, /images/optimized/faq-property-consultation-46ea23e3-320.webp 320w, /images/optimized/faq-property-consultation-46ea23e3-640.webp 640w, /images/optimized/faq-property-consultation-46ea23e3-960.webp 960w, /images/optimized/faq-property-consultation-46ea23e3-1280.webp 1280w, /images/optimized/faq-property-consultation-46ea23e3-1600.webp 1600w",
+    "width": 1600,
+    "height": 2400
+  },
+  "/images/house-blue-porch.jpg": {
+    "src": "/images/optimized/house-blue-porch-3702ad47-640.webp",
+    "srcSet": "/images/optimized/house-blue-porch-3702ad47-160.webp 160w, /images/optimized/house-blue-porch-3702ad47-320.webp 320w, /images/optimized/house-blue-porch-3702ad47-640.webp 640w, /images/optimized/house-blue-porch-3702ad47-960.webp 960w, /images/optimized/house-blue-porch-3702ad47-1280.webp 1280w, /images/optimized/house-blue-porch-3702ad47-1600.webp 1600w",
+    "width": 4207,
+    "height": 3155
+  },
+  "/images/house-garden-dusk.jpg": {
+    "src": "/images/optimized/house-garden-dusk-7de771d1-640.webp",
+    "srcSet": "/images/optimized/house-garden-dusk-7de771d1-160.webp 160w, /images/optimized/house-garden-dusk-7de771d1-320.webp 320w, /images/optimized/house-garden-dusk-7de771d1-640.webp 640w, /images/optimized/house-garden-dusk-7de771d1-960.webp 960w, /images/optimized/house-garden-dusk-7de771d1-1280.webp 1280w, /images/optimized/house-garden-dusk-7de771d1-1600.webp 1600w",
+    "width": 1944,
+    "height": 2896
+  },
+  "/images/house-turquoise-terrace.jpg": {
+    "src": "/images/optimized/house-turquoise-terrace-baf3b863-640.webp",
+    "srcSet": "/images/optimized/house-turquoise-terrace-baf3b863-160.webp 160w, /images/optimized/house-turquoise-terrace-baf3b863-320.webp 320w, /images/optimized/house-turquoise-terrace-baf3b863-640.webp 640w, /images/optimized/house-turquoise-terrace-baf3b863-960.webp 960w, /images/optimized/house-turquoise-terrace-baf3b863-1280.webp 1280w, /images/optimized/house-turquoise-terrace-baf3b863-1600.webp 1600w",
+    "width": 4000,
+    "height": 6000
+  },
+  "/images/house-warm-evening.jpg": {
+    "src": "/images/optimized/house-warm-evening-a572baa1-640.webp",
+    "srcSet": "/images/optimized/house-warm-evening-a572baa1-160.webp 160w, /images/optimized/house-warm-evening-a572baa1-320.webp 320w, /images/optimized/house-warm-evening-a572baa1-640.webp 640w, /images/optimized/house-warm-evening-a572baa1-960.webp 960w, /images/optimized/house-warm-evening-a572baa1-1280.webp 1280w, /images/optimized/house-warm-evening-a572baa1-1600.webp 1600w",
+    "width": 3376,
+    "height": 6000
+  },
+  "/images/partner-1.jpg": {
+    "src": "/images/optimized/partner-1-91c03d31-298.webp",
+    "srcSet": "/images/optimized/partner-1-91c03d31-160.webp 160w, /images/optimized/partner-1-91c03d31-298.webp 298w",
+    "width": 298,
+    "height": 298
+  },
+  "/images/partner-2.jpg": {
+    "src": "/images/optimized/partner-2-6dbb1665-298.webp",
+    "srcSet": "/images/optimized/partner-2-6dbb1665-160.webp 160w, /images/optimized/partner-2-6dbb1665-298.webp 298w",
+    "width": 298,
+    "height": 298
+  },
+  "/images/partner-3.jpg": {
+    "src": "/images/optimized/partner-3-05176d89-298.webp",
+    "srcSet": "/images/optimized/partner-3-05176d89-160.webp 160w, /images/optimized/partner-3-05176d89-298.webp 298w",
+    "width": 298,
+    "height": 298
+  },
+  "/images/partner-4.jpg": {
+    "src": "/images/optimized/partner-4-c175a3cd-298.webp",
+    "srcSet": "/images/optimized/partner-4-c175a3cd-160.webp 160w, /images/optimized/partner-4-c175a3cd-298.webp 298w",
+    "width": 298,
+    "height": 298
+  },
+  "/images/partner-5.jpg": {
+    "src": "/images/optimized/partner-5-5070c897-298.webp",
+    "srcSet": "/images/optimized/partner-5-5070c897-160.webp 160w, /images/optimized/partner-5-5070c897-298.webp 298w",
+    "width": 298,
+    "height": 298
+  },
+  "/images/partner-6.jpg": {
+    "src": "/images/optimized/partner-6-a12daa31-438.webp",
+    "srcSet": "/images/optimized/partner-6-a12daa31-160.webp 160w, /images/optimized/partner-6-a12daa31-320.webp 320w, /images/optimized/partner-6-a12daa31-438.webp 438w",
+    "width": 438,
+    "height": 438
+  },
+  "/images/partner-7.jpg": {
+    "src": "/images/optimized/partner-7-4362fc80-438.webp",
+    "srcSet": "/images/optimized/partner-7-4362fc80-160.webp 160w, /images/optimized/partner-7-4362fc80-320.webp 320w, /images/optimized/partner-7-4362fc80-438.webp 438w",
+    "width": 438,
+    "height": 438
+  },
+  "/images/partner-8.jpg": {
+    "src": "/images/optimized/partner-8-4e78807f-438.webp",
+    "srcSet": "/images/optimized/partner-8-4e78807f-160.webp 160w, /images/optimized/partner-8-4e78807f-320.webp 320w, /images/optimized/partner-8-4e78807f-438.webp 438w",
+    "width": 438,
+    "height": 438
+  },
+  "/images/strategy-property-video-poster.jpg": {
+    "src": "/images/optimized/strategy-property-video-poster-ac16f997-640.webp",
+    "srcSet": "/images/optimized/strategy-property-video-poster-ac16f997-160.webp 160w, /images/optimized/strategy-property-video-poster-ac16f997-320.webp 320w, /images/optimized/strategy-property-video-poster-ac16f997-640.webp 640w, /images/optimized/strategy-property-video-poster-ac16f997-960.webp 960w, /images/optimized/strategy-property-video-poster-ac16f997-1280.webp 1280w",
+    "width": 1280,
+    "height": 720
+  },
+  "/images/strategy-step-consultation.jpg": {
+    "src": "/images/optimized/strategy-step-consultation-6141e4dc-640.webp",
+    "srcSet": "/images/optimized/strategy-step-consultation-6141e4dc-160.webp 160w, /images/optimized/strategy-step-consultation-6141e4dc-320.webp 320w, /images/optimized/strategy-step-consultation-6141e4dc-640.webp 640w, /images/optimized/strategy-step-consultation-6141e4dc-960.webp 960w, /images/optimized/strategy-step-consultation-6141e4dc-1280.webp 1280w, /images/optimized/strategy-step-consultation-6141e4dc-1600.webp 1600w",
+    "width": 1600,
+    "height": 1067
+  },
+  "/images/strategy-step-decision.jpg": {
+    "src": "/images/optimized/strategy-step-decision-b43c31c8-640.webp",
+    "srcSet": "/images/optimized/strategy-step-decision-b43c31c8-160.webp 160w, /images/optimized/strategy-step-decision-b43c31c8-320.webp 320w, /images/optimized/strategy-step-decision-b43c31c8-640.webp 640w, /images/optimized/strategy-step-decision-b43c31c8-960.webp 960w, /images/optimized/strategy-step-decision-b43c31c8-1280.webp 1280w, /images/optimized/strategy-step-decision-b43c31c8-1600.webp 1600w",
+    "width": 1600,
+    "height": 1067
+  },
+  "/images/strategy-step-financing.jpg": {
+    "src": "/images/optimized/strategy-step-financing-18acab63-640.webp",
+    "srcSet": "/images/optimized/strategy-step-financing-18acab63-160.webp 160w, /images/optimized/strategy-step-financing-18acab63-320.webp 320w, /images/optimized/strategy-step-financing-18acab63-640.webp 640w, /images/optimized/strategy-step-financing-18acab63-960.webp 960w, /images/optimized/strategy-step-financing-18acab63-1280.webp 1280w, /images/optimized/strategy-step-financing-18acab63-1600.webp 1600w",
+    "width": 1600,
+    "height": 1067
+  },
+  "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1920&q=80": {
+    "src": "/images/optimized/remote-a8cc0ba864-883dbba0-640.webp",
+    "srcSet": "/images/optimized/remote-a8cc0ba864-883dbba0-160.webp 160w, /images/optimized/remote-a8cc0ba864-883dbba0-320.webp 320w, /images/optimized/remote-a8cc0ba864-883dbba0-640.webp 640w, /images/optimized/remote-a8cc0ba864-883dbba0-960.webp 960w, /images/optimized/remote-a8cc0ba864-883dbba0-1280.webp 1280w, /images/optimized/remote-a8cc0ba864-883dbba0-1600.webp 1600w",
+    "width": 1920,
+    "height": 1280
+  },
+  "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=100&h=100&q=80": {
+    "src": "/images/optimized/remote-ba20ffc22d-1b92dd6f-100.webp",
+    "srcSet": "/images/optimized/remote-ba20ffc22d-1b92dd6f-100.webp 100w",
+    "width": 100,
+    "height": 100
+  },
+  "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&h=100&q=80": {
+    "src": "/images/optimized/remote-1c1762c446-0e6ec33e-100.webp",
+    "srcSet": "/images/optimized/remote-1c1762c446-0e6ec33e-100.webp 100w",
+    "width": 100,
+    "height": 100
+  },
+  "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=1200&q=80": {
+    "src": "/images/optimized/remote-ee2e237f19-31469350-640.webp",
+    "srcSet": "/images/optimized/remote-ee2e237f19-31469350-160.webp 160w, /images/optimized/remote-ee2e237f19-31469350-320.webp 320w, /images/optimized/remote-ee2e237f19-31469350-640.webp 640w, /images/optimized/remote-ee2e237f19-31469350-960.webp 960w, /images/optimized/remote-ee2e237f19-31469350-1200.webp 1200w",
+    "width": 1200,
+    "height": 800
+  },
+  "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?auto=format&fit=crop&w=600&q=80": {
+    "src": "/images/optimized/remote-b712b16601-d8663752-600.webp",
+    "srcSet": "/images/optimized/remote-b712b16601-d8663752-160.webp 160w, /images/optimized/remote-b712b16601-d8663752-320.webp 320w, /images/optimized/remote-b712b16601-d8663752-600.webp 600w",
+    "width": 600,
+    "height": 900
+  },
+  "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=600&q=80": {
+    "src": "/images/optimized/remote-4036f21310-d072c489-600.webp",
+    "srcSet": "/images/optimized/remote-4036f21310-d072c489-160.webp 160w, /images/optimized/remote-4036f21310-d072c489-320.webp 320w, /images/optimized/remote-4036f21310-d072c489-600.webp 600w",
+    "width": 600,
+    "height": 450
+  },
+  "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80": {
+    "src": "/images/optimized/remote-14d9a5340f-324608bd-640.webp",
+    "srcSet": "/images/optimized/remote-14d9a5340f-324608bd-160.webp 160w, /images/optimized/remote-14d9a5340f-324608bd-320.webp 320w, /images/optimized/remote-14d9a5340f-324608bd-640.webp 640w, /images/optimized/remote-14d9a5340f-324608bd-960.webp 960w, /images/optimized/remote-14d9a5340f-324608bd-1200.webp 1200w",
+    "width": 1200,
+    "height": 800
+  },
+  "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1500&q=80": {
+    "src": "/images/optimized/villa-ambient-8afbd8c6-640.webp",
+    "srcSet": "/images/optimized/villa-ambient-8afbd8c6-160.webp 160w, /images/optimized/villa-ambient-8afbd8c6-320.webp 320w, /images/optimized/villa-ambient-8afbd8c6-640.webp 640w, /images/optimized/villa-ambient-8afbd8c6-960.webp 960w, /images/optimized/villa-ambient-8afbd8c6-1280.webp 1280w, /images/optimized/villa-ambient-8afbd8c6-1500.webp 1500w",
+    "width": 1500,
+    "height": 1000
+  },
+  "https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=600&q=80": {
+    "src": "/images/optimized/remote-32644f2b7e-f1f35b73-600.webp",
+    "srcSet": "/images/optimized/remote-32644f2b7e-f1f35b73-160.webp 160w, /images/optimized/remote-32644f2b7e-f1f35b73-320.webp 320w, /images/optimized/remote-32644f2b7e-f1f35b73-600.webp 600w",
+    "width": 600,
+    "height": 900
+  },
+  "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=80": {
+    "src": "/images/optimized/remote-7573624cfc-63c7df25-640.webp",
+    "srcSet": "/images/optimized/remote-7573624cfc-63c7df25-160.webp 160w, /images/optimized/remote-7573624cfc-63c7df25-320.webp 320w, /images/optimized/remote-7573624cfc-63c7df25-640.webp 640w, /images/optimized/remote-7573624cfc-63c7df25-960.webp 960w, /images/optimized/remote-7573624cfc-63c7df25-1200.webp 1200w",
+    "width": 1200,
+    "height": 816
+  },
+  "https://res.cloudinary.com/dpwfzo2vk/image/upload/v1785267703/Ej5y1HdJNBRpyxVBnT39eVSRs_1_kud5ck.png": {
+    "src": "/images/optimized/remote-c7a5776eb0-79257ba6-512.webp",
+    "srcSet": "/images/optimized/remote-c7a5776eb0-79257ba6-160.webp 160w, /images/optimized/remote-c7a5776eb0-79257ba6-320.webp 320w, /images/optimized/remote-c7a5776eb0-79257ba6-512.webp 512w",
+    "width": 512,
+    "height": 105
+  },
+  "https://res.cloudinary.com/dpwfzo2vk/image/upload/v1788219187/Courtyard_House_1-13_jj0ch6.jpg": {
+    "src": "/images/optimized/remote-dee33b97d0-a7aaa05a-640.webp",
+    "srcSet": "/images/optimized/remote-dee33b97d0-a7aaa05a-160.webp 160w, /images/optimized/remote-dee33b97d0-a7aaa05a-320.webp 320w, /images/optimized/remote-dee33b97d0-a7aaa05a-640.webp 640w, /images/optimized/remote-dee33b97d0-a7aaa05a-960.webp 960w, /images/optimized/remote-dee33b97d0-a7aaa05a-1280.webp 1280w, /images/optimized/remote-dee33b97d0-a7aaa05a-1329.webp 1329w",
+    "width": 1329,
+    "height": 2000
+  },
+  "https://res.cloudinary.com/dpwfzo2vk/image/upload/v1788219205/202600530_xbxzux.jpg": {
+    "src": "/images/optimized/remote-aef2f3fd07-eab83f8d-375.webp",
+    "srcSet": "/images/optimized/remote-aef2f3fd07-eab83f8d-160.webp 160w, /images/optimized/remote-aef2f3fd07-eab83f8d-320.webp 320w, /images/optimized/remote-aef2f3fd07-eab83f8d-375.webp 375w",
+    "width": 375,
+    "height": 500
+  },
+  "https://res.cloudinary.com/n5nqkpmk/image/upload/v1785272165/WI7YqNyTRf1V91QtxU2SZRFBjM_lkrcpk.png": {
+    "src": "/images/optimized/remote-4c7036dffe-1dbcc728-429.webp",
+    "srcSet": "/images/optimized/remote-4c7036dffe-1dbcc728-160.webp 160w, /images/optimized/remote-4c7036dffe-1dbcc728-320.webp 320w, /images/optimized/remote-4c7036dffe-1dbcc728-429.webp 429w",
+    "width": 429,
+    "height": 572
+  },
+  "https://res.cloudinary.com/n5nqkpmk/image/upload/v1785272166/WxZXRcmmeilueEbnqnE76Skys_zhkeij.png": {
+    "src": "/images/optimized/remote-c04a5b884f-309212fc-429.webp",
+    "srcSet": "/images/optimized/remote-c04a5b884f-309212fc-160.webp 160w, /images/optimized/remote-c04a5b884f-309212fc-320.webp 320w, /images/optimized/remote-c04a5b884f-309212fc-429.webp 429w",
+    "width": 429,
+    "height": 572
+  },
+  "https://res.cloudinary.com/z8ule8ik/image/upload/v1786017052/michelstadt-odenwald-is-beautiful-old-city-germany_q3n0ay.jpg": {
+    "src": "/images/optimized/remote-fabe3f784c-7140efcd-640.webp",
+    "srcSet": "/images/optimized/remote-fabe3f784c-7140efcd-160.webp 160w, /images/optimized/remote-fabe3f784c-7140efcd-320.webp 320w, /images/optimized/remote-fabe3f784c-7140efcd-640.webp 640w, /images/optimized/remote-fabe3f784c-7140efcd-960.webp 960w, /images/optimized/remote-fabe3f784c-7140efcd-1280.webp 1280w, /images/optimized/remote-fabe3f784c-7140efcd-1600.webp 1600w",
+    "width": 5557,
+    "height": 3697
+  }
+}

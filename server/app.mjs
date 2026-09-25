@@ -1,4 +1,6 @@
 import express from 'express';
+import compression from 'compression';
+import {existsSync} from 'node:fs';
 import path from 'node:path';
 import {FORM_ID,consentText,CONSENT_VERSION} from '../shared/lead-schema.mjs';
 import {validateInquiry,isUuid} from '../shared/inquiry-schema.mjs';
@@ -55,7 +57,16 @@ export function createApp({databasePath,apiKey='',newContactOwnerId=null,consent
   app.all('/api/leads',(_req,res)=>res.status(410).json({error:'form_version_retired'}));
   app.use('/api',(_req,res)=>res.status(404).json({error:'not_found'}));
   app.use((error,_req,res,next)=>{if(res.headersSent)return next(error);res.status(error.type==='entity.too.large'?413:error.type==='entity.parse.failed'?400:503).json({error:'service_unavailable'});});
+  // Only static text responses reach this middleware; API receipts keep no-store.
+  app.use(compression({filter:(req,res)=>/^(?:text\/(?:html|css|javascript)|application\/(?:javascript|x-javascript))(?:;|$)/i.test(String(res.getHeader('Content-Type')||''))&&compression.filter(req,res)}));
+  // Legal and receipt pages render their own client tree, never the prerendered homepage.
+  app.get(['/danke','/impressum','/datenschutz'],(_req,res)=>{
+    const clientShell=path.join(distPath,'client.html');
+    res.sendFile(existsSync(clientShell)?clientShell:path.join(distPath,'index.html'));
+  });
+  // Vite fingerprints these files. Unhashed media and HTML retain revalidation.
+  app.use('/assets',express.static(path.join(distPath,'assets'),{maxAge:'1y',immutable:true}));
+  app.use('/images/optimized',express.static(path.join(distPath,'images','optimized'),{maxAge:'1y',immutable:true}));
   app.use(express.static(distPath));
-  app.get(['/danke','/impressum','/datenschutz'],(_req,res)=>res.sendFile(path.join(distPath,'index.html')));
   return {app,service,store,close:()=>store.close()};
 }

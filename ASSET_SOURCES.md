@@ -74,3 +74,12 @@ Confirmed against https://www.investo-immobilien.de/ and https://www.investo-imm
 Investo Immobilien UG; managing director Alpaslan Coskun; Maximilianstraße 15c, 87719 Mindelheim; +49 (0) 175 7111 188; info@investo-immobilien.de; HRB 22308, Amtsgericht Memmingen; VAT ID DE463921337.
 
 Existing unrelated remote assets and the existing founder video are retained from the supplied source.
+
+
+## Responsive media and local fonts (September 2026)
+
+The WebP files in public/images/optimized are resized and compressed versions of the existing supplied or credited photographs and logos. No new AI images were introduced. src/content/image-manifest.json retains the original URL/path mapping.
+
+Inter and Lora are now served locally. Font source URLs and the bundled SIL Open Font License files are in public/fonts/SOURCES.md.
+
+The hero derivative is cropped to the displayed 4:3 framing (45% vertical focus); CSS adapts it to the desktop frame. The faint villa-background derivative has its existing grayscale effect encoded into the image to avoid a large runtime filter. Original photographs remain available.

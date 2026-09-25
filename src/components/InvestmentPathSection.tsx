@@ -1,6 +1,8 @@
+import OptimizedImage from './OptimizedImage';
 import { useLanguage } from '../i18n';
+import { useActiveAnimation } from '../hooks/useActiveAnimation';
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { m as motion, AnimatePresence } from 'motion/react';
 import { 
   BarChart3, Target, Calculator, Home, Shield, ArrowRight, Sparkles, HelpCircle, X, ChevronRight, CheckCircle2 
 } from 'lucide-react';
@@ -24,6 +26,7 @@ interface InvestmentPathSectionProps {
 
 export default function InvestmentPathSection({ onCtaClick }: InvestmentPathSectionProps) {
   const { t } = useLanguage();
+  const { ref: animationRef, active: animateDecorations } = useActiveAnimation();
   const [activeStep, setActiveStep] = useState<string | null>(null);
   const [hoveredStep, setHoveredStep] = useState<string | null>(null);
 
@@ -113,12 +116,13 @@ export default function InvestmentPathSection({ onCtaClick }: InvestmentPathSect
   const activeStepData = steps.find(s => s.num === activeStep);
 
   return (
-    <section className="relative bg-[#16273D] text-white py-24 px-4 md:px-8 lg:px-12 overflow-hidden border-t border-white/5" id="investment-path-section">
+    <section ref={animationRef} className="relative bg-[#16273D] text-white py-24 px-4 md:px-8 lg:px-12 overflow-hidden border-t border-white/5" id="investment-path-section">
       
       {/* Section Background Image Overlay */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden select-none z-0">
-        <img
+        <OptimizedImage
           src="https://res.cloudinary.com/z8ule8ik/image/upload/v1786017052/michelstadt-odenwald-is-beautiful-old-city-germany_q3n0ay.jpg"
+          sizes="100vw"
           alt={t("Michelstadt Old City Germany")}
           referrerPolicy="no-referrer"
           className="w-full h-full object-cover object-center opacity-15 mix-blend-luminosity filter contrast-110"
@@ -128,40 +132,28 @@ export default function InvestmentPathSection({ onCtaClick }: InvestmentPathSect
       </div>
 
       {/* Atmospheric lighting gradients */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-950/10 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 left-10 w-[300px] h-[300px] bg-emerald-950/5 rounded-full blur-2xl pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full pointer-events-none" style={{ backgroundImage: 'radial-gradient(ellipse at center, oklch(28.2% 0.091 267.935 / 0.1) 0%, transparent 72%)' }} />
+      <div className="absolute bottom-0 left-10 w-[300px] h-[300px] rounded-full pointer-events-none" style={{ backgroundImage: 'radial-gradient(ellipse at center, oklch(26.2% 0.051 172.552 / 0.05) 0%, transparent 72%)' }} />
 
       <div className="max-w-7xl mx-auto relative z-10">
         
         {/* UPPER HEADER SECTION */}
         <div className="text-center mb-16 md:mb-24 flex flex-col items-center">
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-100px' }}
-            transition={{ duration: 0.5 }}
+          <div
             className="flex flex-col items-center"
           >
             <span className="text-[10px] md:text-xs font-sans font-extrabold tracking-[0.25em] text-[#d4b27c] uppercase">{t("SO FUNKTIONIERT ES")}</span>
             <div className="w-10 h-[1.5px] bg-[#d4b27c] mt-3 mb-6" />
-          </motion.div>
+          </div>
 
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-100px' }}
-            transition={{ duration: 0.6, delay: 0.1 }}
+          <h2
             className="font-serif text-3xl md:text-4xl lg:text-5xl font-normal tracking-tight text-white leading-[1.15]"
           >{t("Ihr Weg zur passenden ")}<span className="text-[#d4b27c] font-normal italic font-serif">{t("Kapitalanlage")}</span>
-          </motion.h2>
+          </h2>
 
-          <motion.p
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-100px' }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+          <p
             className="text-xs md:text-sm lg:text-base font-sans font-light text-white/50 max-w-xl mt-4 leading-relaxed"
-          >{t("In fünf klaren Schritten von der ersten Analyse bis zum Immobilienkauf.")}</motion.p>
+          >{t("In fünf klaren Schritten von der ersten Analyse bis zum Immobilienkauf.")}</p>
         </div>
 
         {/* TIMELINE STEPPER GRID */}
@@ -173,17 +165,12 @@ export default function InvestmentPathSection({ onCtaClick }: InvestmentPathSect
             <div className="absolute inset-0 bg-white/10" />
             
             {/* Flowing animated light ray matching mockup exactly */}
-            <motion.div 
-              className="absolute h-full bg-gradient-to-r from-transparent via-[#d4b27c] to-transparent w-40"
-              animate={{
-                left: ['-20%', '110%']
-              }}
-              transition={{
-                duration: 6,
-                repeat: Infinity,
-                ease: 'linear'
-              }}
-            />
+            <div
+              className="investo-decorative-flow-horizontal absolute inset-0"
+              style={{ animationName: animateDecorations ? undefined : 'none' }}
+            >
+              <div className="absolute h-full bg-gradient-to-r from-transparent via-[#d4b27c] to-transparent w-40" />
+            </div>
           </div>
 
           {/* Stepper Grid Container */}
@@ -194,17 +181,8 @@ export default function InvestmentPathSection({ onCtaClick }: InvestmentPathSect
               const isHovered = hoveredStep === step.num;
 
               return (
-                <motion.div
+                <div
                   key={step.num}
-                  initial={{ opacity: 0, y: 35 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: '-50px' }}
-                  transition={{ 
-                    type: 'spring', 
-                    stiffness: 60, 
-                    damping: 15,
-                    delay: idx * 0.1 
-                  }}
                   onMouseEnter={() => setHoveredStep(step.num)}
                   onMouseLeave={() => setHoveredStep(null)}
                   onClick={() => setActiveStep(isActive ? null : step.num)}
@@ -216,16 +194,12 @@ export default function InvestmentPathSection({ onCtaClick }: InvestmentPathSect
                   </span>
 
                   {/* Elegant floating animated gold node circle containing icon */}
-                  <motion.div
-                    animate={!isHovered ? {
-                      y: [0, -4, 0],
-                    } : {}}
-                    transition={{
-                      duration: 3 + idx,
-                      repeat: Infinity,
-                      ease: 'easeInOut'
+                  <div
+                    style={{
+                      animationDuration: `${3 + idx}s`,
+                      animationName: animateDecorations && !isHovered ? undefined : 'none',
                     }}
-                    className={`w-14 h-14 md:w-16 md:h-16 rounded-full bg-[#040911] border-2 flex items-center justify-center text-white relative shadow-lg transition-all duration-300 ${
+                    className={`investo-decorative-float investo-decorative-float-medium w-14 h-14 md:w-16 md:h-16 rounded-full bg-[#040911] border-2 flex items-center justify-center text-white relative shadow-lg transition-all duration-300 ${
                       isActive || isHovered
                         ? 'border-[#d4b27c] text-[#d4b27c] scale-105 shadow-[0_0_20px_rgba(212,178,124,0.25)]'
                         : 'border-white/10 group-hover:border-white/30'
@@ -237,7 +211,7 @@ export default function InvestmentPathSection({ onCtaClick }: InvestmentPathSect
                     <span className={`absolute bottom-[-10px] left-1/2 -translate-x-1/2 w-2 h-2 rounded-full border-2 border-[#030a13] transition-all duration-300 hidden md:block ${
                       isActive || isHovered ? 'bg-[#d4b27c]' : 'bg-white/40'
                     }`} />
-                  </motion.div>
+                  </div>
 
                   {/* Title & Info Block */}
                   <div className="mt-6 md:mt-8 flex flex-col items-center md:items-start">
@@ -254,7 +228,7 @@ export default function InvestmentPathSection({ onCtaClick }: InvestmentPathSect
                   <span className="mt-3.5 text-[9px] font-sans font-bold tracking-widest text-[#d4b27c]/40 group-hover:text-[#d4b27c] uppercase transition-colors hidden md:block">
                     {t(isActive ? 'Schließen' : 'Details ansehen')}
                   </span>
-                </motion.div>
+                </div>
               );
             })}
           </div>
@@ -262,12 +236,8 @@ export default function InvestmentPathSection({ onCtaClick }: InvestmentPathSect
         </div>
 
         {/* REASSURANCE LOWER CAPSULE BANNER */}
-        <motion.div
-          initial={{ opacity: 0, y: 25 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-50px' }}
-          transition={{ duration: 0.6 }}
-          className="w-full bg-[#0c1a29]/90 border border-white/10 rounded-2xl md:rounded-3xl p-6 md:p-8 xl:p-10 shadow-[0_15px_40px_rgba(0,0,0,0.5)] backdrop-blur-md flex flex-col md:flex-row items-center justify-between gap-8 md:gap-4 text-left"
+        <div
+          className="w-full bg-[#0c1a29]/90 border border-white/10 rounded-2xl md:rounded-3xl p-6 md:p-8 xl:p-10 shadow-[0_15px_40px_rgba(0,0,0,0.5)] flex flex-col md:flex-row items-center justify-between gap-8 md:gap-4 text-left"
           id="investment-path-footer"
         >
           {/* Left info box with elegant shield in gold circle */}
@@ -297,7 +267,7 @@ export default function InvestmentPathSection({ onCtaClick }: InvestmentPathSect
             <span className="text-[10px] text-white/40 font-sans tracking-wide mt-2.5">{t("Unverbindlich. Persönlich. Auf Augenhöhe.")}</span>
           </div>
 
-        </motion.div>
+        </div>
 
       </div>
 

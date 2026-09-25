@@ -1,6 +1,7 @@
+import { getOptimizedImageProps } from './OptimizedImage';
 import { useLanguage } from '../i18n';
 import React, { useState } from 'react';
-import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
+import { m as motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import { Check, ArrowRight, User, Target, Home, Shield, TrendingUp } from 'lucide-react';
 
 interface StrategyCheckSectionProps {
@@ -80,7 +81,7 @@ export default function StrategyCheckSection({ onStartClick }: StrategyCheckSect
     <section className="relative bg-[#16273D] text-white py-24 px-6 md:px-12 lg:py-32 overflow-hidden border-t border-white/5" id="strategie-check-section">
       
       {/* Decorative clean radial background */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-amber-500/[0.02] rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full pointer-events-none" style={{ backgroundImage: 'radial-gradient(ellipse at center, oklch(76.9% 0.188 70.08 / 0.02) 0%, transparent 72%)' }} />
 
       <div className="max-w-7xl mx-auto relative z-10">
         
@@ -90,11 +91,7 @@ export default function StrategyCheckSection({ onStartClick }: StrategyCheckSect
           {/* LEFT COLUMN: Info Content */}
           <div className="col-span-1 lg:col-span-5 text-left flex flex-col justify-center">
             
-            <motion.div
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-100px' }}
-              transition={{ duration: 0.5 }}
+            <div
             >
               {/* Gold uppercase badge */}
               <span className="text-[10px] md:text-xs font-sans font-extrabold tracking-[0.25em] text-[#d4b27c] uppercase block mb-4">{t("SCHRITT FÜR SCHRITT ZUR KAPITALANLAGE")}</span>
@@ -104,19 +101,15 @@ export default function StrategyCheckSection({ onStartClick }: StrategyCheckSect
               </h2>
 
               <p className="text-xs md:text-sm font-sans font-light text-slate-300 leading-relaxed mb-6">{t("Ein klarer, transparenter Prozess vom ersten Gespräch bis zur Auswahl.")}</p>
-            </motion.div>
+            </div>
 
             {/* List items with checkmarks */}
             <div className="space-y-4 mb-8">
               {checkListItems.map((item, idx) => {
                 const isSelected = selectedBullet === idx;
                 return (
-                  <motion.div
+                  <div
                     key={idx}
-                    initial={{ opacity: 0, x: -15 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: idx * 0.08 }}
                     onClick={() => setSelectedBullet(isSelected ? null : idx)}
                     className="flex flex-col text-left group cursor-pointer"
                   >
@@ -144,17 +137,13 @@ export default function StrategyCheckSection({ onStartClick }: StrategyCheckSect
                         </motion.div>
                       )}
                     </AnimatePresence>
-                  </motion.div>
+                  </div>
                 );
               })}
             </div>
 
             {/* Gold CTA Button matching mockup exactly */}
-            <motion.div
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.4 }}
+            <div
             >
               <button
                 onClick={onStartClick}
@@ -163,18 +152,14 @@ export default function StrategyCheckSection({ onStartClick }: StrategyCheckSect
                 <span className="mr-4">{t("JETZT STRATEGIE-CHECK STARTEN")}</span>
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </button>
-            </motion.div>
+            </div>
 
           </div>
 
           {/* RIGHT COLUMN: Highly Polished Card Showcase */}
           <div className="col-span-1 lg:col-span-7 flex justify-center items-center">
             
-            <motion.div
-              initial={{ opacity: 0, scale: 0.96 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true, margin: '-100px' }}
-              transition={{ type: 'spring', stiffness: 50, damping: 15 }}
+            <div
               className="w-full relative bg-[#102035] border border-white/10 rounded-[2.5rem] p-6 md:p-8 xl:p-10 shadow-[0_20px_50px_rgba(0,0,0,0.3)]"
               id="stepper-visual-card"
             >
@@ -188,7 +173,8 @@ export default function StrategyCheckSection({ onStartClick }: StrategyCheckSect
                 {steps.map((step) => (
                   <motion.img
                     key={step.num}
-                    src={step.image}
+                    {...getOptimizedImageProps(step.image)}
+                    sizes="(min-width: 1376px) 624.667px, (min-width: 1280px) calc(58.333333vw - 178px), (min-width: 1024px) calc(58.333333vw - 148.666667px), (min-width: 768px) calc(100vw - 162px), calc(100vw - 98px)"
                     alt={selectedStep === step.num ? t(step.imageAlt) : ''}
                     aria-hidden={selectedStep !== step.num}
                     loading="lazy"
@@ -205,12 +191,12 @@ export default function StrategyCheckSection({ onStartClick }: StrategyCheckSect
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/5 to-transparent pointer-events-none" />
 
                 {/* Left Floating badge: "Ihre Strategie. Unsere Analyse. Ihr Vorteil." */}
-                <div className="absolute top-3 left-3 sm:top-4 sm:left-4 md:top-6 md:left-6 bg-[#040911]/90 backdrop-blur-md px-3 py-2 sm:px-4 sm:py-3 rounded-2xl border border-white/15 text-white text-left shadow-2xl flex items-center space-x-2 sm:space-x-3.5 z-20 max-w-[85%] sm:max-w-xs">
+                <div className="absolute top-3 left-3 sm:top-4 sm:left-4 md:top-6 md:left-6 bg-[#040911]/90 px-3 py-2 sm:px-4 sm:py-3 rounded-2xl border border-white/15 text-white text-left shadow-2xl flex items-center space-x-2 sm:space-x-3.5 z-20 max-w-[85%] sm:max-w-xs">
                   <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-investo-gold/10 border border-investo-gold/30 flex items-center justify-center text-investo-gold shrink-0">
                     <TrendingUp className="w-4.5 h-4.5" />
                   </div>
                   <div>
-                    <h4 className="text-[9px] sm:text-[10px] font-sans font-extrabold tracking-widest text-[#d4b27c] uppercase">{t("Ihre Strategie.")}</h4>
+                    <p className="text-[9px] sm:text-[10px] font-sans font-extrabold tracking-widest text-[#d4b27c] uppercase">{t("Ihre Strategie.")}</p>
                     <p className="hidden sm:block text-[11px] text-white/90 font-medium leading-normal mt-0.5">{t("Unsere Analyse. Ihr Vorteil.")}</p>
                   </div>
                 </div>
@@ -291,7 +277,7 @@ export default function StrategyCheckSection({ onStartClick }: StrategyCheckSect
                 })}
               </div>
 
-            </motion.div>
+            </div>
 
           </div>
 

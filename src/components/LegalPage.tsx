@@ -1,3 +1,4 @@
+import OptimizedImage from './OptimizedImage';
 import React from 'react';
 import { ArrowLeft, ExternalLink } from 'lucide-react';
 import { useLanguage, type Language } from '../i18n';
@@ -21,7 +22,7 @@ export default function LegalPage({ page }: { page: LegalPageKind }) {
       <header className="border-b border-white/10 px-6 py-6 md:px-10">
         <div className="max-w-6xl mx-auto flex items-center justify-between gap-4">
           <a href="/" aria-label={t('Zur Startseite')} className="shrink-0">
-            <img
+            <OptimizedImage loading="eager" sizes="170px"
               src="https://res.cloudinary.com/dpwfzo2vk/image/upload/v1785267703/Ej5y1HdJNBRpyxVBnT39eVSRs_1_kud5ck.png"
               alt={t('Investo Immobilien Logo')}
               className="w-[130px] h-auto"

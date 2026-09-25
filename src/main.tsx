@@ -1,11 +1,7 @@
-import {StrictMode} from 'react';
-import {createRoot} from 'react-dom/client';
-import App from './App.tsx';
-import { LanguageProvider } from './i18n';
 import './index.css';
+import './decorative-motion.css';
+import { mountApplication } from './bootstrap';
 
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <LanguageProvider><App /></LanguageProvider>
-  </StrictMode>,
-);
+// The production HTML already contains the homepage. Hydrate immediately so
+// React can attach controls and replay interactions during hydration.
+void mountApplication();

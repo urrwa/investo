@@ -32,3 +32,7 @@ npm run build
 Tests use simulated CRM and bot-verification responses; they do not prove that the live n8n callback workflow is configured. See `integration/HANDOVER.md` for deployment, data handling, open launch settings, field mapping and acceptance checks.
 
 Photos, smooth navigation, existing copy and the language selector are preserved. See `ASSET_SOURCES.md` and `CHANGES.md` for earlier changes.
+
+## Performance
+
+The production build includes a prerendered homepage, responsive local photographs, local fonts, deferred video loading, and compressed/cacheable static assets. Use `npm run build` so prerendering runs; calling Vite directly skips it. See `PERFORMANCE.md` for measurements, verification and hosting requirements.

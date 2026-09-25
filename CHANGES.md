@@ -78,3 +78,7 @@ The requested trust figures render immediately rather than briefly showing zero 
 - HTML language, page title and calculator number formatting follow the selection. Form answers retain their original values while their displayed labels change, preserving an in-progress questionnaire.
 - Verified desktop and mobile switching, returning to German, reload persistence, both translated four-step forms, translated summaries, FAQs and legal dialogs. No horizontal page overflow at 320, 390, 1024 and 1440 px, and no JavaScript errors in those checks.
 - TypeScript checks and production build passed. Embedded videos and linked external documents retain their original language.
+
+## Performance improvements — 26 September 2026
+
+Prerendered homepage, responsive WebP media, local Inter/Lora fonts, visibility-controlled video/decorative motion, lazy lead/legal modules, static compression and immutable fingerprinted caching. Improved accessible controls, contrast, heading order and metadata. Preserved multilingual navigation, calculators, strategy-photo selection, form drafts and legal routes. Fixed the hero photo-overlay clipping at 320 px. Validation details and measured Lighthouse results are in PERFORMANCE.md.

@@ -1,6 +1,7 @@
+import OptimizedImage from './OptimizedImage';
 import { useLanguage } from '../i18n';
 import React from 'react';
-import { motion } from 'motion/react';
+import { m as motion } from 'motion/react';
 import { Target, TrendingUp, Home, Users, ArrowUpRight } from 'lucide-react';
 
 interface MetricsFooterProps {
@@ -38,7 +39,7 @@ export default function MetricsFooter({ onLearnMoreClick, onMetricItemClick }: M
       
       {/* 1. Dark Blue Container with 4 features */}
       <div className="col-span-1 lg:col-span-7" id="features-capsule">
-        <div className="bg-[#0c1a29]/90 border border-white/10 rounded-2xl md:rounded-3xl p-5 md:p-6 shadow-[0_15px_35px_-10px_rgba(0,0,0,0.6)] backdrop-blur-md">
+        <div className="bg-[#0d1b2b] border border-white/10 rounded-2xl md:rounded-3xl p-5 md:p-6 shadow-[0_15px_35px_-10px_rgba(0,0,0,0.6)]">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-2">
             {features.map((feat, idx) => {
               const IconComponent = feat.icon;
@@ -74,7 +75,7 @@ export default function MetricsFooter({ onLearnMoreClick, onMetricItemClick }: M
         {/* Overlapping Avatar Stack */}
         <div className="flex -space-x-4">
           <div className="w-11 h-11 rounded-full border-2 border-[#030a13] overflow-hidden shadow-lg transition-transform duration-300 hover:scale-105 hover:z-10 cursor-pointer">
-            <img
+            <OptimizedImage sizes="44px"
               src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&h=100&q=80"
               alt={t("Investor Portrait 1")}
               referrerPolicy="no-referrer"
@@ -82,7 +83,7 @@ export default function MetricsFooter({ onLearnMoreClick, onMetricItemClick }: M
             />
           </div>
           <div className="w-11 h-11 rounded-full border-2 border-[#030a13] overflow-hidden shadow-lg transition-transform duration-300 hover:scale-105 hover:z-10 cursor-pointer">
-            <img
+            <OptimizedImage sizes="44px"
               src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=100&h=100&q=80"
               alt={t("Investor Portrait 2")}
               referrerPolicy="no-referrer"

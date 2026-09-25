@@ -1,4 +1,4 @@
-import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import React, { createContext, startTransition, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import translations from './translations.json';
 
 export type Language = 'de' | 'en' | 'fr';
@@ -20,13 +20,21 @@ interface LanguageContextValue {
 }
 const LanguageContext = createContext<LanguageContextValue | null>(null);
 
-export function LanguageProvider({ children }: { children: React.ReactNode }) {
+export function LanguageProvider({ children, initialLanguage }: { children: React.ReactNode; initialLanguage?: Language }) {
   const [language, updateLanguage] = useState<Language>(() => {
+    if (initialLanguage) return initialLanguage;
     try {
       const saved = localStorage.getItem(STORAGE_KEY);
       return isLanguage(saved) ? saved : 'de';
     } catch { return 'de'; }
   });
+  useEffect(() => {
+    if (!initialLanguage) return;
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (isLanguage(saved)) startTransition(() => updateLanguage(saved));
+    } catch { /* Retain the build language when storage is unavailable. */ }
+  }, [initialLanguage]);
   const setLanguage = useCallback((next: Language) => {
     updateLanguage(next);
     try { localStorage.setItem(STORAGE_KEY, next); } catch { /* Language switching works even if storage is unavailable. */ }

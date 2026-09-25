@@ -1,6 +1,7 @@
+import OptimizedImage from './OptimizedImage';
 import { useLanguage } from '../i18n';
-import React, { useState, useRef } from 'react';
-import { motion } from 'motion/react';
+import React, { useEffect, useState, useRef } from 'react';
+import { useReducedMotion } from 'motion/react';
 import { Play, Pause } from 'lucide-react';
 
 interface PrincipleItem {
@@ -92,18 +93,76 @@ function Counter({ value }: { value: string; numericVal: number; suffix: string 
 
 export default function TrustAuthoritySection() {
   const { t } = useLanguage();
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
+  const [isVideoVisible, setIsVideoVisible] = useState(false);
+  const [isPageVisible, setIsPageVisible] = useState(true);
+  const [playbackIntent, setPlaybackIntent] = useState<'auto' | 'play' | 'pause'>('auto');
   const [hoveredPrinciple, setHoveredPrinciple] = useState<number | null>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const videoFrameRef = useRef<HTMLDivElement>(null);
+  const reduceMotion = useReducedMotion();
+
+  useEffect(() => {
+    const frame = videoFrameRef.current;
+    const video = videoRef.current;
+    if (!frame || !video) return;
+
+    // Resolve the source and poster only when the frame approaches the viewport.
+    const loadObserver = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        setShouldLoadVideo(true);
+        loadObserver.disconnect();
+      }
+    }, { rootMargin: '300px 0px' });
+    const playbackObserver = new IntersectionObserver(([entry]) => {
+      const visible = entry.isIntersecting && entry.intersectionRatio >= 0.25;
+      setIsVideoVisible(visible);
+      if (!visible) video.pause();
+    }, { threshold: [0, 0.25] });
+    const updatePageVisibility = () => {
+      setIsPageVisible(!document.hidden);
+      if (document.hidden) video.pause();
+    };
+
+    updatePageVisibility();
+    loadObserver.observe(frame);
+    playbackObserver.observe(frame);
+    document.addEventListener('visibilitychange', updatePageVisibility);
+    return () => {
+      loadObserver.disconnect();
+      playbackObserver.disconnect();
+      document.removeEventListener('visibilitychange', updatePageVisibility);
+      video.pause();
+    };
+  }, []);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    const canPlay = shouldLoadVideo && isVideoVisible && isPageVisible
+      && playbackIntent !== 'pause' && (!reduceMotion || playbackIntent === 'play');
+    if (canPlay) {
+      video.muted = true;
+      void video.play().catch(() => { /* The poster and play control remain available. */ });
+    } else {
+      video.pause();
+    }
+  }, [shouldLoadVideo, isVideoVisible, isPageVisible, playbackIntent, reduceMotion]);
 
   const handleVideoClick = () => {
-    if (videoRef.current) {
-      if (isPlaying) {
-        videoRef.current.pause();
-        setIsPlaying(false);
-      } else {
-        videoRef.current.play().catch(err => console.log('Autoplay play error: ', err));
-        setIsPlaying(true);
+    const video = videoRef.current;
+    if (!video) return;
+    if (!video.paused) {
+      setPlaybackIntent('pause');
+      video.pause();
+    } else {
+      setPlaybackIntent('play');
+      setShouldLoadVideo(true);
+      // Keep explicit playback within this user gesture when the source is ready.
+      if (video.getAttribute('src') && isVideoVisible && !document.hidden) {
+        video.muted = true;
+        void video.play().catch(() => { /* Allow another explicit play attempt. */ });
       }
     }
   };
@@ -169,23 +228,15 @@ export default function TrustAuthoritySection() {
             </div>
 
             {/* Main Section Title matching reference image */}
-            <motion.h2
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
+            <h2
               className="font-serif text-3xl md:text-4xl lg:text-5xl font-normal tracking-tight text-white leading-[1.12] mb-6"
             >{t("Vertrauen entsteht ")}<br />{t("durch ")}<span className="text-[#d4b27c] font-serif font-normal">{t("Transparenz.")}</span>
-            </motion.h2>
+            </h2>
 
             {/* Subheading text */}
-            <motion.p
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.1 }}
+            <p
               className="text-xs md:text-sm lg:text-[14.5px] font-sans font-light text-slate-300 leading-relaxed mb-10 max-w-lg"
-            >{t("Wer in Immobilien investiert, braucht Klarheit, eine nachvollziehbare Strategie und einen Partner, der Verantwortung übernimmt.")}</motion.p>
+            >{t("Wer in Immobilien investiert, braucht Klarheit, eine nachvollziehbare Strategie und einen Partner, der Verantwortung übernimmt.")}</p>
 
             {/* Title for the timeline steps */}
             <span className="text-xs font-sans font-extrabold uppercase tracking-wider text-white mb-6 block">{t("UNSER ANSPRUCH:")}</span>
@@ -201,12 +252,8 @@ export default function TrustAuthoritySection() {
                 const isHovered = hoveredPrinciple === p.id;
 
                 return (
-                  <motion.div
+                  <div
                     key={p.id}
-                    initial={{ opacity: 0, x: -15 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: idx * 0.1 }}
                     onMouseEnter={() => setHoveredPrinciple(p.id)}
                     onMouseLeave={() => setHoveredPrinciple(null)}
                     className={`relative bg-[#102035] border rounded-[1.25rem] p-5 flex items-center space-x-5 transition-all duration-300 shadow-xl group cursor-pointer ${
@@ -230,7 +277,7 @@ export default function TrustAuthoritySection() {
                     <p className="text-xs md:text-sm font-sans font-semibold text-white leading-normal text-left">
                       {t(p.text)}
                     </p>
-                  </motion.div>
+                  </div>
                 );
               })}
             </div>
@@ -239,24 +286,26 @@ export default function TrustAuthoritySection() {
 
           {/* RIGHT PANEL (lg:col-span-7): Autoplaying Interactive Video Frame */}
           <div className="lg:col-span-7 flex flex-col w-full">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.98 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7 }}
+            <div
+              ref={videoFrameRef}
               className="relative aspect-video rounded-[2.5rem] overflow-hidden shadow-2xl group bg-[#102035] cursor-pointer border border-white/10"
-              onClick={handleVideoClick}
             >
               {/* Premium corporate gentleman working placeholder video / image */}
               <video
                 ref={videoRef}
-                src="https://res.cloudinary.com/n5nqkpmk/video/upload/v1784020385/NJhJxdnHmng1psYOJWX58BKDce8_jniwse.mp4"
-                className="absolute inset-0 w-full h-full object-cover group-hover:scale-[1.015] transition-transform duration-[1200ms] ease-out"
-                autoPlay
+                id="trust-authority-video"
+                aria-label={t("PERSÖNLICHE EINBLICKE")}
+                src={shouldLoadVideo ? "https://res.cloudinary.com/n5nqkpmk/video/upload/v1784020385/NJhJxdnHmng1psYOJWX58BKDce8_jniwse.mp4" : undefined}
+                className="absolute inset-0 w-full h-full object-cover motion-safe:group-hover:scale-[1.015] motion-safe:transition-transform duration-[1200ms] ease-out"
+                preload="none"
                 loop
                 muted
                 playsInline
-                poster="https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=1200&q=80"
+                poster={shouldLoadVideo ? "/images/optimized/remote-ee2e237f19-31469350-640.webp" : undefined}
+                onPlay={() => setIsPlaying(true)}
+                onPause={() => setIsPlaying(false)}
+                onEnded={() => setIsPlaying(false)}
+                onError={() => { videoRef.current?.pause(); setIsPlaying(false); }}
               />
 
               {/* Sophisticated dark blue lighting overlay */}
@@ -264,7 +313,7 @@ export default function TrustAuthoritySection() {
 
               {/* PERSÖNLICHER EINBLICK Premium Capsule Tab */}
               <div className="absolute top-4 md:top-6 left-1/2 -translate-x-1/2 z-20">
-                <span className="bg-[#102035]/90 border border-white/10 text-white text-[8px] md:text-[9.5px] font-sans font-extrabold tracking-[0.15em] md:tracking-[0.25em] px-4 py-2 md:px-5 md:py-2.5 rounded-full whitespace-nowrap block text-center uppercase backdrop-blur-md shadow-lg">{t("PERSÖNLICHER EINBLICK")}</span>
+                <span className="bg-[#102035]/90 border border-white/10 text-white text-[8px] md:text-[9.5px] font-sans font-extrabold tracking-[0.15em] md:tracking-[0.25em] px-4 py-2 md:px-5 md:py-2.5 rounded-full whitespace-nowrap block text-center uppercase shadow-lg">{t("PERSÖNLICHER EINBLICK")}</span>
               </div>
 
               {/* BIG GLOWING INTERACTIVE PLAY/PAUSE TRIGGER */}
@@ -274,8 +323,8 @@ export default function TrustAuthoritySection() {
                 <div className="w-16 h-16 md:w-24 md:h-24 rounded-full border border-white/20 flex items-center justify-center transition-all duration-500 group-hover:scale-105 relative">
                   
                   {/* Glowing pulsing ripple rings */}
-                  <div className="absolute inset-0 rounded-full border-2 border-[#d4b27c]/50 animate-pulse opacity-30 pointer-events-none" />
-                  <div className="absolute -inset-2 rounded-full border border-[#d4b27c]/20 animate-ping opacity-15 pointer-events-none" />
+                  <div style={{ animationName: isPlaying ? undefined : 'none' }} className="absolute inset-0 rounded-full border-2 border-[#d4b27c]/50 motion-safe:animate-pulse opacity-30 pointer-events-none" />
+                  <div style={{ animationName: isPlaying ? undefined : 'none' }} className="absolute -inset-2 rounded-full border border-[#d4b27c]/20 motion-safe:animate-ping opacity-15 pointer-events-none" />
 
                   {/* Solid White Circle Inner button with gold play icon */}
                   <div className="w-11 h-11 md:w-16 md:h-16 rounded-full bg-white shadow-2xl flex items-center justify-center text-[#d4b27c] group-hover:bg-[#d4b27c] group-hover:text-white transition-colors duration-300 z-10">
@@ -299,7 +348,16 @@ export default function TrustAuthoritySection() {
                 <p className="font-serif italic text-xs md:text-lg text-[#d4b27c] leading-tight drop-shadow-md mt-1">{t("Haltung. Verantwortung.")}</p>
               </div>
 
-            </motion.div>
+              <button
+                type="button"
+                onClick={handleVideoClick}
+                aria-label={t(isPlaying ? "Video pausieren" : "Video abspielen")}
+                aria-pressed={isPlaying}
+                aria-controls="trust-authority-video"
+                className="absolute inset-0 z-30 rounded-[2.5rem] cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#d4b27c]"
+              />
+
+            </div>
           </div>
 
         </div>
@@ -309,11 +367,7 @@ export default function TrustAuthoritySection() {
           
           {/* FOUNDER BLOCK CARD (lg:col-span-5) */}
           <div className="w-full flex flex-col">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
+            <div
               className="bg-[#102035] border border-white/10 rounded-[2.5rem] flex flex-col sm:flex-row shadow-xl h-full relative group z-10"
             >
               
@@ -321,9 +375,12 @@ export default function TrustAuthoritySection() {
               <div className="h-64 sm:h-auto sm:w-[40%] shrink-0 flex relative bg-[#16273D] border-b sm:border-b-0 sm:border-r border-white/10 rounded-t-[2.5rem] sm:rounded-l-[2.5rem] sm:rounded-r-none overflow-hidden">
                 {/* Left Founder Image */}
                 <div className="w-1/2 h-full relative overflow-hidden bg-[#0a2540]">
-                  <img
+                  <OptimizedImage
                     src="https://res.cloudinary.com/n5nqkpmk/image/upload/v1785272165/WI7YqNyTRf1V91QtxU2SZRFBjM_lkrcpk.png"
+                    sizes="(min-width: 1440px) 255.1px, (min-width: 1024px) calc(20vw - 32.9px), (min-width: 768px) calc(20vw - 20.1px), (min-width: 640px) calc(20vw - 10.5px), calc(50vw - 25px)"
                     alt={t("Akay Kula")}
+                    loading="lazy"
+                    decoding="async"
                     referrerPolicy="no-referrer"
                     className="w-full h-full object-cover object-[center_12%] group-hover:scale-105 transition-transform duration-[1000ms]"
                   />
@@ -333,9 +390,12 @@ export default function TrustAuthoritySection() {
                 
                 {/* Right Founder Image */}
                 <div className="w-1/2 h-full relative overflow-hidden border-l border-white/10 bg-[#16273D]">
-                  <img
+                  <OptimizedImage
                     src="https://res.cloudinary.com/n5nqkpmk/image/upload/v1785272166/WxZXRcmmeilueEbnqnE76Skys_zhkeij.png"
+                    sizes="(min-width: 1440px) 254.1px, (min-width: 1024px) calc(20vw - 33.9px), (min-width: 768px) calc(20vw - 21.1px), (min-width: 640px) calc(20vw - 11.5px), calc(50vw - 26px)"
                     alt={t("Alpaslan Coskun")}
+                    loading="lazy"
+                    decoding="async"
                     referrerPolicy="no-referrer"
                     className="w-full h-full object-cover object-[center_12%] group-hover:scale-105 transition-transform duration-[1000ms] delay-75"
                   />
@@ -359,7 +419,7 @@ export default function TrustAuthoritySection() {
                   <div className="w-8 h-[1.5px] bg-[#d4b27c] mb-3" />
                   
                   {/* Founders Names */}
-                  <h4 className="text-xs md:text-sm font-sans font-extrabold text-white mb-0.5">{t("Alpaslan Coskun & Akay Kula")}</h4>
+                  <h3 className="text-xs md:text-sm font-sans font-extrabold text-white mb-0.5">{t("Alpaslan Coskun & Akay Kula")}</h3>
                   <p className="text-[10px] md:text-xs font-sans text-slate-300">{t("Persönliche Ansprechpartner für strategische Immobilieninvestments.")}</p>
                 </div>
 
@@ -374,16 +434,12 @@ export default function TrustAuthoritySection() {
                 </div>
 
               </div>
-            </motion.div>
+            </div>
           </div>
 
           {/* STATISTICS GRID CARD PANEL (lg:col-span-7) */}
           <div className="w-full flex flex-col">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.15 }}
+            <div
               className="bg-[#102035] border border-white/10 rounded-[2.5rem] p-8 grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 items-stretch text-left shadow-xl h-full relative text-white"
             >
               
@@ -426,7 +482,7 @@ export default function TrustAuthoritySection() {
                 );
               })}
 
-            </motion.div>
+            </div>
           </div>
 
         </div>

@@ -1,6 +1,7 @@
+import OptimizedImage, { getOptimizedImageProps } from './OptimizedImage';
 import { useLanguage } from '../i18n';
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { m as motion, AnimatePresence } from 'motion/react';
 import { Hotspot, TabType } from '../types';
 import { CheckCircle2, DollarSign, Calculator, Percent, Sparkles, Play, Award, ArrowUpRight, HelpCircle, X, Check } from 'lucide-react';
 
@@ -85,7 +86,7 @@ export default function InteractiveHouseCard() {
 
         {/* Dynamic content wrapper with animation */}
         <div className="flex-1 flex flex-col">
-          <AnimatePresence mode="wait">
+          <AnimatePresence initial={false} mode="wait">
             
             {/* TAB 1: STRATEGIE */}
             {activeTab === 'strategie' && (
@@ -98,7 +99,7 @@ export default function InteractiveHouseCard() {
                 className="flex-1 flex flex-col justify-between"
               >
                 <div>
-                  <h3 className="text-xl md:text-2xl font-serif font-semibold text-[#091726] tracking-tight mb-2">{t("Ihre individuelle Investment-Strategie")}</h3>
+                  <h2 className="text-xl md:text-2xl font-serif font-semibold text-[#091726] tracking-tight mb-2">{t("Ihre individuelle Investment-Strategie")}</h2>
                   <p className="text-sm text-gray-500 font-sans leading-relaxed mb-6">{t("Wir analysieren den Markt und stellen sicher, dass Ihre Wunsch-Immobilie perfekt zu Ihrer langfristigen Vermögensplanung passt.")}</p>
 
                   {/* Strategic Milestones */}
@@ -143,12 +144,12 @@ export default function InteractiveHouseCard() {
                           )}
                         </div>
                         <div className="flex-1">
-                          <h4 className="text-xs font-sans font-bold text-gray-800 uppercase tracking-wider flex items-center">
+                          <h3 className="text-xs font-sans font-bold text-gray-800 uppercase tracking-wider flex items-center">
                             {t(item.title)}
                             {item.status === 'active' && (
                               <span className="ml-2 px-1.5 py-0.5 bg-investo-gold text-[#040911] text-[9px] font-sans font-extrabold rounded-md uppercase tracking-widest leading-none">{t("Aktiv")}</span>
                             )}
-                          </h4>
+                          </h3>
                           <p className="text-xs text-gray-500 mt-0.5 leading-relaxed">{t(item.desc)}</p>
                         </div>
                       </div>
@@ -184,7 +185,7 @@ export default function InteractiveHouseCard() {
                 className="flex-1 flex flex-col justify-between"
               >
                 <div>
-                  <h3 className="text-xl md:text-2xl font-serif font-semibold text-[#091726] tracking-tight mb-2">{t("Finanzierungsrechner für Investoren")}</h3>
+                  <h2 className="text-xl md:text-2xl font-serif font-semibold text-[#091726] tracking-tight mb-2">{t("Finanzierungsrechner für Investoren")}</h2>
                   <p className="text-sm text-gray-500 font-sans leading-relaxed mb-6">{t("Berechnen Sie schnell und flexibel die monatliche Kreditrate sowie Ihren potenziellen monatlichen Cashflow.")}</p>
 
                   {/* Slider 1: Kaufpreis */}
@@ -195,6 +196,7 @@ export default function InteractiveHouseCard() {
                     </div>
                     <input
                       type="range"
+                      aria-label={t("Kaufpreis")}
                       min="100000"
                       max="1500000"
                       step="25000"
@@ -217,6 +219,7 @@ export default function InteractiveHouseCard() {
                     </div>
                     <input
                       type="range"
+                      aria-label={t("Eigenkapital")}
                       min="10000"
                       max={Math.round(budget * 0.6)}
                       step="5000"
@@ -271,15 +274,18 @@ export default function InteractiveHouseCard() {
                 className="flex-1 flex flex-col justify-between"
               >
                 <div className="mb-4">
-                  <h3 className="text-xl md:text-2xl font-serif font-semibold text-[#091726] tracking-tight mb-2">{t("Von der Strategie zur passenden Kapitalanlage.")}</h3>
+                  <h2 className="text-xl md:text-2xl font-serif font-semibold text-[#091726] tracking-tight mb-2">{t("Von der Strategie zur passenden Kapitalanlage.")}</h2>
                   <p className="text-sm text-gray-500 font-sans leading-relaxed">{t("Wir prüfen Ziele, Budget, Finanzierung und Objektart, bevor ausgewählte Immobilien empfohlen werden.")}</p>
                 </div>
 
                 {/* Overlapping Interactive House Container */}
-                <div className="relative w-full aspect-[4/3] md:aspect-[16/10] bg-gray-100 rounded-2xl overflow-hidden shadow-inner group">
+                <div className="relative w-full min-h-[230px] aspect-[4/3] md:aspect-[16/10] bg-gray-100 rounded-2xl overflow-hidden shadow-inner group">
                   {/* Modern Villa Base Image */}
-                  <img
+                  <OptimizedImage
                     src="/images/house-blue-porch.jpg"
+                    loading="eager"
+                    fetchPriority="high"
+                    sizes="(min-width: 1280px) 560px, (min-width: 1024px) 50vw, calc(100vw - 80px)"
                     alt={t("Blaues Haus mit Veranda und Garten")}
                     decoding="async"
                     referrerPolicy="no-referrer"
@@ -318,10 +324,11 @@ export default function InteractiveHouseCard() {
 
                     {/* Small interior visual */}
                     <div className="relative aspect-[4/3] rounded-xl overflow-hidden mb-2 shadow-sm bg-gray-200">
-                      <AnimatePresence mode="wait">
+                      <AnimatePresence initial={false} mode="wait">
                         <motion.img
                           key={selectedHotspot.id}
-                          src={selectedHotspot.image}
+                          {...getOptimizedImageProps(selectedHotspot.image)}
+                    sizes="(min-width: 768px) 160px, 124px"
                           alt={t(selectedHotspot.name)}
                           referrerPolicy="no-referrer"
                           initial={{ opacity: 0 }}
@@ -335,6 +342,7 @@ export default function InteractiveHouseCard() {
                       {/* Golden Play button overlay */}
                       <button 
                         onClick={() => setIsVideoModalOpen(true)}
+                        aria-label={t("Video abspielen")}
                         className="absolute inset-0 m-auto w-7 h-7 md:w-8 md:h-8 rounded-full bg-investo-gold text-[#040911] flex items-center justify-center shadow-md hover:bg-white hover:scale-110 transition-all duration-300 cursor-pointer"
                       >
                         <Play className="w-3 h-3 fill-current ml-0.5" />
@@ -342,7 +350,7 @@ export default function InteractiveHouseCard() {
                     </div>
 
                     {/* Changing Metadata */}
-                    <AnimatePresence mode="wait">
+                    <AnimatePresence initial={false} mode="wait">
                       <motion.div
                         key={selectedHotspot.id}
                         initial={{ opacity: 0, x: 5 }}
@@ -350,14 +358,14 @@ export default function InteractiveHouseCard() {
                         exit={{ opacity: 0, x: -5 }}
                         transition={{ duration: 0.2 }}
                       >
-                        <h4 className="text-[10px] md:text-[11px] font-sans font-bold text-[#091726] uppercase tracking-wider truncate">{t("PASSEND ZUM ANLEGERPROFIL")}</h4>
+                        <h3 className="text-[10px] md:text-[11px] font-sans font-bold text-[#091726] uppercase tracking-wider truncate">{t("PASSEND ZUM ANLEGERPROFIL")}</h3>
                         <p className="text-[9px] text-[#091726]/70 leading-normal mt-0.5">{t("Standort, Objektart und Strategie")}</p>
                       </motion.div>
                     </AnimatePresence>
                   </div>
                   
                   {/* Subtle dynamic background descriptor on bottom left */}
-                  <div className="absolute bottom-3 left-3 md:bottom-4 md:left-4 bg-black/60 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/10 text-white/90 text-[10px] font-sans max-w-[50%] pointer-events-none z-10 transition-opacity duration-300 hidden sm:block">
+                  <div className="absolute bottom-3 left-3 md:bottom-4 md:left-4 bg-[#142131] px-3 py-1.5 rounded-lg border border-white/10 text-white/90 text-[10px] font-sans max-w-[50%] pointer-events-none z-10 transition-opacity duration-300 hidden sm:block">
                     <p className="font-bold uppercase tracking-wider text-investo-gold">{t("DATENBASIERTE PRÜFUNG")}</p>
                     <p className="text-white/70 leading-normal mt-0.5 text-[9px] line-clamp-1">{t("Standort, Vermietbarkeit, Finanzierung und Risiko.")}</p>
                   </div>
@@ -399,13 +407,14 @@ export default function InteractiveHouseCard() {
 
               <div className="p-6 md:p-8 text-left">
                 <span className="text-[10px] font-sans font-bold tracking-widest text-investo-gold uppercase mb-2 block">{t("3D VIRTUAL TOUR & SHOWCASE")}</span>
-                <h3 className="text-xl md:text-2xl font-serif text-white mb-4">{t("Virtueller Rundgang: ")}{t(selectedHotspot.name)}
-                </h3>
+                <h2 className="text-xl md:text-2xl font-serif text-white mb-4">{t("Virtueller Rundgang: ")}{t(selectedHotspot.name)}
+                </h2>
 
                 {/* Simulated Tour Frame */}
                 <div className="relative aspect-video rounded-xl overflow-hidden bg-black/50 border border-white/5 flex items-center justify-center">
-                  <img
-                    src={selectedHotspot.image}
+                  <OptimizedImage
+                    {...getOptimizedImageProps(selectedHotspot.image)}
+                    sizes="(min-width: 768px) 608px, calc(100vw - 80px)"
                     alt={t("Tour frame")}
                     className="absolute inset-0 w-full h-full object-cover opacity-40 blur-[2px]"
                   />

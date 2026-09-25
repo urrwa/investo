@@ -1,6 +1,8 @@
+import OptimizedImage from './OptimizedImage';
 import { useLanguage } from '../i18n';
+import { useActiveAnimation } from '../hooks/useActiveAnimation';
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { m as motion, AnimatePresence } from 'motion/react';
 import { Shield, ArrowRight, X, Check, HelpCircle } from 'lucide-react';
 
 interface ComparisonRow {
@@ -95,6 +97,7 @@ interface WhyInvestoSectionProps {
 
 export default function WhyInvestoSection({ onCtaClick }: WhyInvestoSectionProps) {
   const { t } = useLanguage();
+  const { ref: animationRef, active: animateDecorations } = useActiveAnimation();
   const [hoveredRow, setHoveredRow] = useState<string | null>(null);
   const [activeDetailRow, setActiveDetailRow] = useState<ComparisonRow | null>(null);
 
@@ -146,12 +149,13 @@ export default function WhyInvestoSection({ onCtaClick }: WhyInvestoSectionProps
   ];
 
   return (
-    <section className="relative bg-[#16273D] text-white py-24 px-4 md:px-8 lg:px-12 overflow-hidden border-t border-white/5" id="why-investo-section">
+    <section ref={animationRef} className="relative bg-[#16273D] text-white py-24 px-4 md:px-8 lg:px-12 overflow-hidden border-t border-white/5" id="why-investo-section">
       
       {/* Blueprint background lines (Architectural elegance) */}
       <div className="absolute right-[-10%] bottom-[-5%] w-[45%] h-[55%] pointer-events-none opacity-[0.015] select-none mix-blend-screen">
-        <img
+        <OptimizedImage
           src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80"
+          sizes="45vw"
           alt={t("Technical blueprint draft layout")}
           referrerPolicy="no-referrer"
           className="w-full h-full object-contain filter invert"
@@ -159,40 +163,28 @@ export default function WhyInvestoSection({ onCtaClick }: WhyInvestoSectionProps
       </div>
 
       {/* Ambient glowing orbs */}
-      <div className="absolute top-1/4 left-1/4 w-[400px] h-[400px] bg-[#d4b27c]/[0.02] rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-blue-950/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-1/4 left-1/4 w-[400px] h-[400px] rounded-full pointer-events-none" style={{ backgroundImage: 'radial-gradient(ellipse at center, rgb(212 178 124 / 0.02) 0%, transparent 72%)' }} />
+      <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] rounded-full pointer-events-none" style={{ backgroundImage: 'radial-gradient(ellipse at center, oklch(28.2% 0.091 267.935 / 0.1) 0%, transparent 72%)' }} />
 
       <div className="max-w-7xl mx-auto relative z-10">
         
         {/* HEADER SECTION */}
         <div className="text-center mb-16 md:mb-20 flex flex-col items-center">
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-100px' }}
-            transition={{ duration: 0.5 }}
+          <div
             className="flex flex-col items-center"
           >
             <span className="text-[10px] md:text-xs font-sans font-extrabold tracking-[0.25em] text-[#d4b27c] uppercase">{t("WARUM INVESTO")}</span>
             <div className="w-10 h-[1.5px] bg-[#d4b27c] mt-3 mb-6" />
-          </motion.div>
+          </div>
 
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-100px' }}
-            transition={{ duration: 0.6, delay: 0.1 }}
+          <h2
             className="font-serif text-3xl md:text-4xl lg:text-5xl font-normal tracking-tight text-white leading-[1.15]"
           >{t("Warum ")}<span className="text-[#d4b27c] font-normal italic font-serif">{t("Investo")}</span>
-          </motion.h2>
+          </h2>
 
-          <motion.p
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-100px' }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+          <p
             className="text-xs md:text-sm lg:text-base font-sans font-light text-white/50 max-w-xl mt-4 leading-relaxed"
-          >{t("Was einen klassischen Immobilienkauf von unserem strategischen Ansatz unterscheidet.")}</motion.p>
+          >{t("Was einen klassischen Immobilienkauf von unserem strategischen Ansatz unterscheidet.")}</p>
         </div>
 
         {/* COMPARISON GRID CONTAINER */}
@@ -202,12 +194,12 @@ export default function WhyInvestoSection({ onCtaClick }: WhyInvestoSectionProps
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-8 items-stretch relative">
             
             {/* COLUMN LEFT: Klassischer Immobilienkauf */}
-            <div className="bg-[#091726]/20 border border-white/5 rounded-3xl p-6 lg:p-8 flex flex-col justify-between backdrop-blur-md relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-red-500/[0.01] rounded-full blur-2xl pointer-events-none" />
+            <div className="bg-[#091726]/20 border border-white/5 rounded-3xl p-6 lg:p-8 flex flex-col justify-between relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-32 h-32 rounded-full pointer-events-none" style={{ backgroundImage: 'radial-gradient(ellipse at center, oklch(63.7% 0.237 25.331 / 0.01) 0%, transparent 72%)' }} />
               
               {/* Header */}
               <div className="text-center md:text-left mb-8 min-h-[84px] border-b border-white/5 pb-5">
-                <span className="text-[10px] font-sans font-extrabold tracking-widest text-white/40 uppercase block mb-1">{t("HERKÖMMLICHER WEG")}</span>
+                <span className="text-[10px] font-sans font-extrabold tracking-widest text-slate-300 uppercase block mb-1">{t("HERKÖMMLICHER WEG")}</span>
                 <h3 className="font-serif text-lg md:text-xl text-white/80 font-normal">{t("Klassischer Immobilienkauf")}</h3>
               </div>
 
@@ -235,7 +227,7 @@ export default function WhyInvestoSection({ onCtaClick }: WhyInvestoSectionProps
                       </div>
                       
                       <div className="text-left flex-1">
-                        <span className="text-[9px] font-sans font-bold text-white/30 uppercase tracking-widest block mb-0.5">
+                        <span className="text-[9px] font-sans font-bold text-slate-300 uppercase tracking-widest block mb-0.5">
                           {t(row.rowLabel)}
                         </span>
                         <p className="text-sm md:text-base font-sans text-white/70 font-light">
@@ -255,16 +247,9 @@ export default function WhyInvestoSection({ onCtaClick }: WhyInvestoSectionProps
               <div className="absolute top-16 bottom-16 w-[1.5px] bg-gradient-to-b from-[#e5cc9c]/20 via-[#d4b27c]/60 to-[#b0915c]/20" />
 
               {/* Dynamic animated gold light flow down the line */}
-              <motion.div
-                animate={{
-                  y: ['-200px', '200px']
-                }}
-                transition={{
-                  duration: 4,
-                  repeat: Infinity,
-                  ease: 'linear'
-                }}
-                className="absolute w-[2px] h-20 bg-gradient-to-b from-transparent via-[#d4b27c] to-transparent"
+              <div
+                style={{ animationName: animateDecorations ? undefined : 'none' }}
+                className="investo-decorative-flow-vertical absolute w-[2px] h-20 bg-gradient-to-b from-transparent via-[#d4b27c] to-transparent"
               />
 
               {/* Arrow Indicator Nodes */}
@@ -272,9 +257,9 @@ export default function WhyInvestoSection({ onCtaClick }: WhyInvestoSectionProps
                 const isHovered = hoveredRow === row.id;
 
                 return (
-                  <motion.div
+                  <div
                     key={row.id}
-                    animate={isHovered ? { scale: 1.15 } : { scale: 1 }}
+                    style={{ scale: isHovered ? 1.15 : 1 }}
                     className={`w-8 h-8 rounded-full border flex items-center justify-center transition-all duration-300 shadow-md ${
                       isHovered
                         ? 'bg-[#d4b27c] border-[#d4b27c] text-black shadow-[0_0_15px_rgba(212,178,124,0.4)]'
@@ -282,15 +267,15 @@ export default function WhyInvestoSection({ onCtaClick }: WhyInvestoSectionProps
                     }`}
                   >
                     <ArrowRight className="w-4 h-4" />
-                  </motion.div>
+                  </div>
                 );
               })}
 
             </div>
 
             {/* COLUMN RIGHT: Strategisch begleitet investieren (Highlighted visually with gold outline & premium glow) */}
-            <div className="bg-[#091726]/40 border-2 border-[#d4b27c]/80 rounded-[2rem] p-6 lg:p-8 flex flex-col justify-between backdrop-blur-md relative shadow-[0_20px_50px_rgba(212,178,124,0.08)]">
-              <div className="absolute top-0 right-0 w-48 h-48 bg-[#d4b27c]/[0.02] rounded-full blur-3xl pointer-events-none" />
+            <div className="bg-[#091726]/40 border-2 border-[#d4b27c]/80 rounded-[2rem] p-6 lg:p-8 flex flex-col justify-between relative shadow-[0_20px_50px_rgba(212,178,124,0.08)]">
+              <div className="absolute top-0 right-0 w-48 h-48 rounded-full pointer-events-none" style={{ backgroundImage: 'radial-gradient(ellipse at center, rgb(212 178 124 / 0.02) 0%, transparent 72%)' }} />
               
               {/* Header */}
               <div className="text-center md:text-left mb-8 min-h-[84px] border-b border-[#d4b27c]/20 pb-5">
@@ -317,24 +302,20 @@ export default function WhyInvestoSection({ onCtaClick }: WhyInvestoSectionProps
                       }`}
                     >
                       {/* Highly styled glowing gold icon container with micro floating animation */}
-                      <motion.div
-                        animate={isHovered ? {
-                          y: [0, -3, 0],
-                        } : {}}
-                        transition={{
-                          duration: 2.5,
-                          repeat: Infinity,
-                          ease: 'easeInOut'
+                      <div
+                        style={{
+                          animationDuration: '2.5s',
+                          animationName: animateDecorations && isHovered ? undefined : 'none',
                         }}
-                        className={`w-12 h-12 rounded-full border flex items-center justify-center shrink-0 bg-[#040911]/90 transition-all duration-300 ${
+                        className={`investo-decorative-float investo-decorative-float-small w-12 h-12 rounded-full border flex items-center justify-center shrink-0 bg-[#040911]/90 transition-all duration-300 ${
                           isHovered ? 'border-[#d4b27c] shadow-[0_0_12px_rgba(212,178,124,0.25)]' : 'border-[#d4b27c]/30'
                         }`}
                       >
                         <InvestoIcon />
-                      </motion.div>
+                      </div>
                       
                       <div className="text-left flex-1">
-                        <span className="text-[9px] font-sans font-bold text-[#d4b27c]/60 uppercase tracking-widest block mb-0.5">
+                        <span className="text-[9px] font-sans font-bold text-[#d4b27c] uppercase tracking-widest block mb-0.5">
                           {t(row.rowLabel)}
                         </span>
                         <p className="text-sm md:text-base font-sans text-white font-bold tracking-wide">
@@ -361,11 +342,7 @@ export default function WhyInvestoSection({ onCtaClick }: WhyInvestoSectionProps
           <div className="absolute left-1/4 top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-[#d4b27c]/30 hidden md:block" />
           <div className="absolute right-1/4 top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-[#d4b27c]/30 hidden md:block" />
 
-          <motion.div
-            initial={{ opacity: 0, scale: 0.98 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true, margin: '-50px' }}
-            transition={{ duration: 0.6 }}
+          <div
             className="relative mx-auto max-w-xl bg-[#040911]/80 border border-white/10 rounded-full px-8 py-4 flex items-center justify-center space-x-3.5 shadow-[0_15px_35px_rgba(0,0,0,0.5)] z-10"
           >
             <div className="w-7 h-7 rounded-full bg-[#d4b27c]/15 border border-[#d4b27c]/30 flex items-center justify-center text-[#d4b27c] shrink-0">
@@ -374,7 +351,7 @@ export default function WhyInvestoSection({ onCtaClick }: WhyInvestoSectionProps
             
             <p className="text-xs md:text-sm font-sans font-light text-white/90 leading-none">{t("Strategisch. Datenbasiert. ")}<span className="text-[#d4b27c] font-semibold">{t("Persönlich begleitet.")}</span>
             </p>
-          </motion.div>
+          </div>
         </div>
 
       </div>
@@ -423,7 +400,7 @@ export default function WhyInvestoSection({ onCtaClick }: WhyInvestoSectionProps
                   
                   {/* Left Side: Classic */}
                   <div className="p-5 bg-white/[0.02] border border-white/5 rounded-2xl flex flex-col text-left">
-                    <span className="text-[10px] font-sans font-bold text-white/40 uppercase tracking-widest block mb-3">{t("HERKÖMMLICHER WEG")}</span>
+                    <span className="text-[10px] font-sans font-bold text-slate-300 uppercase tracking-widest block mb-3">{t("HERKÖMMLICHER WEG")}</span>
                     <h4 className="text-sm font-sans font-extrabold text-white/80 mb-2">
                       {t(activeDetailRow.classicText)}
                     </h4>

@@ -1,4 +1,7 @@
 {
+  "Inhalt konnte nicht geladen werden.": {"en": "Content could not be loaded.", "fr": "Le contenu n’a pas pu être chargé."},
+  "Seite neu laden": {"en": "Reload page", "fr": "Recharger la page"},
+  "Wird geladen …": {"en": "Loading…", "fr": "Chargement…"},
   "Zur Startseite": {
     "en": "Back to home",
     "fr": "Retour à l’accueil"

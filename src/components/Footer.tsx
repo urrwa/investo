@@ -1,3 +1,4 @@
+import OptimizedImage from './OptimizedImage';
 import { useLanguage } from '../i18n';
 import React from 'react';
 import { Phone, Mail, MapPin } from 'lucide-react';
@@ -8,7 +9,8 @@ interface FooterProps {
 
 export default function Footer({ onContactClick }: FooterProps) {
   const { t } = useLanguage();
-  const isLandingPage = window.location.pathname === '/';
+  const pathname = typeof window === 'undefined' ? '/' : window.location.pathname;
+  const isLandingPage = pathname === '/';
 
   const navLinks = [
     { label: 'Strategie', href: '#strategie-check-section' },
@@ -27,6 +29,7 @@ export default function Footer({ onContactClick }: FooterProps) {
   const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
     e.preventDefault();
+    document.documentElement.classList.add('render-all-sections');
     const targetId = href.replace('#', '');
     const element = document.getElementById(targetId);
     if (element) {
@@ -48,7 +51,7 @@ export default function Footer({ onContactClick }: FooterProps) {
             
             {/* COLUMN 1 – BRAND */}
             <div className="flex flex-col items-start text-left">
-              <img
+              <OptimizedImage sizes="(min-width: 768px) 205px, 195px"
                 src="https://res.cloudinary.com/dpwfzo2vk/image/upload/v1785267703/Ej5y1HdJNBRpyxVBnT39eVSRs_1_kud5ck.png"
                 alt={t("INVESTO IMMOBILIEN Logo")}
                 className="w-[195px] md:w-[205px] h-auto object-contain mb-6"
@@ -66,7 +69,10 @@ export default function Footer({ onContactClick }: FooterProps) {
                   <li key={link.label}>
                     <a
                       href={isLandingPage ? link.href : '/' + link.href}
-                      onClick={isLandingPage ? (e) => handleScroll(e, link.href) : undefined}
+                      onClick={(e) => {
+                        document.documentElement.classList.add('render-all-sections');
+                        if (isLandingPage) handleScroll(e, link.href);
+                      }}
                       className="text-slate-300 hover:text-[#D8A24E] transition-colors duration-200 inline-block font-light"
                     >
                       {t(link.label)}
@@ -103,7 +109,7 @@ export default function Footer({ onContactClick }: FooterProps) {
                   <li key={item.key}>
                     <a
                       href={'/' + item.key}
-                      aria-current={window.location.pathname.replace(/\/+$/, '') === '/' + item.key ? 'page' : undefined}
+                      aria-current={pathname.replace(/\/+$/, '') === '/' + item.key ? 'page' : undefined}
                       className="text-slate-300 hover:text-[#D8A24E] transition-colors duration-200 inline-block text-left font-light cursor-pointer"
                     >
                       {t(item.label)}

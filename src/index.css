@@ -1,10 +1,70 @@
-@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Inter:wght@300;400;500;600;700;800&family=Cinzel:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
+
+/* Self-hosted Google Fonts: original Latin and Latin-ext WOFF2 subsets. */
+
+/* Inter normal — latin-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 300 800;
+  font-display: swap;
+  src: url('/fonts/inter-latin-ext-normal.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* Inter normal — latin */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 300 800;
+  font-display: swap;
+  src: url('/fonts/inter-latin-normal.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* Lora italic — latin-ext */
+@font-face {
+  font-family: 'Lora';
+  font-style: italic;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('/fonts/lora-latin-ext-italic.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* Lora italic — latin */
+@font-face {
+  font-family: 'Lora';
+  font-style: italic;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('/fonts/lora-latin-italic.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* Lora normal — latin-ext */
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('/fonts/lora-latin-ext-normal.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* Lora normal — latin */
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('/fonts/lora-latin-normal.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
 
 @theme {
   --font-serif: "Lora", Georgia, serif;
   --font-sans: "Inter", system-ui, -apple-system, sans-serif;
-  --font-logo: "Cinzel", serif;
   
   --color-investo-gold: #d4b27c;
   --color-investo-gold-light: #e5cc9c;
@@ -121,4 +181,27 @@ header img[alt*="INVESTO"] {
     width: 130px !important;
     max-width: 130px !important;
   }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-partner-marquee, .hotspot-pulse::after { animation: none; }
+}
+
+/* Keep offscreen sections in the DOM while deferring their rendering work.
+   A section with an open fixed dialog must not establish paint containment. */
+#investo-root > section:not(:has(.fixed)) {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 900px;
+}
+
+@media (max-width: 767px) {
+  #investo-root > section:not(:has(.fixed)) {
+    contain-intrinsic-size: auto 1500px;
+  }
+}
+
+/* Resolve full section geometry before any anchor navigation. */
+html.render-all-sections #investo-root > section {
+  content-visibility: visible;
+  contain-intrinsic-size: none;
 }

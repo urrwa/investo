@@ -1,6 +1,7 @@
+import OptimizedImage from './OptimizedImage';
 import { useLanguage, type Language } from '../i18n';
 import React, { useRef, useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { m as motion, AnimatePresence } from 'motion/react';
 import { ChevronDown, Menu, X, Landmark, ArrowRight } from 'lucide-react';
 
 interface NavbarProps {
@@ -29,7 +30,7 @@ export default function Navbar({ onCheckClick }: NavbarProps) {
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         {/* Logo Section */}
         <a href="/" className="flex items-center group shrink-0" id="nav-logo">
-          <img
+          <OptimizedImage loading="eager" sizes="170px"
             src="https://res.cloudinary.com/dpwfzo2vk/image/upload/v1785267703/Ej5y1HdJNBRpyxVBnT39eVSRs_1_kud5ck.png"
             alt={t("Investo Immobilien Logo")}
             referrerPolicy="no-referrer"
@@ -43,6 +44,7 @@ export default function Navbar({ onCheckClick }: NavbarProps) {
             <a
               key={link.label}
               href={link.href}
+              onClick={() => document.documentElement.classList.add('render-all-sections')}
               className="relative text-sm text-white/80 hover:text-white transition-colors duration-200 font-sans font-medium py-1 group"
             >
               {t(link.label)}
@@ -143,6 +145,7 @@ export default function Navbar({ onCheckClick }: NavbarProps) {
         // Removing the clicked anchor can interrupt a native smooth scroll.
         // Start navigation once the drawer's exit animation has finished.
         if (pendingSection.current) {
+          document.documentElement.classList.add('render-all-sections');
           document.getElementById(pendingSection.current)?.scrollIntoView({ block: 'start' });
           pendingSection.current = null;
         }
@@ -166,6 +169,7 @@ export default function Navbar({ onCheckClick }: NavbarProps) {
                   onClick={event => {
                     if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
                     event.preventDefault();
+                    document.documentElement.classList.add('render-all-sections');
                     pendingSection.current = link.href.slice(1);
                     if (window.location.hash !== link.href) {
                       window.history.pushState(null, '', link.href);

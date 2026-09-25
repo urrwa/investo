@@ -1,6 +1,6 @@
-/danke /index.html 200
-/danke/ /index.html 200
-/impressum /index.html 200
-/impressum/ /index.html 200
-/datenschutz /index.html 200
-/datenschutz/ /index.html 200
+/danke /client.html 200
+/danke/ /client.html 200
+/impressum /client.html 200
+/impressum/ /client.html 200
+/datenschutz /client.html 200
+/datenschutz/ /client.html 200

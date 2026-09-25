@@ -1,6 +1,7 @@
+import OptimizedImage from './OptimizedImage';
 import { useLanguage } from '../i18n';
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { m as motion, AnimatePresence } from 'motion/react';
 import { Plus, ArrowRight } from 'lucide-react';
 
 interface FaqItem {
@@ -35,7 +36,7 @@ export default function FaqSection({ onCtaClick }: FaqSectionProps) {
       id="faq-section"
     >
       {/* Subtle background ambient glow for elite depth */}
-      <div className="absolute top-1/4 left-1/3 w-[600px] h-[600px] bg-[#d8a24e]/5 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute top-1/4 left-1/3 w-[600px] h-[600px] rounded-full pointer-events-none" style={{ backgroundImage: 'radial-gradient(ellipse at center, rgb(216 162 78 / 0.05) 0%, transparent 72%)' }} />
 
       <div className="max-w-7xl mx-auto relative z-10">
         
@@ -46,50 +47,35 @@ export default function FaqSection({ onCtaClick }: FaqSectionProps) {
           <div className="lg:col-span-5 flex flex-col text-left">
             
             {/* Small uppercase sub-header with thin underline */}
-            <motion.div
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
+            <div
               className="flex flex-col items-start mb-4"
             >
               <span className="text-[10px] md:text-xs font-sans font-extrabold tracking-[0.25em] text-[#d8a24e] uppercase">{t("HÄUFIGE FRAGEN")}</span>
               <div className="w-10 h-[1.5px] bg-[#d8a24e] mt-2.5" />
-            </motion.div>
+            </div>
 
             {/* Headline matching mockup precisely */}
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.1 }}
+            <h2
               className="font-serif text-3xl md:text-4xl lg:text-[45px] font-normal tracking-tight text-white leading-[1.15] mb-5"
             >{t("Klarheit ")}<br />
               <span className="text-[#d8a24e] font-serif font-normal">{t("von Anfang an.")}</span>
-            </motion.h2>
+            </h2>
 
             {/* Subheading text */}
-            <motion.p
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
+            <p
               className="text-xs md:text-sm lg:text-[14.5px] font-sans font-light text-white/60 max-w-sm mb-12 leading-relaxed"
-            >{t("Hier finden Sie Antworten auf die wichtigsten Fragen zu unserem Strategie-Check und dem Ablauf einer Zusammenarbeit.")}</motion.p>
+            >{t("Hier finden Sie Antworten auf die wichtigsten Fragen zu unserem Strategie-Check und dem Ablauf einer Zusammenarbeit.")}</p>
 
             {/* SIDE-BY-SIDE VISUAL & CTA GRID */}
             <div className="grid grid-cols-1 sm:grid-cols-12 gap-5 items-stretch w-full">
               
               {/* Property consultation image */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.98 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.7, delay: 0.25 }}
+              <div
                 className="sm:col-span-7 relative rounded-[1.5rem] overflow-hidden aspect-[4/3] sm:aspect-auto min-w-0 border border-white/5 shadow-xl group"
               >
-                <img 
+                <OptimizedImage
                   src="/images/faq-property-consultation.jpg"
+                  sizes="(min-width: 1440px) 279px, (min-width: 1024px) calc(24.305556vw - 71px), (min-width: 768px) calc(58.333333vw - 66.333333px), (min-width: 640px) calc(58.333333vw - 38.333333px), calc(100vw - 50px)"
                   alt={t("Beratungsgespräch über einen Immobiliengrundriss")}
                   loading="lazy"
                   decoding="async"
@@ -98,14 +84,10 @@ export default function FaqSection({ onCtaClick }: FaqSectionProps) {
                 />
                 {/* Subtle dark ambient vignette */}
                 <div className="absolute inset-0 bg-gradient-to-t from-[#020b14]/20 via-transparent to-transparent pointer-events-none" />
-              </motion.div>
+              </div>
 
               {/* Right advisory CTA card matching reference design */}
-              <motion.div
-                initial={{ opacity: 0, y: 15 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.3 }}
+              <div
                 className="sm:col-span-5 rounded-[1.5rem] border border-[#d8a24e]/20 bg-[#051a2e]/45 p-6 flex flex-col justify-between text-left shadow-xl relative overflow-hidden group hover:border-[#d8a24e]/40 transition-all duration-300"
               >
                 {/* Custom golden speech bubble with "?" badge */}
@@ -140,7 +122,7 @@ export default function FaqSection({ onCtaClick }: FaqSectionProps) {
                   </div>
                 </button>
 
-              </motion.div>
+              </div>
 
             </div>
 
@@ -153,12 +135,8 @@ export default function FaqSection({ onCtaClick }: FaqSectionProps) {
               const isExpanded = expandedId === faq.id;
 
               return (
-                <motion.div
+                <div
                   key={faq.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
                   className={`bg-[#051a2e]/35 border rounded-[1.5rem] overflow-hidden transition-all duration-300 relative ${
                     isExpanded
                       ? 'border-[#d8a24e]/50 bg-[#07243d]/70 shadow-[0_15px_30px_rgba(216,162,78,0.05)]'
@@ -224,7 +202,7 @@ export default function FaqSection({ onCtaClick }: FaqSectionProps) {
                     )}
                   </AnimatePresence>
 
-                </motion.div>
+                </div>
               );
             })}
 

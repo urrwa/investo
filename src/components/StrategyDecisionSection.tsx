@@ -1,6 +1,7 @@
+import OptimizedImage from './OptimizedImage';
 import { useLanguage } from '../i18n';
 import React, { useEffect, useRef, useState } from 'react';
-import { motion } from 'motion/react';
+import { m as motion } from 'motion/react';
 import { ArrowRight, Search, Target, TrendingUp, Check, Shield, User, Clock, Play, Pause } from 'lucide-react';
 
 interface StrategyDecisionSectionProps {
@@ -14,6 +15,7 @@ export default function StrategyDecisionSection({ onCtaClick, onContactClick }: 
   const pausedByUser = useRef(false);
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const [videoFailed, setVideoFailed] = useState(false);
+  const [loadPoster, setLoadPoster] = useState(false);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -33,11 +35,16 @@ export default function StrategyDecisionSection({ onCtaClick, onContactClick }: 
       updatePlayback();
     }, { threshold: 0.25 });
 
+    const posterObserver = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) { setLoadPoster(true); posterObserver.disconnect(); }
+    }, { rootMargin: "300px 0px" });
+    posterObserver.observe(video);
     observer.observe(video);
     reducedMotion.addEventListener('change', updatePlayback);
     document.addEventListener('visibilitychange', updatePlayback);
     return () => {
       observer.disconnect();
+      posterObserver.disconnect();
       reducedMotion.removeEventListener('change', updatePlayback);
       document.removeEventListener('visibilitychange', updatePlayback);
       video.pause();
@@ -135,36 +142,24 @@ export default function StrategyDecisionSection({ onCtaClick, onContactClick }: 
           <div className="xl:col-span-5 flex flex-col text-left">
             
             {/* Header label with line */}
-            <motion.div
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
+            <div
               className="flex flex-col items-start mb-6"
             >
               <span className="text-[10px] md:text-xs font-sans font-extrabold tracking-[0.25em] text-investo-gold uppercase">{t("IHR NÄCHSTER SCHRITT")}</span>
               <div className="h-[1.5px] w-12 bg-investo-gold mt-2.5" />
-            </motion.div>
+            </div>
 
             {/* Title with exact coloring & linebreaks matching mockup */}
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.1 }}
+            <h2
               className="font-serif text-3xl md:text-4xl lg:text-[46px] font-normal tracking-tight text-white leading-[1.12] mb-6"
             >{t("Starten Sie mit Ihrer ")}<br />{t("persönlichen ")}<br />
               <span className="text-investo-gold font-serif font-normal">{t("Strategieanalyse.")}</span>
-            </motion.h2>
+            </h2>
 
             {/* Subtitle description */}
-            <motion.p
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
+            <p
               className="text-xs md:text-sm lg:text-[15.5px] font-sans font-light text-slate-300 leading-relaxed mb-10 max-w-xl"
-            >{t("Im kostenfreien Strategie-Check betrachten wir Ihre Ausgangssituation, definieren Ihre Ziele und zeigen Ihnen, welche nächsten Schritte für Sie sinnvoll sind – persönlich, transparent und ohne Druck.")}</motion.p>
+            >{t("Im kostenfreien Strategie-Check betrachten wir Ihre Ausgangssituation, definieren Ihre Ziele und zeigen Ihnen, welche nächsten Schritte für Sie sinnvoll sind – persönlich, transparent und ohne Druck.")}</p>
 
             {/* Two Premium Interactive Buttons - Stacked Vertically like Reference Image */}
             <div className="flex flex-col space-y-4 w-full max-w-lg">
@@ -198,11 +193,7 @@ export default function StrategyDecisionSection({ onCtaClick, onContactClick }: 
 
           {/* RIGHT COLUMN: Strategy timeline and property video */}
           <div className="xl:col-span-7 w-full">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.98, y: 25 }}
-              whileInView={{ opacity: 1, scale: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7 }}
+            <div
               className="bg-[#102035] border border-white/10 rounded-[2rem] p-8 md:p-10 shadow-2xl relative overflow-hidden flex flex-col md:flex-row items-stretch gap-8 h-full"
             >
               
@@ -256,7 +247,7 @@ export default function StrategyDecisionSection({ onCtaClick, onContactClick }: 
                 <video
                   ref={videoRef}
                   aria-label={t("Video: Europäische Wohnimmobilien")}
-                  poster="/images/strategy-property-video-poster.jpg"
+                  poster={loadPoster ? "/images/optimized/strategy-property-video-poster-ac16f997-640.webp" : undefined}
                   preload="none"
                   muted
                   loop
@@ -269,8 +260,9 @@ export default function StrategyDecisionSection({ onCtaClick, onContactClick }: 
                   <source src="/videos/strategy-property-tour.mp4" type="video/mp4" onError={handleVideoError} />
                 </video>
                 {videoFailed && (
-                  <img
+                  <OptimizedImage
                     src="/images/strategy-property-video-poster.jpg"
+                    sizes="(min-width: 1440px) 304.24px, (min-width: 1280px) calc(28vw - 98.96px), (min-width: 1024px) calc(48vw - 118.16px), (min-width: 768px) calc(48vw - 87.44px), calc(100vw - 116px)"
                     alt={t("Standbild europäischer Wohnimmobilien")}
                     className="absolute inset-0 w-full h-full object-cover object-center"
                   />
@@ -295,17 +287,13 @@ export default function StrategyDecisionSection({ onCtaClick, onContactClick }: 
                 )}
               </div>
 
-            </motion.div>
+            </div>
           </div>
 
         </div>
 
         {/* BOTTOM ROW: High Contrast Premium Trust highlights Bar */}
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.1 }}
+        <div
           className="bg-[#102035] border border-white/10 rounded-[1.5rem] px-8 py-6.5 grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-3 gap-6 items-center shadow-xl relative"
         >
           {highlights.map((item, idx) => {
@@ -342,7 +330,7 @@ export default function StrategyDecisionSection({ onCtaClick, onContactClick }: 
               </div>
             );
           })}
-        </motion.div>
+        </div>
 
       </div>
     </section>

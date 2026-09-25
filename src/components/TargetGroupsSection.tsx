@@ -1,6 +1,8 @@
+import OptimizedImage from './OptimizedImage';
 import { useLanguage } from '../i18n';
+import { useActiveAnimation } from '../hooks/useActiveAnimation';
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { m as motion, AnimatePresence } from 'motion/react';
 import { Shield, ArrowRight, X, TrendingUp, HelpCircle, CheckCircle2 } from 'lucide-react';
 
 interface TargetGroupItem {
@@ -55,6 +57,7 @@ interface TargetGroupsSectionProps {
 
 export default function TargetGroupsSection({ onCtaClick }: TargetGroupsSectionProps) {
   const { t } = useLanguage();
+  const { ref: animationRef, active: animateDecorations } = useActiveAnimation();
   const [activeGroup, setActiveGroup] = useState<string | null>(null);
   const [hoveredGroup, setHoveredGroup] = useState<string | null>(null);
 
@@ -132,12 +135,13 @@ export default function TargetGroupsSection({ onCtaClick }: TargetGroupsSectionP
   const activeGroupData = groups.find(g => g.id === activeGroup);
 
   return (
-    <section className="relative bg-[#16273D] text-white py-24 px-4 md:px-8 lg:px-12 overflow-hidden border-t border-white/5" id="target-groups-section">
+    <section ref={animationRef} className="relative bg-[#16273D] text-white py-24 px-4 md:px-8 lg:px-12 overflow-hidden border-t border-white/5" id="target-groups-section">
       
       {/* Decorative Blueprint Background graphic */}
       <div className="absolute left-[-15%] top-[-5%] w-[50%] h-[60%] pointer-events-none opacity-[0.02] select-none mix-blend-screen">
-        <img
+        <OptimizedImage
           src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=80"
+          sizes="50vw"
           alt={t("Technical building sketch blueprint")}
           referrerPolicy="no-referrer"
           className="w-full h-full object-contain filter invert"
@@ -145,40 +149,28 @@ export default function TargetGroupsSection({ onCtaClick }: TargetGroupsSectionP
       </div>
 
       {/* Atmospheric lighting gradients */}
-      <div className="absolute top-1/4 right-1/4 w-[450px] h-[450px] bg-blue-950/15 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-1/4 left-1/4 w-[450px] h-[450px] bg-indigo-950/15 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-1/4 right-1/4 w-[450px] h-[450px] rounded-full pointer-events-none" style={{ backgroundImage: 'radial-gradient(ellipse at center, oklch(28.2% 0.091 267.935 / 0.15) 0%, transparent 72%)' }} />
+      <div className="absolute bottom-1/4 left-1/4 w-[450px] h-[450px] rounded-full pointer-events-none" style={{ backgroundImage: 'radial-gradient(ellipse at center, oklch(25.7% 0.09 281.288 / 0.15) 0%, transparent 72%)' }} />
 
       <div className="max-w-7xl mx-auto relative z-10">
         
         {/* UPPER TITLE BLOCK */}
         <div className="text-center mb-16 md:mb-20 flex flex-col items-center">
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-100px' }}
-            transition={{ duration: 0.5 }}
+          <div
             className="flex flex-col items-center"
           >
             <span className="text-[10px] md:text-xs font-sans font-extrabold tracking-[0.25em] text-[#d4b27c] uppercase">{t("FÜR WEN WIR ARBEITEN")}</span>
             <div className="w-10 h-[1.5px] bg-[#d4b27c] mt-3 mb-6" />
-          </motion.div>
+          </div>
 
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-100px' }}
-            transition={{ duration: 0.6, delay: 0.1 }}
+          <h2
             className="font-serif text-3xl md:text-4xl lg:text-5xl font-normal tracking-tight text-white leading-[1.15]"
           >{t("Unterschiedliche Ausgangslagen. ")}<span className="text-[#d4b27c] font-normal italic font-serif">{t("Ein gemeinsames Ziel.")}</span>
-          </motion.h2>
+          </h2>
 
-          <motion.p
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-100px' }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+          <p
             className="text-xs md:text-sm lg:text-base font-sans font-light text-white/50 max-w-xl mt-4 leading-relaxed"
-          >{t("Wir begleiten Menschen, die Immobilien gezielt für ihren langfristigen Vermögensaufbau nutzen möchten – von der ersten Kapitalanlage bis zum bestehenden Portfolio.")}</motion.p>
+          >{t("Wir begleiten Menschen, die Immobilien gezielt für ihren langfristigen Vermögensaufbau nutzen möchten – von der ersten Kapitalanlage bis zum bestehenden Portfolio.")}</p>
         </div>
 
         {/* ELEGANT TARGET CONNECTIONS TREE (Visible on desktop screens md+) */}
@@ -209,41 +201,41 @@ export default function TargetGroupsSection({ onCtaClick }: TargetGroupsSectionP
             <circle cx="875" cy="55" r="3" fill="#d4b27c" />
 
             {/* Flowing golden dash representing dynamic strategy distribution */}
-            <motion.path
+            <path
               d="M 500,5 L 500,25 L 125,25 L 125,55"
               stroke="#e5cc9c"
               strokeWidth="1.2"
               fill="none"
               strokeDasharray="10 80"
-              animate={{ strokeDashoffset: [90, 0] }}
-              transition={{ duration: 4.5, repeat: Infinity, ease: 'linear' }}
+              className="investo-decorative-dash"
+              style={{ animationDuration: '4.5s', animationName: animateDecorations ? undefined : 'none' }}
             />
-            <motion.path
+            <path
               d="M 500,5 L 500,25 L 375,25 L 375,55"
               stroke="#e5cc9c"
               strokeWidth="1.2"
               fill="none"
               strokeDasharray="10 80"
-              animate={{ strokeDashoffset: [90, 0] }}
-              transition={{ duration: 4, repeat: Infinity, ease: 'linear' }}
+              className="investo-decorative-dash"
+              style={{ animationName: animateDecorations ? undefined : 'none' }}
             />
-            <motion.path
+            <path
               d="M 500,5 L 500,25 L 625,25 L 625,55"
               stroke="#e5cc9c"
               strokeWidth="1.2"
               fill="none"
               strokeDasharray="10 80"
-              animate={{ strokeDashoffset: [90, 0] }}
-              transition={{ duration: 4, repeat: Infinity, ease: 'linear' }}
+              className="investo-decorative-dash"
+              style={{ animationName: animateDecorations ? undefined : 'none' }}
             />
-            <motion.path
+            <path
               d="M 500,5 L 500,25 L 875,25 L 875,55"
               stroke="#e5cc9c"
               strokeWidth="1.2"
               fill="none"
               strokeDasharray="10 80"
-              animate={{ strokeDashoffset: [90, 0] }}
-              transition={{ duration: 4.5, repeat: Infinity, ease: 'linear' }}
+              className="investo-decorative-dash"
+              style={{ animationDuration: '4.5s', animationName: animateDecorations ? undefined : 'none' }}
             />
           </svg>
 
@@ -257,21 +249,12 @@ export default function TargetGroupsSection({ onCtaClick }: TargetGroupsSectionP
             const isActive = activeGroup === group.id;
 
             return (
-              <motion.div
+              <div
                 key={group.id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-50px' }}
-                transition={{ 
-                  type: 'spring', 
-                  stiffness: 60, 
-                  damping: 15, 
-                  delay: idx * 0.1 
-                }}
                 onMouseEnter={() => setHoveredGroup(group.id)}
                 onMouseLeave={() => setHoveredGroup(null)}
                 onClick={() => setActiveGroup(isActive ? null : group.id)}
-                className={`relative bg-[#091726]/40 border rounded-[1.75rem] p-6 md:p-8 flex flex-col items-center text-center backdrop-blur-md cursor-pointer transition-all duration-300 min-h-[340px] justify-between ${
+                className={`relative bg-[#091726]/40 border rounded-[1.75rem] p-6 md:p-8 flex flex-col items-center text-center cursor-pointer transition-all duration-300 min-h-[340px] justify-between ${
                   isActive || isHovered
                     ? 'border-[#d4b27c] bg-[#0c1e30]/80 shadow-[0_20px_45px_rgba(212,178,124,0.1)] -translate-y-1'
                     : 'border-white/10 hover:border-white/20 shadow-[0_10px_35px_rgba(0,0,0,0.3)]'
@@ -280,7 +263,7 @@ export default function TargetGroupsSection({ onCtaClick }: TargetGroupsSectionP
               >
                 
                 {/* Step indicator in top left corner of card */}
-                <div className="absolute top-4 left-4 w-8 h-8 rounded-lg border border-white/10 bg-white/[0.02] flex items-center justify-center text-xs font-mono font-bold text-[#d4b27c]/70">
+                <div className="absolute top-4 left-4 w-8 h-8 rounded-lg border border-white/10 bg-white/[0.02] flex items-center justify-center text-xs font-mono font-bold text-[#d4b27c]/85">
                   {t(group.num)}
                 </div>
 
@@ -292,23 +275,19 @@ export default function TargetGroupsSection({ onCtaClick }: TargetGroupsSectionP
                   }`} />
 
                   {/* Elegant golden circular container with micro floating animation */}
-                  <motion.div
-                    animate={!isHovered ? {
-                      y: [0, -3, 0],
-                    } : {}}
-                    transition={{
-                      duration: 3 + idx * 0.4,
-                      repeat: Infinity,
-                      ease: 'easeInOut'
+                  <div
+                    style={{
+                      animationDuration: `${3 + idx * 0.4}s`,
+                      animationName: animateDecorations && !isHovered ? undefined : 'none',
                     }}
-                    className={`w-20 h-20 rounded-full border-2 flex items-center justify-center transition-all duration-300 relative ${
+                    className={`investo-decorative-float investo-decorative-float-small w-20 h-20 rounded-full border-2 flex items-center justify-center transition-all duration-300 relative ${
                       isHovered || isActive
                         ? 'border-[#d4b27c] bg-white/[0.03] scale-105 shadow-[0_0_20px_rgba(212,178,124,0.2)]'
                         : 'border-white/10'
                     }`}
                   >
                     <IconComp />
-                  </motion.div>
+                  </div>
                 </div>
 
                 {/* Card Title & Short Description */}
@@ -323,11 +302,11 @@ export default function TargetGroupsSection({ onCtaClick }: TargetGroupsSectionP
                 </div>
 
                 {/* Interactive Click helper indicator */}
-                <span className="text-[10px] font-sans font-bold tracking-widest text-[#d4b27c]/50 group-hover:text-[#d4b27c] uppercase transition-colors duration-300">
+                <span className="text-[10px] font-sans font-bold tracking-widest text-[#d4b27c]/85 group-hover:text-[#d4b27c] uppercase transition-colors duration-300">
                   {t(isActive ? 'Schließen' : 'Details einsehen')}
                 </span>
 
-              </motion.div>
+              </div>
             );
           })}
         </div>
@@ -340,11 +319,7 @@ export default function TargetGroupsSection({ onCtaClick }: TargetGroupsSectionP
           <div className="absolute left-1/4 top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-[#d4b27c]/40 hidden md:block" />
           <div className="absolute right-1/4 top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-[#d4b27c]/40 hidden md:block" />
 
-          <motion.div
-            initial={{ opacity: 0, scale: 0.98 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true, margin: '-50px' }}
-            transition={{ duration: 0.6 }}
+          <div
             className="relative mx-auto max-w-2xl bg-[#040911]/80 border border-[#d4b27c]/20 rounded-full px-8 py-4 flex items-center justify-center space-x-3.5 shadow-[0_10px_30px_rgba(0,0,0,0.5)] z-10"
           >
             <div className="w-7 h-7 rounded-full bg-[#d4b27c]/10 border border-[#d4b27c]/30 flex items-center justify-center text-[#d4b27c] shrink-0">
@@ -352,7 +327,7 @@ export default function TargetGroupsSection({ onCtaClick }: TargetGroupsSectionP
             </div>
             
             <p className="text-xs md:text-sm font-sans font-light text-white/85 leading-none">{t("Individuell. Strategisch. Auf ")}<span className="text-[#d4b27c] font-semibold">{t("Ihre Ziele")}</span>{t(" ausgerichtet.")}</p>
-          </motion.div>
+          </div>
         </div>
 
       </div>
