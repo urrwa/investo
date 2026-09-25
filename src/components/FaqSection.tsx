@@ -80,24 +80,24 @@ export default function FaqSection({ onCtaClick }: FaqSectionProps) {
             {/* SIDE-BY-SIDE VISUAL & CTA GRID */}
             <div className="grid grid-cols-1 sm:grid-cols-12 gap-5 items-stretch w-full">
               
-              {/* Left premium twilight real estate image card */}
+              {/* Property consultation image */}
               <motion.div
                 initial={{ opacity: 0, scale: 0.98 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.7, delay: 0.25 }}
-                className="sm:col-span-7 relative rounded-[1.5rem] overflow-hidden min-h-[220px] sm:min-h-0 border border-white/5 shadow-xl group"
+                className="sm:col-span-7 relative rounded-[1.5rem] overflow-hidden aspect-[4/3] sm:aspect-auto min-w-0 border border-white/5 shadow-xl group"
               >
                 <img 
-                  src="/images/house-warm-evening.jpg" 
-                  alt={t("Wohnhaus im warmen Abendlicht unter einem Wolkenhimmel")}
+                  src="/images/faq-property-consultation.png"
+                  alt={t("Symbolbild: Immobilienberatung mit Grundriss und Schlüsseln auf einem Schreibtisch")}
                   loading="lazy"
                   decoding="async"
                   referrerPolicy="no-referrer"
-                  className="absolute inset-0 w-full h-full object-cover object-[center_88%] group-hover:scale-105 transition-transform duration-[2000ms] ease-out"
+                  className="absolute inset-0 w-full h-full object-cover object-center motion-safe:group-hover:scale-[1.03] motion-safe:transition-transform duration-[2000ms] ease-out"
                 />
                 {/* Subtle dark ambient vignette */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#020b14]/70 via-transparent to-transparent pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#020b14]/20 via-transparent to-transparent pointer-events-none" />
               </motion.div>
 
               {/* Right advisory CTA card matching reference design */}
