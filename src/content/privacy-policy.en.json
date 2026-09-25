@@ -1,0 +1,289 @@
+{
+  "title": "Data protection",
+  "tocLabel": "On this page",
+  "backToTop": "Back to top",
+  "sections": [
+    {
+      "id": "privacy-overview",
+      "title": "Data protection at a glance",
+      "blocks": [
+        {
+          "type": "heading",
+          "text": "General information",
+          "level": 3
+        },
+        {
+          "type": "paragraph",
+          "text": "The following information provides a quick overview of what happens to your personal data when you visit our website. Personal data is information that can be used to identify you personally. Detailed information on data protection can be found in the privacy policy below."
+        },
+        {
+          "type": "heading",
+          "text": "Data collection on this website",
+          "level": 3
+        },
+        {
+          "type": "heading",
+          "text": "Responsible body",
+          "level": 4
+        },
+        {
+          "type": "paragraph",
+          "text": "Data processing on this website is carried out by the website operator. Contact details can be found in the section \"Information on the responsible party\" in this privacy policy."
+        },
+        {
+          "type": "heading",
+          "text": "How do we collect your data?",
+          "level": 4
+        },
+        {
+          "type": "list",
+          "items": [
+            "Through your active communication, e.g., when entering information into a contact form.",
+            "Our IT systems automatically collect technical data as soon as you access the website (e.g., browser type, operating system, time of page access)."
+          ]
+        },
+        {
+          "type": "heading",
+          "text": "What do we use your data for?",
+          "level": 4
+        },
+        {
+          "type": "list",
+          "items": [
+            "For the error-free operation of the website.",
+            "To analyze your user behavior in order to optimize our services."
+          ]
+        },
+        {
+          "type": "heading",
+          "text": "Your rights",
+          "level": 3
+        },
+        {
+          "type": "paragraph",
+          "text": "You have the right:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "To obtain information about the origin, recipients and purpose of your stored data.",
+            "To request the correction or deletion of your data.",
+            "You may revoke your consent to data processing at any time.",
+            "Under certain circumstances, you have the right to request the restriction of the processing of your data.",
+            "To file a complaint with the relevant supervisory authority."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "privacy-hosting",
+      "title": "2. Hosting",
+      "blocks": [
+        {
+          "type": "heading",
+          "text": "Hosted by Framer",
+          "level": 3
+        },
+        {
+          "type": "paragraph",
+          "text": "Our website is hosted by Framer . All data processing activities associated with hosting are subject to Framer's privacy policy. You can find more information in Framer's privacy statement."
+        },
+        {
+          "type": "link",
+          "text": "Privacy Policy: Framer Privacy",
+          "href": "https://www.framer.com/legal/privacy-statement"
+        },
+        {
+          "type": "paragraph",
+          "text": "Legal basis: Art. 6 para. 1 lit. f GDPR (legitimate interest in a reliable presentation of the website)."
+        },
+        {
+          "type": "paragraph",
+          "text": "If consent is required, processing is carried out in accordance with Art. 6 para. 1 lit. a GDPR & § 25 para. 1 TTDSG. Since the website runs via Framer, further specific consent may be required for tracking or the storage of cookies. In this case, processing is carried out in accordance with the relevant legal requirements set out in Framer's cookie policy."
+        },
+        {
+          "type": "paragraph",
+          "text": "We have entered into a data processing agreement (DPA) with Framer to ensure that personal data is processed in accordance with applicable data protection regulations."
+        }
+      ]
+    },
+    {
+      "id": "privacy-disclosures",
+      "title": "3. General information and mandatory disclosures",
+      "blocks": [
+        {
+          "type": "heading",
+          "text": "Data protection",
+          "level": 3
+        },
+        {
+          "type": "paragraph",
+          "text": "We treat your personal data confidentially and in accordance with the statutory data protection regulations and this privacy policy. Please note that data transmission over the Internet (e.g., via email) can have security vulnerabilities."
+        },
+        {
+          "type": "heading",
+          "text": "Responsible body",
+          "level": 3
+        },
+        {
+          "type": "contact",
+          "text": "Alspaslan Coskun & Akay Kula, \nMaximilianstraße 15c, 87719 Mindelheim,\n info@investo-immobilien.de \n, +49 (0) 175 7111 188"
+        },
+        {
+          "type": "heading",
+          "text": "Storage duration",
+          "level": 3
+        },
+        {
+          "type": "paragraph",
+          "text": "Personal data will be stored until the purpose of the data processing no longer applies or you request its deletion, unless legal regulations require longer retention."
+        },
+        {
+          "type": "heading",
+          "text": "Legal basis",
+          "level": 3
+        },
+        {
+          "type": "list",
+          "items": [
+            "Processing with consent: Art. 6 para. 1 lit. a GDPR",
+            "Contractual performance: Art. 6 para. 1 lit. b GDPR",
+            "Legal obligations: Art. 6 para. 1 lit. c GDPR",
+            "Legitimate interest: Art. 6 para. 1 lit. f GDPR"
+          ]
+        },
+        {
+          "type": "heading",
+          "text": "Recipients of data",
+          "level": 3
+        },
+        {
+          "type": "paragraph",
+          "text": "We only share personal data when necessary for contract fulfillment, due to legal obligations, or based on a legitimate interest. If external services or integrations of Framer process personal data, these will be explicitly listed here and handled in accordance with applicable data protection regulations."
+        },
+        {
+          "type": "heading",
+          "text": "Revocation of your consent",
+          "level": 3
+        },
+        {
+          "type": "paragraph",
+          "text": "You can withdraw your consent at any time without affecting the lawfulness of the processing carried out up to that point."
+        },
+        {
+          "type": "heading",
+          "text": "Right to object pursuant to Article 21 GDPR",
+          "level": 3
+        },
+        {
+          "type": "list",
+          "items": [
+            "Objection to special data processing : If your data is processed on the basis of Art. 6 para. 1 lit. e or f GDPR, you can object for personal reasons.",
+            "Opting out of direct marketing : If your data is used for direct marketing, you can object at any time."
+          ]
+        },
+        {
+          "type": "heading",
+          "text": "Right to lodge a complaint with a supervisory authority",
+          "level": 3
+        },
+        {
+          "type": "paragraph",
+          "text": "In case of a data protection breach, you can contact the relevant supervisory authority."
+        }
+      ]
+    },
+    {
+      "id": "privacy-data-collection",
+      "title": "4. Data collection on this website",
+      "blocks": [
+        {
+          "type": "heading",
+          "text": "Cookies and tracking technologies",
+          "level": 3
+        },
+        {
+          "type": "paragraph",
+          "text": "Our website uses cookies to analyze user behavior and optimize our services. The following tracking technologies are used:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Facebook Pixel : Used to analyze user interactions and to target advertising on Facebook.",
+            "Google Ads Conversion Tracking : Enables the measurement of the effectiveness of our Google advertising campaigns."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The processing is based on Article 6(1)(a) GDPR, provided you have given your consent. You can adjust or withdraw your cookie settings at any time."
+        },
+        {
+          "type": "heading",
+          "text": "Inquiries via email, telephone or fax",
+          "level": 3
+        },
+        {
+          "type": "paragraph",
+          "text": "Your requests and the data they contain will be stored for processing."
+        },
+        {
+          "type": "paragraph",
+          "text": "Legal basis: Art. 6 para. 1 lit. b GDPR (performance of a contract) or Art. 6 para. 1 lit. f GDPR (legitimate interest in smooth communication)."
+        },
+        {
+          "type": "paragraph",
+          "text": "Data is stored until you request deletion or the purpose for which it was collected no longer applies."
+        }
+      ]
+    },
+    {
+      "id": "privacy-tools",
+      "title": "5. Plugins and Tools",
+      "blocks": [
+        {
+          "type": "heading",
+          "text": "Spam protection (CleanTalk & Framer security measures)",
+          "level": 3
+        },
+        {
+          "type": "paragraph",
+          "text": "Provider: CleanTalk Inc, 711 S Carson Street, Suite 4, Carson City, NV, 89701, USA."
+        },
+        {
+          "type": "paragraph",
+          "text": "Purpose: To protect the website from spam activity."
+        },
+        {
+          "type": "paragraph",
+          "text": "Data processed: IP address, email address, browser technologies used, user behavior, interactions with the website, and other tracking information collected by Framer, insofar as this is necessary for the functionality of the site."
+        },
+        {
+          "type": "paragraph",
+          "text": "Legal basis: Art. 6 para. 1 lit. f GDPR (legitimate interest in the protection of the website)."
+        },
+        {
+          "type": "link",
+          "text": "Privacy Policy: CleanTalk Privacy",
+          "href": "https://cleantalk.org/publicoffer#privacy"
+        },
+        {
+          "type": "paragraph",
+          "text": "Data transfers to the USA are based on the EU Commission's Standard Contractual Clauses or the EU-US Data Privacy Framework, provided Framer participates in these frameworks. Further information can be found in Framer's privacy policy."
+        },
+        {
+          "type": "paragraph",
+          "text": "Data processing agreement : A corresponding contract has been concluded."
+        },
+        {
+          "type": "heading",
+          "text": "SSL/TLS encryption:",
+          "level": 3
+        },
+        {
+          "type": "paragraph",
+          "text": "This website uses SSL/TLS encryption to protect confidential data. You can recognize an encrypted connection by the \"https://\" in your browser's address bar."
+        }
+      ]
+    }
+  ]
+}

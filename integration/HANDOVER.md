@@ -12,7 +12,7 @@ Implemented the supplied 24 September 2026 contract in the existing landing page
 6. Exact DE/EN/FR consultation and separate newsletter wording: consent-text.json. Version 2026-09-24-v1 is a draft implementation version. The contract's client-approved-v1 example is not evidence that this wording was approved.
 7. Thank-you route: /danke. It requires a verified server receipt and does not promise an appointment or confirm that a callback task already exists.
 
-Legal subpages at /impressum and /datenschutz preserve the existing company details and external full-policy reference. They do not supply a newly reviewed privacy policy.
+Legal subpages are available at /impressum and /datenschutz. The privacy page contains the user-supplied policy in English with German and French translations, including its provider and tracking claims. The text was formatted and translated, not legally reviewed; its Framer, CleanTalk, Facebook Pixel and Google Ads references do not describe services configured in the current code. Policy content is maintained in src/content/privacy-policy.*.json.
 
 ## What changed
 

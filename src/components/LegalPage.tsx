@@ -2,6 +2,7 @@ import React from 'react';
 import { ArrowLeft, ExternalLink } from 'lucide-react';
 import { useLanguage, type Language } from '../i18n';
 import Footer from './Footer';
+import PrivacyPolicy from './PrivacyPolicy';
 
 export type LegalPageKind = 'impressum' | 'datenschutz';
 
@@ -96,22 +97,7 @@ export default function LegalPage({ page }: { page: LegalPageKind }) {
               </div>
             </div>
           ) : (
-            <div className="space-y-8">
-              <section aria-labelledby="privacy-heading">
-                <h2 id="privacy-heading" className="font-serif text-xl md:text-2xl text-white mb-3">{t('Datenschutzerklärung')}</h2>
-                <p className="mb-5">{t('Die vollständige Datenschutzerklärung von Investo Immobilien ist über den folgenden Link verfügbar.')}</p>
-                <a href="https://www.investo-immobilien.de/datenschutz" target="_blank" rel="noopener noreferrer" className={linkClass}>
-                  {t('Vollständige Datenschutzerklärung von Investo Immobilien lesen')} <ExternalLink className="inline w-4 h-4 ml-1" aria-hidden="true" />
-                </a>
-              </section>
-              <section aria-labelledby="privacy-contact-heading" className="border-t border-white/10 pt-8">
-                <h2 id="privacy-contact-heading" className="font-semibold text-white mb-3">{t('Kontakt für Datenschutzanfragen')}</h2>
-                <p className="font-semibold text-white">Investo Immobilien UG</p>
-                <p className="mb-4">Maximilianstraße 15c<br />{t('87719 Mindelheim, Deutschland')}</p>
-                <p><a href="mailto:info@investo-immobilien.de" className={linkClass}>info@investo-immobilien.de</a></p>
-                <p><a href="tel:+491757111188" className={linkClass}>+49 (0) 175 7111 188</a></p>
-              </section>
-            </div>
+            <PrivacyPolicy />
           )}
         </article>
       </main>

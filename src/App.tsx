@@ -26,7 +26,7 @@ export default function App() {
   const pathname = window.location.pathname.replace(/\/+$/, '') || '/';
   useEffect(() => {
     // Cross-page fragment navigation can run before React mounts the sections.
-    if (pathname !== '/' || !window.location.hash) return;
+    if (!window.location.hash) return;
     const frame = requestAnimationFrame(() => {
       document.getElementById(window.location.hash.slice(1))?.scrollIntoView({ block: 'start' });
     });
