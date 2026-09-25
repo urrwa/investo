@@ -23,8 +23,6 @@ export default function Footer({ onContactClick }: FooterProps) {
   const legalLinks = [
     { label: 'Impressum', key: 'impressum' },
     { label: 'Datenschutz', key: 'datenschutz' },
-    { label: 'Cookie-Einstellungen', key: 'cookies' },
-    { label: 'Rechtliche Hinweise', key: 'hinweise' },
   ];
 
   const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
@@ -131,7 +129,7 @@ export default function Footer({ onContactClick }: FooterProps) {
         </div>
       </footer>
 
-      {/* LEGAL MODAL DIALOG FOR IMPRESSUM / DATENSCHUTZ / COOKIES / RECHTLICHE HINWEISE */}
+      {/* LEGAL MODAL DIALOG FOR IMPRESSUM / DATENSCHUTZ */}
       <AnimatePresence>
         {activeModal && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
@@ -182,23 +180,6 @@ export default function Footer({ onContactClick }: FooterProps) {
                   <p><a className="text-[#D8A24E] underline" href="https://www.investo-immobilien.de/datenschutz" target="_blank" rel="noopener noreferrer">{t("Vollständige Datenschutzerklärung von Investo Immobilien lesen")}</a></p>
                 )}
 
-                {activeModal === 'cookies' && (
-                  <>
-                    <p className="font-semibold text-white">{t("Cookie-Einstellungen & Präferenzen:")}</p>
-                    <p>{t("Diese Webseite nutzt essentielle technische Cookies für einen reibungslosen Betrieb und zur Bereitstellung interaktiver Analysetools. Sie können Ihre Einstellungen jederzeit anpassen.")}</p>
-                    <div className="pt-2">
-                      <span className="inline-block px-3 py-1.5 rounded-lg bg-[#D8A24E]/10 text-[#D8A24E] border border-[#D8A24E]/20 text-xs font-semibold">{t("Essentielle Cookies: Aktiviert")}</span>
-                    </div>
-                  </>
-                )}
-
-                {activeModal === 'hinweise' && (
-                  <>
-                    <p className="font-semibold text-white">{t("Rechtliche Hinweise & Haftungsausschluss:")}</p>
-                    <p>{t("Die Inhalte unserer Seiten wurden mit größter Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte können wir jedoch keine Gewähr übernehmen.")}</p>
-                    <p>{t("Die dargestellten Renditeberechnungen und Immobilienanalysen sind unverbindliche Beispiele und stellen keine Anlage-, Steuer- oder Rechtsberatung dar.")}</p>
-                  </>
-                )}
               </div>
 
               <div className="mt-6 pt-4 border-t border-white/10 flex justify-end">
