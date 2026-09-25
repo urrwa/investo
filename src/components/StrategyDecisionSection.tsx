@@ -1,7 +1,7 @@
 import { useLanguage } from '../i18n';
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'motion/react';
-import { ArrowRight, Search, Target, TrendingUp, Check, Shield, User, Clock, Award } from 'lucide-react';
+import { ArrowRight, Search, Target, TrendingUp, Check, Shield, User, Clock, Play, Pause } from 'lucide-react';
 
 interface StrategyDecisionSectionProps {
   onCtaClick?: () => void;
@@ -10,6 +10,57 @@ interface StrategyDecisionSectionProps {
 
 export default function StrategyDecisionSection({ onCtaClick, onContactClick }: StrategyDecisionSectionProps) {
   const { t } = useLanguage();
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const pausedByUser = useRef(false);
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+  const [videoFailed, setVideoFailed] = useState(false);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let isVisible = false;
+    const updatePlayback = () => {
+      if (isVisible && !document.hidden && !reducedMotion.matches && !pausedByUser.current) {
+        void video.play().catch(() => { /* Keep the play control available if autoplay is blocked. */ });
+      } else {
+        video.pause();
+      }
+    };
+    const observer = new IntersectionObserver(([entry]) => {
+      isVisible = entry.isIntersecting && entry.intersectionRatio >= 0.25;
+      updatePlayback();
+    }, { threshold: 0.25 });
+
+    observer.observe(video);
+    reducedMotion.addEventListener('change', updatePlayback);
+    document.addEventListener('visibilitychange', updatePlayback);
+    return () => {
+      observer.disconnect();
+      reducedMotion.removeEventListener('change', updatePlayback);
+      document.removeEventListener('visibilitychange', updatePlayback);
+      video.pause();
+    };
+  }, []);
+
+  const toggleVideoPlayback = () => {
+    const video = videoRef.current;
+    if (!video) return;
+    if (video.paused) {
+      pausedByUser.current = false;
+      void video.play().catch(() => { /* The poster remains visible if playback is unavailable. */ });
+    } else {
+      pausedByUser.current = true;
+      video.pause();
+    }
+  };
+
+  const handleVideoError = () => {
+    videoRef.current?.pause();
+    setVideoFailed(true);
+  };
+
   const steps = [
     {
       id: 1,
@@ -78,10 +129,10 @@ export default function StrategyDecisionSection({ onCtaClick, onContactClick }: 
       <div className="max-w-7xl mx-auto relative z-10">
         
         {/* UPPER MAIN LAYOUT: Text Column Left, Elegant Visual Card Right */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center mb-16 md:mb-20">
+        <div className="grid grid-cols-1 xl:grid-cols-12 gap-12 xl:gap-16 items-center mb-16 md:mb-20">
           
           {/* LEFT COLUMN: Headings and Action CTAs */}
-          <div className="lg:col-span-5 flex flex-col text-left">
+          <div className="xl:col-span-5 flex flex-col text-left">
             
             {/* Header label with line */}
             <motion.div
@@ -145,8 +196,8 @@ export default function StrategyDecisionSection({ onCtaClick, onContactClick }: 
 
           </div>
 
-          {/* RIGHT COLUMN: Splendid Visual Card with Multi-Step Timeline & Luxury Building */}
-          <div className="lg:col-span-7 w-full">
+          {/* RIGHT COLUMN: Strategy timeline and property video */}
+          <div className="xl:col-span-7 w-full">
             <motion.div
               initial={{ opacity: 0, scale: 0.98, y: 25 }}
               whileInView={{ opacity: 1, scale: 1, y: 0 }}
@@ -200,24 +251,48 @@ export default function StrategyDecisionSection({ onCtaClick, onContactClick }: 
 
               </div>
 
-              {/* Card Right Part: High-end Evening Villa Render (curved beautifully to fit) */}
-              <div className="w-full md:w-[48%] relative min-h-[220px] md:min-h-0 rounded-[1.5rem] overflow-hidden shadow-md shrink-0 z-10 group border border-white/10">
-                <img 
-                  src="/images/house-turquoise-terrace.jpg" 
-                  alt={t("Weißes Haus mit türkisfarbener Terrasse und Ziegeldach")}
-                  loading="lazy"
-                  decoding="async"
-                  referrerPolicy="no-referrer"
-                  className="absolute inset-0 w-full h-full object-cover object-[center_75%] group-hover:scale-105 transition-transform duration-[2000ms]"
-                />
+              {/* Property footage with a still poster and accessible playback control */}
+              <div className="w-full md:w-[48%] relative aspect-square md:aspect-auto min-w-0 rounded-[1.5rem] overflow-hidden shadow-md shrink-0 z-10 group border border-white/10">
+                <video
+                  ref={videoRef}
+                  aria-label={t("Video: Europäische Wohnimmobilien")}
+                  poster="/images/strategy-property-video-poster.jpg"
+                  preload="none"
+                  muted
+                  loop
+                  playsInline
+                  onPlay={() => setIsVideoPlaying(true)}
+                  onPause={() => setIsVideoPlaying(false)}
+                  onError={handleVideoError}
+                  className="absolute inset-0 w-full h-full object-cover object-center"
+                >
+                  <source src="/videos/strategy-property-tour.mp4" type="video/mp4" onError={handleVideoError} />
+                </video>
+                {videoFailed && (
+                  <img
+                    src="/images/strategy-property-video-poster.jpg"
+                    alt={t("Standbild europäischer Wohnimmobilien")}
+                    className="absolute inset-0 w-full h-full object-cover object-center"
+                  />
+                )}
                 
-                {/* Modern evening ambient linear vignette */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
+                {/* Soft bottom gradient for the brand caption */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
                 
                 {/* Subtle light reflections inside visual */}
                 <div className="absolute inset-x-4 bottom-4 text-left select-none pointer-events-none">
                   <p className="font-mono text-[9px] tracking-wider text-white/50 uppercase">{t("INVESTO IMMOBILIEN")}</p>
                 </div>
+                {!videoFailed && (
+                  <button
+                    type="button"
+                    onClick={toggleVideoPlayback}
+                    aria-label={t(isVideoPlaying ? "Video pausieren" : "Video abspielen")}
+                    className="absolute top-3 right-3 z-10 w-9 h-9 rounded-full border border-white/30 bg-[#102035]/80 text-white flex items-center justify-center cursor-pointer hover:bg-[#102035] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                  >
+                    {isVideoPlaying ? <Pause className="w-4 h-4" aria-hidden="true" /> : <Play className="w-4 h-4" aria-hidden="true" />}
+                  </button>
+                )}
               </div>
 
             </motion.div>

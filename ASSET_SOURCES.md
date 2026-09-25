@@ -1,5 +1,16 @@
 # Asset and data sources
 
+## Strategy section property video
+
+- Video: `public/videos/strategy-property-tour.mp4` (1280 × 720, approximately 13 seconds).
+- Matching poster: `public/images/strategy-property-video-poster.jpg`.
+- Source: [European style buildings, Mixkit 4352](https://mixkit.co/free-stock-video/european-style-buildings-4352/).
+- Video download: https://assets.mixkit.co/videos/4352/4352-720.mp4
+- Poster download: https://assets.mixkit.co/videos/4352/4352-thumb-720-0.jpg
+- License: [Mixkit Stock Video Free License](https://mixkit.co/license/), commercial and personal website use permitted by the individual source page; checked 2026-09-25.
+- Authentic stock footage of Paris apartment buildings, used illustratively. These are not represented as actual Investo listings or a German location.
+- Files are hosted locally and copied unchanged. The video loops silently while the section is visible, pauses offscreen, and offers translated play/pause controls. Reduced-motion users initially see the matching still poster and can start playback manually. Mobile framing is square, with the desktop video fitting beside the strategy steps.
+
 ## FAQ consultation image
 
 `public/images/faq-property-consultation.png` — generated on 2026-09-25 with the built-in image generation tool (not the CLI). Illustrative property consultation at a desk; it does not depict actual Investo employees or clients. The generated PNG is copied unchanged, with responsive CSS cropping and a light bottom gradient. German, English and French alt text identify it as illustrative.
@@ -15,7 +26,7 @@ Four original JPG attachments supplied by the user on 2026-09-24 replace the rep
 - `public/images/house-blue-porch.jpg` — attachment 3; hero property showcase.
 - `public/images/house-garden-dusk.jpg` — attachment 1; Strategy Check section.
 - `public/images/house-warm-evening.jpg` — attachment 2; former FAQ image, retained but no longer displayed.
-- `public/images/house-turquoise-terrace.jpg` — attachment 4; closing strategy section.
+- `public/images/house-turquoise-terrace.jpg` — attachment 4; former closing strategy image, retained but no longer displayed.
 
 Descriptive alt text is available in German, English and French. These are illustrative photographs; their locations are not asserted.
 
