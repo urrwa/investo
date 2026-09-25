@@ -89,8 +89,8 @@ export default function FaqSection({ onCtaClick }: FaqSectionProps) {
                 className="sm:col-span-7 relative rounded-[1.5rem] overflow-hidden aspect-[4/3] sm:aspect-auto min-w-0 border border-white/5 shadow-xl group"
               >
                 <img 
-                  src="/images/faq-property-consultation.png"
-                  alt={t("Symbolbild: Immobilienberatung mit Grundriss und Schlüsseln auf einem Schreibtisch")}
+                  src="/images/faq-property-consultation.jpg"
+                  alt={t("Beratungsgespräch über einen Immobiliengrundriss")}
                   loading="lazy"
                   decoding="async"
                   referrerPolicy="no-referrer"

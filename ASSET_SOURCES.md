@@ -1,5 +1,25 @@
 # Asset and data sources
 
+## Real consultation and strategy photographs
+
+The strategy steps and FAQ use photographer-created stock photographs, not AI-generated pictures. Step 3 retains the user's original house photograph. All new photographs were downloaded from Pexels on 2026-09-25 as compressed 1600-pixel-wide JPEGs. Their content is unchanged; framing and overlays use CSS.
+
+| Placement | Saved asset | Photographer and original source |
+| --- | --- | --- |
+| Step 1 — first conversation | `public/images/strategy-step-consultation.jpg` | Kindel Media — [Couple listening to an adviser explaining documents, 7979438](https://www.pexels.com/photo/a-couple-listening-to-the-person-explaining-the-details-of-the-documents-on-the-table-7979438/) |
+| Step 2 — financing | `public/images/strategy-step-financing.jpg` | RDNE Stock project — [Real estate agent using a calculator, 8292839](https://www.pexels.com/photo/a-real-estate-agent-using-a-calculator-8292839/) |
+| Step 3 — property matching | `public/images/house-garden-dusk.jpg` | Original user-supplied photograph |
+| Step 4 — review and decision | `public/images/strategy-step-decision.jpg` | RDNE Stock project — [Property documents on a clipboard, 8292784](https://www.pexels.com/photo/person-reading-and-holding-document-files-on-clip-board-8292784/) |
+| FAQ — personal advice | `public/images/faq-property-consultation.jpg` | Alena Darmel — [Property blueprint discussion, 7641854](https://www.pexels.com/photo/man-showing-a-property-blueprint-to-a-couple-7641854/) |
+
+License: [Pexels License](https://www.pexels.com/license/), permitting commercial website use and cropping. Stock models and properties are illustrative; they are not presented as actual Investo employees, customers, endorsers or listings.
+
+Original file endpoints:
+- https://images.pexels.com/photos/7979438/pexels-photo-7979438.jpeg
+- https://images.pexels.com/photos/8292839/pexels-photo-8292839.jpeg
+- https://images.pexels.com/photos/8292784/pexels-photo-8292784.jpeg
+- https://images.pexels.com/photos/7641854/pexels-photo-7641854.jpeg
+
 ## Strategy section property video
 
 - Video: `public/videos/strategy-property-tour.mp4` (1280 × 720, approximately 13 seconds).
@@ -11,20 +31,12 @@
 - Authentic stock footage of Paris apartment buildings, used illustratively. These are not represented as actual Investo listings or a German location.
 - Files are hosted locally and copied unchanged. The video loops silently while the section is visible, pauses offscreen, and offers translated play/pause controls. Reduced-motion users initially see the matching still poster and can start playback manually. Mobile framing is square, with the desktop video fitting beside the strategy steps.
 
-## FAQ consultation image
-
-`public/images/faq-property-consultation.png` — generated on 2026-09-25 with the built-in image generation tool (not the CLI). Illustrative property consultation at a desk; it does not depict actual Investo employees or clients. The generated PNG is copied unchanged, with responsive CSS cropping and a light bottom gradient. German, English and French alt text identify it as illustrative.
-
-Final generation prompt:
-
-> Use case: photorealistic-natural. Asset type: editorial photograph for the FAQ section of Investo, a German property investment advisory website with navy blue and muted gold design. Create a convincing natural photograph of a thoughtful property consultation at a warm oak desk, framed as a quiet close-up of an architectural apartment floor plan, an understated brass pen and two simple house keys on a dark navy leather key fob. An adviser in a navy wool jacket points to the floor plan with the pen; a client's relaxed hand and neutral beige sleeve are visible near the opposite edge. Only hands and forearms, no faces or identifying features. Exactly two anatomically natural visible hands. Frame the floor plan and discussion centrally so they remain legible in a tight near-square website card and a portrait crop. Portrait 4:5 composition, camera at a gentle 45-degree overhead angle, realistic soft daylight from a nearby office window, warm wood grain, off-white paper texture, softly blurred background with a hint of a contemporary office. Restrained contrast and natural photography color, no CGI, no miniature house, no house facade, no excessive empty sky, no dramatic spotlight, no staged handshake, no charts with implausible numbers. Floor plan consists of fine architectural lines without legible words. No text overlay, watermark or logos. The resulting image should feel approachable, professional and candid, like a high-quality documentary photograph, and clearly convey discussing property questions and finding clarity.
-
 ## User-supplied house photographs
 
 Four original JPG attachments supplied by the user on 2026-09-24 replace the repeated property image. Files are copied unchanged; framing uses CSS object positioning.
 
 - `public/images/house-blue-porch.jpg` — attachment 3; hero property showcase.
-- `public/images/house-garden-dusk.jpg` — attachment 1; Strategy Check section.
+- `public/images/house-garden-dusk.jpg` — attachment 1; property-matching step in the Strategy Check section.
 - `public/images/house-warm-evening.jpg` — attachment 2; former FAQ image, retained but no longer displayed.
 - `public/images/house-turquoise-terrace.jpg` — attachment 4; former closing strategy image, retained but no longer displayed.
 

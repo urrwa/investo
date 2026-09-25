@@ -1,4 +1,16 @@
 {
+  "Persönliches Gespräch über Immobilienziele": {
+    "en": "Personal consultation about property goals",
+    "fr": "Entretien personnalisé sur les objectifs immobiliers"
+  },
+  "Finanzierungsberatung mit Unterlagen und Taschenrechner": {
+    "en": "Financing consultation with documents and a calculator",
+    "fr": "Conseil en financement avec documents et calculatrice"
+  },
+  "Gemeinsame Prüfung von Immobilienunterlagen": {
+    "en": "Reviewing property documents together",
+    "fr": "Examen commun des documents immobiliers"
+  },
   "Blaues Haus mit Veranda und Garten": {
     "en": "Blue house with a porch and garden",
     "fr": "Maison bleue avec porche et jardin"
@@ -7,9 +19,9 @@
     "en": "House with a wooden balcony and flowering garden at dusk",
     "fr": "Maison avec balcon en bois et jardin fleuri au crépuscule"
   },
-  "Symbolbild: Immobilienberatung mit Grundriss und Schlüsseln auf einem Schreibtisch": {
-    "en": "Illustrative image: property consultation with a floor plan and keys on a desk",
-    "fr": "Image d’illustration : conseil immobilier avec un plan et des clés sur un bureau"
+  "Beratungsgespräch über einen Immobiliengrundriss": {
+    "en": "Property consultation over an architectural floor plan",
+    "fr": "Conseil immobilier autour d’un plan architectural"
   },
   "Video: Europäische Wohnimmobilien": {
     "en": "Video: European residential properties",

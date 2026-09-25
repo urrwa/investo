@@ -1,7 +1,7 @@
 import { useLanguage } from '../i18n';
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
-import { Check, ArrowRight, User, Target, Home, Shield, TrendingUp, Sparkles, Landmark, HelpCircle, X } from 'lucide-react';
+import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
+import { Check, ArrowRight, User, Target, Home, Shield, TrendingUp } from 'lucide-react';
 
 interface StrategyCheckSectionProps {
   onStartClick?: () => void;
@@ -9,7 +9,8 @@ interface StrategyCheckSectionProps {
 
 export default function StrategyCheckSection({ onStartClick }: StrategyCheckSectionProps) {
   const { t } = useLanguage();
-  const [hoveredStep, setHoveredStep] = useState<number | null>(null);
+  const [selectedStep, setSelectedStep] = useState(1);
+  const reduceMotion = useReducedMotion();
   const [selectedBullet, setSelectedBullet] = useState<number | null>(null);
 
   const checkListItems = [
@@ -41,30 +42,39 @@ export default function StrategyCheckSection({ onStartClick }: StrategyCheckSect
       title: 'Erstgespräch & Zielanalyse',
       sub: 'Ihre finanziellen Ziele, Eigenkapital und Wünsche stehen im Mittelpunkt.',
       icon: User,
-      desc: 'In einem ersten Gespräch erfassen wir Ihre finanziellen Rahmenbedingungen und Anlageziele.'
+      image: '/images/strategy-step-consultation.jpg',
+      imageAlt: 'Persönliches Gespräch über Immobilienziele',
+      imagePosition: 'center center'
     },
     {
       num: 2,
       title: 'Strategie & Finanzierung',
       sub: 'Wir berechnen passende Modelle, prüfen Budgets und schaffen ein klares Bild.',
       icon: Target,
-      desc: 'Unsere Experten berechnen realistische Szenarien und strukturieren den Finanzierungsrahmen.'
+      image: '/images/strategy-step-financing.jpg',
+      imageAlt: 'Finanzierungsberatung mit Unterlagen und Taschenrechner',
+      imagePosition: 'center center'
     },
     {
       num: 3,
       title: 'Objekt-Matching',
       sub: 'Sie erhalten ausgewählte Immobilien, die gezielt zu Ihrer Strategie passen.',
       icon: Home,
-      desc: 'Wir präsentieren Ihnen geprüfte Objekte, die exakt zu Ihrer Strategie passen.'
+      image: '/images/house-garden-dusk.jpg',
+      imageAlt: 'Haus mit Holzbalkon und blühendem Garten in der Abenddämmerung',
+      imagePosition: 'center 30%'
     },
     {
       num: 4,
       title: 'Auswertung & Entscheidung',
       sub: 'Sie entscheiden auf Basis transparenter Zahlen und nachvollziehbarer Fakten.',
       icon: Shield,
-      desc: 'Auf Basis aufbereiteter Daten treffen Sie Ihre Kaufentscheidung sicher und mit gutem Gefühl.'
+      image: '/images/strategy-step-decision.jpg',
+      imageAlt: 'Gemeinsame Prüfung von Immobilienunterlagen',
+      imagePosition: 'center center'
     }
   ];
+  const activeStep = steps.find((step) => step.num === selectedStep)!;
 
   return (
     <section className="relative bg-[#16273D] text-white py-24 px-6 md:px-12 lg:py-32 overflow-hidden border-t border-white/5" id="strategie-check-section">
@@ -169,31 +179,47 @@ export default function StrategyCheckSection({ onStartClick }: StrategyCheckSect
               id="stepper-visual-card"
             >
               {/* The dynamic center property image */}
-              <div className="relative aspect-[16/10] bg-[#16273D] rounded-3xl overflow-hidden group shadow-md mb-8">
-                <img
-                  src="/images/house-garden-dusk.jpg"
-                  alt={t("Haus mit Holzbalkon und blühendem Garten in der Abenddämmerung")}
-                  loading="lazy"
-                  decoding="async"
-                  referrerPolicy="no-referrer"
-                  className="w-full h-full object-cover object-[center_30%] transition-transform duration-700 group-hover:scale-103"
-                />
+              <div
+                id="strategy-step-visual"
+                role="region"
+                aria-labelledby={`strategy-step-${selectedStep}`}
+                className="relative aspect-[16/10] bg-[#16273D] rounded-3xl overflow-hidden shadow-md mb-8"
+              >
+                {steps.map((step) => (
+                  <motion.img
+                    key={step.num}
+                    src={step.image}
+                    alt={selectedStep === step.num ? t(step.imageAlt) : ''}
+                    aria-hidden={selectedStep !== step.num}
+                    loading="lazy"
+                    decoding="async"
+                    initial={false}
+                    animate={{ opacity: selectedStep === step.num ? 1 : 0 }}
+                    transition={{ duration: reduceMotion ? 0 : 0.3 }}
+                    style={{ objectPosition: step.imagePosition }}
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
+                ))}
                 
-                {/* Visual shade gradient overlay */}
+                {/* Visual shade gradient keeps the active-step caption readable. */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/5 to-transparent pointer-events-none" />
 
                 {/* Left Floating badge: "Ihre Strategie. Unsere Analyse. Ihr Vorteil." */}
-                <div className="absolute top-4 left-4 md:top-6 md:left-6 bg-[#040911]/90 backdrop-blur-md px-4 py-3 rounded-2xl border border-white/15 text-white text-left shadow-2xl flex items-center space-x-3.5 z-20 max-w-[85%] sm:max-w-xs hover:border-investo-gold transition-colors duration-300">
-                  <div className="w-8 h-8 rounded-full bg-investo-gold/10 border border-investo-gold/30 flex items-center justify-center text-investo-gold shrink-0">
+                <div className="absolute top-3 left-3 sm:top-4 sm:left-4 md:top-6 md:left-6 bg-[#040911]/90 backdrop-blur-md px-3 py-2 sm:px-4 sm:py-3 rounded-2xl border border-white/15 text-white text-left shadow-2xl flex items-center space-x-2 sm:space-x-3.5 z-20 max-w-[85%] sm:max-w-xs">
+                  <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-investo-gold/10 border border-investo-gold/30 flex items-center justify-center text-investo-gold shrink-0">
                     <TrendingUp className="w-4.5 h-4.5" />
                   </div>
                   <div>
-                    <h4 className="text-[10px] font-sans font-extrabold tracking-widest text-[#d4b27c] uppercase">{t("Ihre Strategie.")}</h4>
-                    <p className="text-[11px] text-white/90 font-medium leading-normal mt-0.5">{t("Unsere Analyse. Ihr Vorteil.")}</p>
+                    <h4 className="text-[9px] sm:text-[10px] font-sans font-extrabold tracking-widest text-[#d4b27c] uppercase">{t("Ihre Strategie.")}</h4>
+                    <p className="hidden sm:block text-[11px] text-white/90 font-medium leading-normal mt-0.5">{t("Unsere Analyse. Ihr Vorteil.")}</p>
                   </div>
                 </div>
 
-
+                <p aria-live="polite" aria-atomic="true" className="absolute bottom-3 left-3 right-3 sm:bottom-4 sm:left-4 sm:right-4 md:bottom-6 md:left-6 md:right-6 text-[10px] sm:text-xs font-sans font-semibold text-white leading-snug drop-shadow-md">
+                  <span className="text-[#d4b27c]">{t('Schritt ')}{activeStep.num}</span>
+                  <span className="mx-2" aria-hidden="true">/</span>
+                  {t(activeStep.title)}
+                </p>
               </div>
 
               {/* Dotted tracer graphics linking steps exactly as in reference mockup */}
@@ -219,22 +245,29 @@ export default function StrategyCheckSection({ onStartClick }: StrategyCheckSect
               </div>
 
               {/* Stepper with 4 numbered point icons positioned cleanly without overlap */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-5 relative z-10 text-left" id="card-stepper">
+              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 lg:gap-5 relative z-10 text-left" id="card-stepper">
                 {steps.map((step) => {
                   const IconComp = step.icon;
-                  const isHovered = hoveredStep === step.num;
+                  const isSelected = selectedStep === step.num;
                   return (
-                    <div
+                    <button
                       key={step.num}
-                      onMouseEnter={() => setHoveredStep(step.num)}
-                      onMouseLeave={() => setHoveredStep(null)}
-                      className="flex flex-col items-start text-left p-3.5 sm:p-4 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-[#d4b27c]/40 hover:bg-white/[0.05] transition-all duration-300 group cursor-pointer relative h-full"
+                      id={`strategy-step-${step.num}`}
+                      type="button"
+                      aria-pressed={isSelected}
+                      aria-controls="strategy-step-visual"
+                      onClick={() => setSelectedStep(step.num)}
+                      className={`flex flex-col items-start text-left p-3.5 sm:p-4 rounded-2xl border transition-colors duration-300 motion-reduce:transition-none group cursor-pointer relative h-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#d4b27c] focus-visible:ring-offset-4 focus-visible:ring-offset-[#102035] ${
+                        isSelected
+                          ? 'border-[#d4b27c] bg-[#d4b27c]/10 shadow-[0_0_0_1px_rgba(212,178,124,0.15)]'
+                          : 'bg-white/[0.02] border-white/5 hover:border-[#d4b27c]/40 hover:bg-white/[0.05]'
+                      }`}
                     >
                       {/* Circle icon with gold outline */}
-                      <div className={`w-11 h-11 rounded-full bg-[#16273D] border-2 flex items-center justify-center text-slate-200 mb-3 shadow-md transition-all duration-300 relative shrink-0 ${
-                        isHovered 
-                          ? 'border-[#d4b27c] text-[#d4b27c] scale-105 shadow-lg' 
-                          : 'border-white/10 group-hover:border-white/30'
+                      <span aria-hidden="true" className={`w-11 h-11 rounded-full bg-[#16273D] border-2 flex items-center justify-center mb-3 shadow-md transition-colors duration-300 motion-reduce:transition-none relative shrink-0 ${
+                        isSelected
+                          ? 'border-[#d4b27c] text-[#d4b27c]'
+                          : 'border-white/10 text-slate-200 group-hover:border-white/30'
                       }`}>
                         <IconComp className="w-5 h-5 stroke-[1.8]" />
                         
@@ -242,7 +275,7 @@ export default function StrategyCheckSection({ onStartClick }: StrategyCheckSect
                         <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-[#d4b27c] border-2 border-[#16273D] flex items-center justify-center text-[9px] font-mono font-extrabold text-black leading-none shadow-sm">
                           {step.num}
                         </span>
-                      </div>
+                      </span>
 
                       {/* Step Title */}
                       <span className="text-xs lg:text-[12.5px] font-sans font-bold text-white tracking-wide block mb-1.5 leading-snug">
@@ -250,26 +283,10 @@ export default function StrategyCheckSection({ onStartClick }: StrategyCheckSect
                       </span>
 
                       {/* Step Subtext */}
-                      <p className="text-[11px] lg:text-[11.5px] text-slate-300 font-sans font-light leading-relaxed mt-auto">
+                      <span className="text-[11px] lg:text-[11.5px] text-slate-300 font-sans font-light leading-relaxed mt-auto">
                         {t(step.sub)}
-                      </p>
-
-                      {/* Elegant Mini Tooltip Popup */}
-                      <AnimatePresence>
-                        {isHovered && (
-                          <motion.div
-                            initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                            animate={{ opacity: 1, y: 0, scale: 1 }}
-                            exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                            className="absolute bottom-full mb-3 left-1/2 -translate-x-1/2 w-52 bg-[#091726] border border-white/15 text-[11px] text-white/90 leading-relaxed p-3.5 rounded-xl shadow-2xl text-center pointer-events-none z-30"
-                          >
-                            <span className="text-investo-gold font-bold block uppercase tracking-wider mb-1 text-[10px]">{t("Schritt ")}{step.num}: {t(step.title)}
-                            </span>
-                            {t(step.desc)}
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
-                    </div>
+                      </span>
+                    </button>
                   );
                 })}
               </div>
