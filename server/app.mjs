@@ -55,6 +55,7 @@ export function createApp({databasePath,apiKey='',newContactOwnerId=null,consent
   app.all('/api/leads',(_req,res)=>res.status(410).json({error:'form_version_retired'}));
   app.use('/api',(_req,res)=>res.status(404).json({error:'not_found'}));
   app.use((error,_req,res,next)=>{if(res.headersSent)return next(error);res.status(error.type==='entity.too.large'?413:error.type==='entity.parse.failed'?400:503).json({error:'service_unavailable'});});
-  app.use(express.static(distPath));app.get('/danke',(_req,res)=>res.sendFile(path.join(distPath,'index.html')));
+  app.use(express.static(distPath));
+  app.get(['/danke','/impressum','/datenschutz'],(_req,res)=>res.sendFile(path.join(distPath,'index.html')));
   return {app,service,store,close:()=>store.close()};
 }

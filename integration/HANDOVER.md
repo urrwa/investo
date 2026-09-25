@@ -12,6 +12,8 @@ Implemented the supplied 24 September 2026 contract in the existing landing page
 6. Exact DE/EN/FR consultation and separate newsletter wording: consent-text.json. Version 2026-09-24-v1 is a draft implementation version. The contract's client-approved-v1 example is not evidence that this wording was approved.
 7. Thank-you route: /danke. It requires a verified server receipt and does not promise an appointment or confirm that a callback task already exists.
 
+Legal subpages at /impressum and /datenschutz preserve the existing company details and external full-policy reference. They do not supply a newly reviewed privacy policy.
+
 ## What changed
 
 POST /api/inquiries validates schema, form ID, language, required contact fields, exact income band, investment goals and experience. The earlier extra questionnaire fields remain available; optional absent numeric answers are omitted, never converted to zero. Explicit property count is separate from experience and is never inferred.
@@ -34,7 +36,7 @@ Choose PROPSTACK_NEW_CONTACT_OWNER_ID only after agreeing the business rule: 443
 
 Set PUBLIC_SITE_URL to the HTTPS site origin, ALLOWED_ORIGINS to exact approved frontend origins, HOST=0.0.0.0 only when needed by hosting, and LEAD_DB_PATH to persistent protected storage. When behind a reverse proxy, set TRUST_PROXY to the exact trusted proxy IPs/CIDRs so the rate limit identifies the real visitor; do not trust arbitrary X-Forwarded-For. The backend applies a durable per-IP limit of 10 submission attempts and 120 total API requests per minute with Retry-After, including failed bot attempts.
 
-Run npm ci, npm run build and npm start. Host the frontend and API together, or route /api/* and /danke to the Node service. A static-only preview cannot deliver inquiries.
+Run npm ci, npm run build and npm start. Host the frontend and API together, or route /api/* to the Node service and serve the SPA entry at /danke, /impressum and /datenschutz, including trailing slashes, for direct navigation and reloads. The Node server provides these routes; restart it after routing changes. The static preview includes public/_redirects for Netlify-style rewrites; configure equivalent SPA rewrites on other static hosts without rewriting API or asset requests. A static-only preview cannot deliver inquiries.
 
 ## Durable state and uncertainty
 

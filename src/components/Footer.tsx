@@ -1,7 +1,6 @@
 import { useLanguage } from '../i18n';
-import React, { useState } from 'react';
-import { Phone, Mail, MapPin, X, Shield, FileText } from 'lucide-react';
-import { motion, AnimatePresence } from 'motion/react';
+import React from 'react';
+import { Phone, Mail, MapPin } from 'lucide-react';
 
 interface FooterProps {
   onContactClick?: () => void;
@@ -9,7 +8,7 @@ interface FooterProps {
 
 export default function Footer({ onContactClick }: FooterProps) {
   const { t } = useLanguage();
-  const [activeModal, setActiveModal] = useState<string | null>(null);
+  const isLandingPage = window.location.pathname === '/';
 
   const navLinks = [
     { label: 'Strategie', href: '#strategie-check-section' },
@@ -26,6 +25,7 @@ export default function Footer({ onContactClick }: FooterProps) {
   ];
 
   const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
     e.preventDefault();
     const targetId = href.replace('#', '');
     const element = document.getElementById(targetId);
@@ -65,8 +65,8 @@ export default function Footer({ onContactClick }: FooterProps) {
                 {navLinks.map((link) => (
                   <li key={link.label}>
                     <a
-                      href={link.href}
-                      onClick={(e) => handleScroll(e, link.href)}
+                      href={isLandingPage ? link.href : '/' + link.href}
+                      onClick={isLandingPage ? (e) => handleScroll(e, link.href) : undefined}
                       className="text-slate-300 hover:text-[#D8A24E] transition-colors duration-200 inline-block font-light"
                     >
                       {t(link.label)}
@@ -101,12 +101,13 @@ export default function Footer({ onContactClick }: FooterProps) {
               <ul className="space-y-2.5 font-sans text-xs md:text-[13.5px]">
                 {legalLinks.map((item) => (
                   <li key={item.key}>
-                    <button
-                      onClick={() => setActiveModal(item.key)}
+                    <a
+                      href={'/' + item.key}
+                      aria-current={window.location.pathname.replace(/\/+$/, '') === '/' + item.key ? 'page' : undefined}
                       className="text-slate-300 hover:text-[#D8A24E] transition-colors duration-200 inline-block text-left font-light cursor-pointer"
                     >
                       {t(item.label)}
-                    </button>
+                    </a>
                   </li>
                 ))}
               </ul>
@@ -129,69 +130,6 @@ export default function Footer({ onContactClick }: FooterProps) {
         </div>
       </footer>
 
-      {/* LEGAL MODAL DIALOG FOR IMPRESSUM / DATENSCHUTZ */}
-      <AnimatePresence>
-        {activeModal && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setActiveModal(null)}
-              className="absolute inset-0 bg-black/75 backdrop-blur-sm"
-            />
-
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95, y: 10 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 10 }}
-              className="relative w-full max-w-lg bg-[#0c1a29] border border-white/10 rounded-2xl p-6 md:p-8 text-white shadow-2xl z-10"
-            >
-              <button
-                onClick={() => setActiveModal(null)}
-                className="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-slate-300 hover:text-white transition-colors cursor-pointer"
-              >
-                <X className="w-4 h-4" />
-              </button>
-
-              <div className="flex items-center space-x-3 mb-4">
-                <div className="w-9 h-9 rounded-xl bg-[#D8A24E]/10 border border-[#D8A24E]/30 flex items-center justify-center text-[#D8A24E]">
-                  <FileText className="w-5 h-5" />
-                </div>
-                <h3 className="text-base md:text-lg font-serif font-normal text-white">
-                  {t(legalLinks.find(l => l.key === activeModal)?.label)}
-                </h3>
-              </div>
-
-              <div className="text-xs md:text-sm font-sans font-light text-slate-300 leading-relaxed space-y-3 my-4 max-h-[60vh] overflow-y-auto pr-2">
-                {activeModal === 'impressum' && (
-                  <>
-                    <p className="font-semibold text-white">{t("Anbieterkennzeichnung:")}</p>
-                    <p>{t("Investo Immobilien UG")}<br />{t("Maximilianstraße 15c")}<br />{t("87719 Mindelheim, Deutschland")}</p>
-                    <p><strong className="text-white">{t("Vertreten durch:")}</strong>{t(" Geschäftsführer Alpaslan Coskun")}</p>
-                    <p><strong className="text-white">{t("Kontakt:")}</strong><br />{t("Telefon: +49 (0) 175 7111 188")}<br />{t("E-Mail: info@investo-immobilien.de")}</p>
-                    <p><strong className="text-white">{t("Umsatzsteuer-ID:")}</strong>{t(" DE463921337")}</p>
-                    <p><strong className="text-white">{t("Registereintrag:")}</strong><br />{t("Eintragung im Handelsregister.")}<br />{t("Registergericht: Amtsgericht Memmingen")}<br />{t("Registernummer: HRB 22308")}</p>
-                    <p><a className="text-[#D8A24E] underline" href="https://www.investo-immobilien.de/impressum" target="_blank" rel="noopener noreferrer">{t("Vollständiges Impressum")}</a></p>
-                  </>
-                )}
-
-                {activeModal === 'datenschutz' && (
-                  <p><a className="text-[#D8A24E] underline" href="https://www.investo-immobilien.de/datenschutz" target="_blank" rel="noopener noreferrer">{t("Vollständige Datenschutzerklärung von Investo Immobilien lesen")}</a></p>
-                )}
-
-              </div>
-
-              <div className="mt-6 pt-4 border-t border-white/10 flex justify-end">
-                <button
-                  onClick={() => setActiveModal(null)}
-                  className="px-5 py-2 bg-[#D8A24E] hover:bg-white text-black text-xs font-bold tracking-wider rounded-lg uppercase transition-colors cursor-pointer"
-                >{t("Schließen")}</button>
-              </div>
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
     </>
   );
 }

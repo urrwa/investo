@@ -1,4 +1,32 @@
 {
+  "Zur Startseite": {
+    "en": "Back to home",
+    "fr": "Retour à l’accueil"
+  },
+  "Rechtliche Seiten": {
+    "en": "Legal pages",
+    "fr": "Pages juridiques"
+  },
+  "Informationen zum Anbieter und Kontakt.": {
+    "en": "Company details and contact information.",
+    "fr": "Informations sur la société et coordonnées."
+  },
+  "Informationen zum Datenschutz und Kontakt für Ihre Fragen.": {
+    "en": "Privacy information and contact details for your questions.",
+    "fr": "Informations sur la confidentialité et coordonnées pour vos questions."
+  },
+  "Datenschutzerklärung": {
+    "en": "Privacy policy",
+    "fr": "Politique de confidentialité"
+  },
+  "Die vollständige Datenschutzerklärung von Investo Immobilien ist über den folgenden Link verfügbar.": {
+    "en": "The full Investo Immobilien privacy policy is available through the following link.",
+    "fr": "La politique de confidentialité complète d’Investo Immobilien est disponible via le lien suivant."
+  },
+  "Kontakt für Datenschutzanfragen": {
+    "en": "Contact for privacy enquiries",
+    "fr": "Contact pour les demandes relatives à la confidentialité"
+  },
   "Persönliches Gespräch über Immobilienziele": {
     "en": "Personal consultation about property goals",
     "fr": "Entretien personnalisé sur les objectifs immobiliers"

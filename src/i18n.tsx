@@ -33,7 +33,11 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   }, []);
   useEffect(() => {
     document.documentElement.lang = language;
-    document.title = titles[language];
+    const path = window.location.pathname.replace(/\/+$/, '');
+    const legalTitle = path === '/impressum' ? 'Impressum' : path === '/datenschutz' ? 'Datenschutz' : null;
+    document.title = legalTitle
+      ? (language === 'de' ? legalTitle : catalog[legalTitle]?.[language] || legalTitle) + ' | Investo Immobilien'
+      : titles[language];
   }, [language]);
   useEffect(() => {
     const sync = (event: StorageEvent) => {

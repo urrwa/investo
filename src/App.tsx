@@ -1,5 +1,5 @@
 import { useLanguage } from './i18n';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Navbar from './components/Navbar';
 import HeroContent from './components/HeroContent';
 import InteractiveHouseCard from './components/InteractiveHouseCard';
@@ -17,12 +17,23 @@ import FinancingPartnersSection from './components/FinancingPartnersSection';
 import FaqSection from './components/FaqSection';
 import StrategyDecisionSection from './components/StrategyDecisionSection';
 import Footer from './components/Footer';
+import LegalPage from './components/LegalPage';
 import LeadForm, { ThankYouPage } from './components/LeadForm';
 
 export default function App() {
   const { t } = useLanguage();
   const [isCheckModalOpen, setIsCheckModalOpen] = useState(false);
-  if (window.location.pathname === '/danke') return <ThankYouPage />;
+  const pathname = window.location.pathname.replace(/\/+$/, '') || '/';
+  useEffect(() => {
+    // Cross-page fragment navigation can run before React mounts the sections.
+    if (pathname !== '/' || !window.location.hash) return;
+    const frame = requestAnimationFrame(() => {
+      document.getElementById(window.location.hash.slice(1))?.scrollIntoView({ block: 'start' });
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [pathname]);
+  if (pathname === '/danke') return <ThankYouPage />;
+  if (pathname === '/impressum' || pathname === '/datenschutz') return <LegalPage page={pathname.slice(1) as 'impressum' | 'datenschutz'} />;
 
   return (
     <div className="min-h-screen bg-[#16273D] relative flex flex-col" id="investo-root">
