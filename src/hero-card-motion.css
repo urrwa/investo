@@ -1,0 +1,90 @@
+/* Two small SVG accents around the existing card; no layout or media changes. */
+.hero-card-motion {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.hero-card-orbit {
+  position: absolute;
+  inset: -28px -24px;
+  width: calc(100% + 48px);
+  height: calc(100% + 56px);
+  fill: none;
+  overflow: visible;
+  pointer-events: none;
+  z-index: 0;
+}
+.hero-card-orbit-track {
+  stroke: #d4b27c;
+  stroke-width: 1;
+  stroke-opacity: .34;
+}
+.hero-card-orbit-dot {
+  stroke: #ebca92;
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-dasharray: .01 999.99;
+  stroke-dashoffset: 220;
+  animation: hero-card-orbit-travel 28s linear infinite;
+  animation-play-state: paused;
+}
+.hero-card-orbit-dot-soft { stroke-width: 10; stroke-opacity: .12; }
+.hero-card-edge {
+  position: absolute;
+  inset: 1px;
+  width: calc(100% - 2px);
+  height: calc(100% - 2px);
+  fill: none;
+  overflow: visible;
+  pointer-events: none;
+  z-index: 20;
+}
+.hero-card-edge-light {
+  rx: 31px;
+  stroke: #b58a4d;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-dasharray: 42 958;
+  stroke-dashoffset: -180;
+  animation: hero-card-edge-travel 22s linear infinite;
+  animation-play-state: paused;
+}
+.hero-card-motion[data-motion-running='true'] .hero-card-orbit-dot,
+.hero-card-motion[data-motion-running='true'] .hero-card-edge-light { animation-play-state: running; }
+.hero-card-motion-toggle {
+  position: absolute;
+  right: 0;
+  bottom: -42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid #d4b27c55;
+  color: #e5c38c;
+  background: #102035;
+  pointer-events: auto;
+  cursor: pointer;
+  z-index: 30;
+  transition: background-color 160ms, border-color 160ms;
+}
+.hero-card-motion-toggle:hover { border-color: #d4b27c; background: #223247; }
+.hero-card-motion-toggle:focus-visible { outline: 2px solid #e5c38c; outline-offset: 4px; }
+@keyframes hero-card-orbit-travel { from { stroke-dashoffset: 220; } to { stroke-dashoffset: -780; } }
+@keyframes hero-card-edge-travel { from { stroke-dashoffset: -180; } to { stroke-dashoffset: -1180; } }
+@media (min-width: 768px) {
+  .hero-card-edge-light { rx: 39px; }
+}
+@media (min-width: 1024px) {
+  .hero-card-orbit {
+    inset: -15% -14% -10% -7%;
+    width: 121%;
+    height: 125%;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-card-motion .hero-card-orbit-dot,
+  .hero-card-motion .hero-card-edge-light { animation: none !important; }
+  .hero-card-motion-toggle { display: none; }
+}

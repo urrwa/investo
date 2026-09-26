@@ -1,5 +1,6 @@
 import OptimizedImage, { getOptimizedImageProps } from './OptimizedImage';
 import { useLanguage } from '../i18n';
+import HeroCardMotion from './HeroCardMotion';
 import React, { useState } from 'react';
 import { m as motion, AnimatePresence } from 'motion/react';
 import { Hotspot, TabType } from '../types';
@@ -64,6 +65,7 @@ export default function InteractiveHouseCard({ activeTab, onTabChange, onCtaClic
 
   return (
     <div className="w-full relative" id="interactive-showcase">
+      <HeroCardMotion />
       {/* Main card background */}
       <div className="bg-white text-gray-900 rounded-[2rem] md:rounded-[2.5rem] p-6 md:p-8 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.5)] flex flex-col relative z-10 border border-white/5 md:min-h-[580px]">
         

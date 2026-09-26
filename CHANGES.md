@@ -1,5 +1,11 @@
 # Document change checklist
 
+## Minimal hero card accents — 26 September 2026
+
+- Added the approved thin gold orbit with a slow traveling dot behind the existing hero card, plus a short gold highlight following its rounded edge. Existing layout, photographs, content, architectural illustration and interactive panels remain intact.
+- Both accents use small SVG/CSS layers with no new dependencies or media assets. Motion pauses offscreen, when the document is hidden, or through the translated keyboard-accessible pause button. Reduced-motion preferences display static accents.
+- Validation: TypeScript and production prerender build passed. Browser checks covered 1440px desktop and 390/320px mobile with no horizontal overflow, all three card panels, calculator updates, keyboard pause/resume, offscreen pausing, DE/EN/FR labels and no console errors. Reduced-motion and document-visibility handling were inspected in code. No new Lighthouse score is claimed for this addition.
+
 ## Architectural homepage motion — 26 September 2026
 
 Visibility refinement: enlarged the architectural artwork, added a subtle navy frame, brighter/heavier gold lines, a clearer selected stage and stronger timeline routes. Retained finite animation and reduced-motion support.
