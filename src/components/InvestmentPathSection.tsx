@@ -1,10 +1,11 @@
 import OptimizedImage from './OptimizedImage';
 import { useLanguage } from '../i18n';
 import { useActiveAnimation } from '../hooks/useActiveAnimation';
-import React, { useState } from 'react';
-import { m as motion, AnimatePresence } from 'motion/react';
+import React, { useEffect, useRef, useState } from 'react';
+import '../investment-path-motion.css';
+import { m as motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import { 
-  BarChart3, Target, Calculator, Home, Shield, ArrowRight, Sparkles, HelpCircle, X, ChevronRight, CheckCircle2 
+  BarChart3, Target, Calculator, Home, Shield, ArrowRight, X, CheckCircle2
 } from 'lucide-react';
 
 interface PathStep {
@@ -26,9 +27,47 @@ interface InvestmentPathSectionProps {
 
 export default function InvestmentPathSection({ onCtaClick }: InvestmentPathSectionProps) {
   const { t } = useLanguage();
-  const { ref: animationRef, active: animateDecorations } = useActiveAnimation();
+  const { ref: timelineRef, active: timelineVisible } = useActiveAnimation<HTMLDivElement>();
+  const [hasEntered, setHasEntered] = useState(false);
   const [activeStep, setActiveStep] = useState<string | null>(null);
-  const [hoveredStep, setHoveredStep] = useState<string | null>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const reduceMotion = useReducedMotion();
+
+  // Draw the route once, only when the timeline reaches the viewport.
+  useEffect(() => {
+    if (timelineVisible) setHasEntered(true);
+  }, [timelineVisible]);
+
+  useEffect(() => {
+    if (!activeStep) return;
+    const previousFocus = document.activeElement as HTMLElement | null;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    const dialog = dialogRef.current;
+    const controls = () => dialog?.querySelectorAll<HTMLElement>('button, a[href], [tabindex="0"]');
+    controls()?.[0]?.focus({ preventScroll: true });
+    const handleKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setActiveStep(null);
+      if (event.key !== 'Tab') return;
+      const elements = controls();
+      if (!elements?.length) return;
+      const first = elements[0];
+      const last = elements[elements.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+    document.addEventListener('keydown', handleKey);
+    return () => {
+      document.removeEventListener('keydown', handleKey);
+      document.body.style.overflow = previousOverflow;
+      previousFocus?.focus({ preventScroll: true });
+    };
+  }, [activeStep]);
 
   const steps: PathStep[] = [
     {
@@ -116,7 +155,7 @@ export default function InvestmentPathSection({ onCtaClick }: InvestmentPathSect
   const activeStepData = steps.find(s => s.num === activeStep);
 
   return (
-    <section ref={animationRef} className="relative bg-[#16273D] text-white py-24 px-4 md:px-8 lg:px-12 overflow-hidden border-t border-white/5" id="investment-path-section">
+    <section className="relative bg-[#16273D] text-white py-24 px-4 md:px-8 lg:px-12 overflow-hidden border-t border-white/5" id="investment-path-section">
       
       {/* Section Background Image Overlay */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden select-none z-0">
@@ -157,82 +196,82 @@ export default function InvestmentPathSection({ onCtaClick }: InvestmentPathSect
         </div>
 
         {/* TIMELINE STEPPER GRID */}
-        <div className="relative mb-20 md:mb-28" id="timeline-stepper-grid">
-          
-          {/* Animated Connecting Timeline Line */}
-          <div className="absolute left-8 md:left-0 right-0 top-[60px] md:top-[60px] h-[2px] pointer-events-none z-0 hidden md:block">
-            {/* Base Line */}
-            <div className="absolute inset-0 bg-white/10" />
-            
-            {/* Flowing animated light ray matching mockup exactly */}
-            <div
-              className="investo-decorative-flow-horizontal absolute inset-0"
-              style={{ animationName: animateDecorations ? undefined : 'none' }}
-            >
-              <div className="absolute h-full bg-gradient-to-r from-transparent via-[#d4b27c] to-transparent w-40" />
-            </div>
-          </div>
+        <div
+          ref={timelineRef}
+          className="investo-path-timeline relative mb-20 md:mb-28"
+          data-entered={hasEntered ? 'true' : 'false'}
+          id="timeline-stepper-grid"
+        >
+          {/* A single gold route draws between the five existing milestones. */}
+          <svg
+            className="investo-path-route"
+            viewBox="0 0 1000 12"
+            preserveAspectRatio="none"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path className="investo-path-route-track" d="M0 6H1000" />
+            <path className="investo-path-route-draw" d="M0 6H1000" pathLength="1" />
+          </svg>
 
-          {/* Stepper Grid Container */}
           <div className="grid grid-cols-1 md:grid-cols-5 gap-8 md:gap-4 relative z-10">
             {steps.map((step, idx) => {
               const IconComp = step.icon;
               const isActive = activeStep === step.num;
-              const isHovered = hoveredStep === step.num;
 
               return (
                 <div
                   key={step.num}
-                  onMouseEnter={() => setHoveredStep(step.num)}
-                  onMouseLeave={() => setHoveredStep(null)}
-                  onClick={() => setActiveStep(isActive ? null : step.num)}
-                  className="flex flex-col items-center md:items-start text-center md:text-left group cursor-pointer relative"
+                  className="investo-path-step relative"
+                  style={{ '--path-step-delay': `${idx * 160}ms` } as React.CSSProperties}
                 >
-                  {/* Step Number with Gold typography */}
-                  <span className="font-sans text-lg md:text-xl font-bold tracking-wider text-[#d4b27c]/70 group-hover:text-[#d4b27c] transition-colors mb-3">
-                    {t(step.num)}
-                  </span>
-
-                  {/* Elegant floating animated gold node circle containing icon */}
-                  <div
-                    style={{
-                      animationDuration: `${3 + idx}s`,
-                      animationName: animateDecorations && !isHovered ? undefined : 'none',
-                    }}
-                    className={`investo-decorative-float investo-decorative-float-medium w-14 h-14 md:w-16 md:h-16 rounded-full bg-[#040911] border-2 flex items-center justify-center text-white relative shadow-lg transition-all duration-300 ${
-                      isActive || isHovered
-                        ? 'border-[#d4b27c] text-[#d4b27c] scale-105 shadow-[0_0_20px_rgba(212,178,124,0.25)]'
-                        : 'border-white/10 group-hover:border-white/30'
-                    }`}
+                  <button
+                    type="button"
+                    onClick={() => setActiveStep(isActive ? null : step.num)}
+                    aria-haspopup="dialog"
+                    aria-expanded={isActive}
+                    aria-controls={isActive ? 'investment-path-detail' : undefined}
+                    className="investo-path-card flex w-full flex-col items-center md:items-start text-center md:text-left group cursor-pointer relative"
                   >
-                    <IconComp className="w-5 h-5 md:w-6 md:h-6 stroke-[1.4]" />
-                    
-                    {/* Tiny bottom gold connector point dot on line */}
-                    <span className={`absolute bottom-[-10px] left-1/2 -translate-x-1/2 w-2 h-2 rounded-full border-2 border-[#030a13] transition-all duration-300 hidden md:block ${
-                      isActive || isHovered ? 'bg-[#d4b27c]' : 'bg-white/40'
-                    }`} />
-                  </div>
+                    <span className="font-sans text-lg md:text-xl font-bold tracking-wider text-[#d4b27c]/70 group-hover:text-[#d4b27c] group-focus-visible:text-[#d4b27c] transition-colors mb-3">
+                      {t(step.num)}
+                    </span>
 
-                  {/* Title & Info Block */}
-                  <div className="mt-6 md:mt-8 flex flex-col items-center md:items-start">
-                    <h3 className="text-base font-sans font-bold text-white uppercase tracking-wider mb-2 group-hover:text-[#d4b27c] transition-colors">
-                      {t(step.title)}
-                    </h3>
-                    
-                    <p className="text-xs text-white/50 leading-relaxed font-sans max-w-[200px] px-2 md:px-0">
-                      {t(step.description)}
-                    </p>
-                  </div>
+                    <span
+                      className={`investo-path-node w-14 h-14 md:w-16 md:h-16 rounded-full bg-[#040911] border-2 flex items-center justify-center relative shadow-lg ${
+                        isActive ? 'border-[#d4b27c] text-[#d4b27c]' : 'border-white/10 text-white'
+                      }`}
+                    >
+                      <svg className="investo-path-node-ring" viewBox="0 0 76 76" aria-hidden="true" focusable="false">
+                        <circle cx="38" cy="38" r="36" pathLength="1" />
+                      </svg>
+                      <IconComp className="w-5 h-5 md:w-6 md:h-6 stroke-[1.4]" aria-hidden="true" />
+                      <span className="investo-path-connector-dot absolute bottom-[-10px] left-1/2 -translate-x-1/2 w-2 h-2 rounded-full border-2 border-[#030a13] hidden md:block" />
+                    </span>
 
-                  {/* Desktop hint badge */}
-                  <span className="mt-3.5 text-[9px] font-sans font-bold tracking-widest text-[#d4b27c]/40 group-hover:text-[#d4b27c] uppercase transition-colors hidden md:block">
-                    {t(isActive ? 'Schließen' : 'Details ansehen')}
-                  </span>
+                    <span className="mt-6 md:mt-8 flex flex-col items-center md:items-start">
+                      <span className="text-base font-sans font-bold text-white uppercase tracking-wider mb-2 group-hover:text-[#d4b27c] group-focus-visible:text-[#d4b27c] transition-colors">
+                        {t(step.title)}
+                      </span>
+                      <span className="text-xs text-white/50 leading-relaxed font-sans max-w-[200px] px-2 md:px-0">
+                        {t(step.description)}
+                      </span>
+                    </span>
+                    <span className="mt-3.5 text-[9px] font-sans font-bold tracking-widest text-[#d4b27c]/70 group-hover:text-[#d4b27c] group-focus-visible:text-[#d4b27c] uppercase transition-colors inline-flex items-center gap-1.5">
+                      {t(isActive ? 'Schließen' : 'Details ansehen')}
+                      <ArrowRight className="investo-path-detail-arrow w-3 h-3" aria-hidden="true" />
+                    </span>
+                  </button>
+                  {idx < steps.length - 1 && (
+                    <svg className="investo-path-mobile-route" viewBox="0 0 4 20" aria-hidden="true" focusable="false">
+                      <path className="investo-path-route-track" d="M2 0V20" />
+                      <path className="investo-path-mobile-draw" d="M2 0V20" pathLength="1" />
+                    </svg>
+                  )}
                 </div>
               );
             })}
           </div>
-
         </div>
 
         {/* REASSURANCE LOWER CAPSULE BANNER */}
@@ -247,7 +286,7 @@ export default function InvestmentPathSection({ onCtaClick }: InvestmentPathSect
             </div>
 
             <div className="flex flex-col">
-              <h4 className="text-sm md:text-base font-sans font-bold text-white uppercase tracking-wider">{t("Erfahrung. Marktkenntnis. Verantwortung.")}</h4>
+              <h3 className="text-sm md:text-base font-sans font-bold text-white uppercase tracking-wider">{t("Erfahrung. Marktkenntnis. Verantwortung.")}</h3>
               <p className="text-xs text-white/50 font-sans leading-relaxed mt-1 max-w-md">{t("Wir begleiten Sie mit Strategie und Weitblick – für Entscheidungen, die langfristig Bestand haben.")}</p>
             </div>
           </div>
@@ -281,20 +320,28 @@ export default function InvestmentPathSection({ onCtaClick }: InvestmentPathSect
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
+              transition={{ duration: reduceMotion ? 0 : 0.2 }}
               onClick={() => setActiveStep(null)}
               className="absolute inset-0 bg-black/80 backdrop-blur-md"
             />
 
             {/* Modal Body Card */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.95, y: 15 }}
+              ref={dialogRef}
+              id="investment-path-detail"
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="investment-path-detail-title"
+              transition={{ duration: reduceMotion ? 0 : 0.2 }}
+              initial={{ opacity: 0, scale: reduceMotion ? 1 : 0.95, y: reduceMotion ? 0 : 15 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 15 }}
-              className="relative w-full max-w-lg bg-gradient-to-b from-[#091726] to-[#040911] border border-white/10 rounded-2xl md:rounded-3xl p-6 md:p-8 text-left shadow-2xl z-10"
+              exit={{ opacity: 0, scale: reduceMotion ? 1 : 0.95, y: reduceMotion ? 0 : 15 }}
+              className="relative w-full max-w-lg max-h-[calc(100dvh-2rem)] overflow-y-auto bg-gradient-to-b from-[#091726] to-[#040911] border border-white/10 rounded-2xl md:rounded-3xl p-6 md:p-8 text-left shadow-2xl z-10"
             >
               {/* Close X */}
               <button
                 onClick={() => setActiveStep(null)}
+                aria-label={t("Schließen")}
                 className="absolute top-4 right-4 p-1.5 bg-white/5 text-white/50 hover:text-white hover:bg-white/10 rounded-full transition-colors cursor-pointer z-10"
               >
                 <X className="w-4 h-4" />
@@ -306,7 +353,7 @@ export default function InvestmentPathSection({ onCtaClick }: InvestmentPathSect
                 </span>
 
                 {/* Title */}
-                <h3 className="text-xl md:text-2xl font-serif text-white mb-4">
+                <h3 id="investment-path-detail-title" className="text-xl md:text-2xl font-serif text-white mb-4">
                   {t(activeStepData.details.title)}
                 </h3>
 

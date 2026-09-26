@@ -1,5 +1,12 @@
 # Document change checklist
 
+## Architectural homepage motion — 26 September 2026
+
+- Added an original gold SVG architectural illustration beneath the hero CTA, with a short outline drawing and building entrance. Three translated stage controls synchronize with the existing strategy, financing and property panels; replay is available without auto-cycling content.
+- Replaced the investment timeline's continuous ray and floating nodes with a finite route and milestone drawing on first viewport entry. Detail cards support keyboard activation, focus return and Escape. Long dialogs scroll within short screens.
+- Kept existing real photographs, calculator state, lead form and legal routes. Added no media downloads or dependencies. The decorative artwork is static before hydration and under reduced-motion preferences; primary content is never hidden for an entrance animation.
+- Validation: TypeScript and production prerender build; desktop and 320/390px browser checks, DE/EN/FR labels, synchronized controls and calculator, all five timeline dialogs, keyboard focus and the timeline-to-lead-form action. No real inquiry submitted. The final focused Lighthouse accessibility recheck scored 100 with no runtime warnings; the performance follow-up and its limitations are recorded in `PERFORMANCE.md`.
+
 ## Integration contract v1 (current implementation)
 
 The supplied 24 September 2026 contract supersedes the earlier direct-to-n8n proposal below.

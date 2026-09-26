@@ -1,16 +1,20 @@
 import { useLanguage } from '../i18n';
 import React from 'react';
 import { ArrowRight } from 'lucide-react';
+import HeroArchitecture from './HeroArchitecture';
+import type { TabType } from '../types';
 
 interface HeroContentProps {
   onCtaClick?: () => void;
+  activeTab: TabType;
+  onTabChange: (tab: TabType) => void;
 }
 
-export default function HeroContent({ onCtaClick }: HeroContentProps) {
+export default function HeroContent({ onCtaClick, activeTab, onTabChange }: HeroContentProps) {
   const { t } = useLanguage();
   return (
     <div
-      className="flex flex-col items-start text-left max-w-xl xl:max-w-2xl"
+      className="hero-copy flex flex-col items-start text-left max-w-xl xl:max-w-2xl"
     >
       {/* Decorative tag */}
       <div
@@ -36,7 +40,7 @@ export default function HeroContent({ onCtaClick }: HeroContentProps) {
       <div className="relative z-10">
         <button
           onClick={onCtaClick}
-          className="group relative inline-flex items-center justify-between px-7 py-4 bg-gradient-to-r from-investo-gold to-investo-gold-light text-[#040911] text-xs font-sans font-bold tracking-[0.15em] rounded-full uppercase shadow-[0_10px_30px_rgba(212,178,124,0.15)] transition-all duration-300 hover:shadow-[0_15px_40px_rgba(212,178,124,0.3)] hover:-translate-y-0.5 cursor-pointer overflow-hidden"
+          className="group hero-primary-cta relative inline-flex items-center justify-between px-7 py-4 bg-gradient-to-r from-investo-gold to-investo-gold-light text-[#040911] text-xs font-sans font-bold tracking-[0.15em] rounded-full uppercase shadow-[0_10px_30px_rgba(212,178,124,0.15)] transition-all duration-300 hover:shadow-[0_15px_40px_rgba(212,178,124,0.3)] hover:-translate-y-0.5 cursor-pointer overflow-hidden"
         >
           {/* Shimmer effect background */}
           <span className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]" />
@@ -49,6 +53,7 @@ export default function HeroContent({ onCtaClick }: HeroContentProps) {
           </span>
         </button>
       </div>
+      <HeroArchitecture activeTab={activeTab} onTabChange={onTabChange} />
     </div>
   );
 }

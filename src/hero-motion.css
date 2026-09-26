@@ -1,0 +1,73 @@
+/* Investo's original architectural motion system: finite, visible-content-first. */
+.hero-architecture {
+  width: 100%;
+  max-width: 440px;
+  margin-top: 30px;
+  color: #d4b27c;
+}
+.architecture-caption {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  letter-spacing: .035em;
+  color: #bdc6d1;
+}
+.architecture-replay {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 36px;
+  min-height: 36px;
+  margin: -8px -6px -8px 0;
+  border-radius: 50%;
+  color: #d4b27c;
+  cursor: pointer;
+  transition: background-color .2s, transform .3s;
+}
+.architecture-replay:hover { background: #d4b27c18; transform: rotate(-30deg); }
+.architecture-art { display: block; width: 100%; height: auto; overflow: visible; margin: 2px 0 14px; }
+.architecture-building { transition: opacity .4s; }
+.hero-architecture[data-stage='strategie'] .architecture-building { opacity: .42; }
+.hero-architecture[data-stage='finanzierung'] .architecture-building-front { opacity: .45; }
+.architecture-trace { stroke-dasharray: 1; stroke-dashoffset: 0; opacity: .8; }
+.hero-architecture[data-running='true'] .architecture-trace { animation: architecture-draw 1.8s cubic-bezier(.3,0,.2,1) both; }
+.hero-architecture[data-running='true'] .architecture-building { animation: architecture-rise 1s cubic-bezier(.2,.7,.2,1) both; }
+.hero-architecture[data-running='true'] .architecture-marker { animation: architecture-marker .8s var(--marker-delay) ease-out both; }
+.architecture-stages { display: grid; grid-template-columns: 1fr 1.15fr 1fr; gap: 6px; position: relative; }
+.architecture-stages button {
+  min-width: 0;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 8px 5px;
+  border: 1px solid #d4b27c29;
+  border-radius: 9px;
+  color: #cbd5e1;
+  background: #16273d;
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color .2s, border-color .2s, background-color .2s, transform .2s;
+}
+.architecture-stages button[aria-pressed='true'] { color: #f3dbae; border-color: #d4b27c99; background: #d4b27c12; }
+.architecture-stage-number { font-size: 9px; color: #d4b27c; opacity: 1; font-variant-numeric: tabular-nums; }
+.architecture-stages button:hover { color: #f3dbae; border-color: #d4b27c; transform: translateY(-2px); }
+.architecture-stages button:focus-visible, .architecture-replay:focus-visible { outline: 2px solid #ead1a3; outline-offset: 4px; }
+.architecture-hint { color: #a9b6c5; font-size: 10px; margin-top: 10px; }
+@keyframes architecture-draw { from { stroke-dashoffset: 1; opacity: .15; } to { stroke-dashoffset: 0; opacity: .8; } }
+@keyframes architecture-rise { from { translate: 0 9px; } to { translate: 0 0; } }
+@keyframes architecture-marker { from { opacity: .2; } to { opacity: 1; } }
+@media (max-width: 360px) {
+  .architecture-stages { gap: 4px; }
+  .architecture-stages button { font-size: 10px; gap: 4px; }
+  .architecture-stage-number { font-size: 8px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-architecture *, .hero-architecture *::before { animation: none !important; transition: none !important; }
+  .architecture-replay { display: none; }
+  .architecture-stages button:hover { transform: none; }
+  .hero-primary-cta, .hero-primary-cta * { animation: none !important; transition: none !important; transform: none !important; }
+}

@@ -1,0 +1,116 @@
+/* Finite route drawing: no idle loops, hidden content, media, or layout shifts. */
+.investo-path-route {
+  position: absolute;
+  display: none;
+  left: 32px;
+  top: 66px;
+  width: calc(80% + 12.8px);
+  height: 12px;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.investo-path-route-track,
+.investo-path-route-draw,
+.investo-path-mobile-draw {
+  fill: none;
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+
+.investo-path-route-track { stroke: rgb(255 255 255 / 12%); }
+.investo-path-route-draw,
+.investo-path-mobile-draw {
+  stroke: #d4b27c;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+
+.investo-path-timeline[data-entered="true"] .investo-path-route-draw {
+  animation: investo-path-draw 1.4s cubic-bezier(.25, .6, .3, 1) both;
+}
+
+.investo-path-card { border-radius: 12px; }
+.investo-path-card:focus-visible {
+  outline: 2px solid #d4b27c;
+  outline-offset: 12px;
+}
+
+.investo-path-node {
+  transition: border-color 220ms ease, color 220ms ease, transform 220ms ease;
+}
+
+.investo-path-node-ring {
+  position: absolute;
+  inset: -8px;
+  width: calc(100% + 16px);
+  height: calc(100% + 16px);
+  overflow: visible;
+  pointer-events: none;
+  rotate: -90deg;
+  fill: none;
+  stroke: #d4b27c;
+  stroke-width: 1;
+  opacity: .45;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+
+.investo-path-timeline[data-entered="true"] .investo-path-node-ring {
+  animation: investo-path-draw 900ms cubic-bezier(.25, .6, .3, 1) var(--path-step-delay) both;
+}
+
+.investo-path-connector-dot { background: #d4b27c; }
+.investo-path-detail-arrow { transition: transform 220ms ease; }
+.investo-path-card:focus-visible .investo-path-node,
+.investo-path-card[aria-expanded="true"] .investo-path-node {
+  color: #d4b27c;
+  border-color: #d4b27c;
+  transform: translateY(-3px);
+}
+.investo-path-card:focus-visible .investo-path-detail-arrow { transform: translateX(3px); }
+
+.investo-path-mobile-route {
+  position: absolute;
+  width: 4px;
+  height: 20px;
+  bottom: -27px;
+  left: calc(50% - 2px);
+  pointer-events: none;
+}
+.investo-path-timeline[data-entered="true"] .investo-path-mobile-draw {
+  animation: investo-path-draw 900ms ease var(--path-step-delay) both;
+}
+
+@keyframes investo-path-draw {
+  from { stroke-dashoffset: 1; }
+  to { stroke-dashoffset: 0; }
+}
+
+@media (min-width: 768px) {
+  .investo-path-route { display: block; }
+  .investo-path-mobile-route { display: none; }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .investo-path-card:hover .investo-path-node {
+    color: #d4b27c;
+    border-color: #d4b27c;
+    transform: translateY(-3px);
+  }
+  .investo-path-card:hover .investo-path-detail-arrow { transform: translateX(3px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .investo-path-timeline .investo-path-route-draw,
+  .investo-path-timeline .investo-path-mobile-draw,
+  .investo-path-timeline .investo-path-node-ring {
+    animation: none !important;
+    stroke-dashoffset: 0;
+  }
+  .investo-path-timeline .investo-path-node,
+  .investo-path-timeline .investo-path-detail-arrow {
+    transition: none;
+    transform: none !important;
+  }
+}

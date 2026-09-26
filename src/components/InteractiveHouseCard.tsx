@@ -38,9 +38,14 @@ const hotspots: Hotspot[] = [
   },
 ];
 
-export default function InteractiveHouseCard() {
+interface InteractiveHouseCardProps {
+  activeTab: TabType;
+  onTabChange: (tab: TabType) => void;
+  onCtaClick: () => void;
+}
+
+export default function InteractiveHouseCard({ activeTab, onTabChange, onCtaClick }: InteractiveHouseCardProps) {
   const { t, locale } = useLanguage();
-  const [activeTab, setActiveTab] = useState<TabType>('immobilie');
   const [selectedHotspot, setSelectedHotspot] = useState<Hotspot>(hotspots[0]);
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
 
@@ -69,7 +74,10 @@ export default function InteractiveHouseCard() {
             return (
               <button
                 key={tab}
-                onClick={() => setActiveTab(tab)}
+                type="button"
+                aria-pressed={isActive}
+                aria-controls="hero-showcase-panel"
+                onClick={() => onTabChange(tab)}
                 className={`px-5 py-2 rounded-full text-xs font-sans font-semibold tracking-wide transition-all duration-300 cursor-pointer ${
                   isActive
                     ? 'bg-[#091726] text-white shadow-md'
@@ -85,7 +93,7 @@ export default function InteractiveHouseCard() {
         </div>
 
         {/* Dynamic content wrapper with animation */}
-        <div className="flex-1 flex flex-col">
+        <div className="flex-1 flex flex-col" id="hero-showcase-panel">
           <AnimatePresence initial={false} mode="wait">
             
             {/* TAB 1: STRATEGIE */}
@@ -167,7 +175,7 @@ export default function InteractiveHouseCard() {
                       <p className="text-[11px] text-gray-500">{t("Kostenloses 15-Minuten Erstgespräch vereinbaren.")}</p>
                     </div>
                   </div>
-                  <button className="flex items-center justify-center w-8 h-8 rounded-full bg-[#091726] text-white hover:bg-[#d4b27c] hover:text-[#040911] transition-all duration-300">
+                  <button type="button" onClick={onCtaClick} aria-label={t("Eigene Strategie besprechen?")} className="flex items-center justify-center w-8 h-8 rounded-full bg-[#091726] text-white hover:bg-[#d4b27c] hover:text-[#040911] transition-all duration-300">
                     <ArrowUpRight className="w-4 h-4" />
                   </button>
                 </div>

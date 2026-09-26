@@ -4,8 +4,7 @@ import { useLanguage } from './i18n';
 import { X } from 'lucide-react';
 import React, { lazy, Suspense, useEffect, useState } from 'react';
 import Navbar from './components/Navbar';
-import HeroContent from './components/HeroContent';
-import InteractiveHouseCard from './components/InteractiveHouseCard';
+import HeroShowcase from './components/HeroShowcase';
 import MetricsFooter from './components/MetricsFooter';
 import PromiseSection from './components/PromiseSection';
 import InvestmentPathSection from './components/InvestmentPathSection';
@@ -76,20 +75,7 @@ export default function App() {
         {/* Primary Hero Section Stage */}
         <main className="relative z-10 flex-1 flex flex-col justify-center px-4 md:px-8 lg:px-12 pt-16 pb-10 max-w-7xl mx-auto w-full">
           
-          {/* Grid split: Left Typography Content & Right Showcase Card */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 xl:gap-20 items-center mb-12 md:mb-16">
-            
-            {/* Column Left */}
-            <div className="col-span-1 lg:col-span-6 xl:col-span-5 flex justify-start items-center">
-              <HeroContent onCtaClick={() => openForm()} />
-            </div>
-
-            {/* Column Right */}
-            <div className="col-span-1 lg:col-span-6 xl:col-span-7">
-              <Suspense fallback={null}><InteractiveHouseCard /></Suspense>
-            </div>
-
-          </div>
+          <HeroShowcase onCtaClick={openForm} />
 
           {/* Bottom Section (Metrics & Features Footer) */}
           <div className="mt-auto border-t border-white/5 pt-8 md:pt-10">
