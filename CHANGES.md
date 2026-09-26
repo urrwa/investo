@@ -2,6 +2,8 @@
 
 ## Architectural homepage motion — 26 September 2026
 
+Visibility refinement: enlarged the architectural artwork, added a subtle navy frame, brighter/heavier gold lines, a clearer selected stage and stronger timeline routes. Retained finite animation and reduced-motion support.
+
 - Added an original gold SVG architectural illustration beneath the hero CTA, with a short outline drawing and building entrance. Three translated stage controls synchronize with the existing strategy, financing and property panels; replay is available without auto-cycling content.
 - Replaced the investment timeline's continuous ray and floating nodes with a finite route and milestone drawing on first viewport entry. Detail cards support keyboard activation, focus return and Escape. Long dialogs scroll within short screens.
 - Kept existing real photographs, calculator state, lead form and legal routes. Added no media downloads or dependencies. The decorative artwork is static before hydration and under reduced-motion preferences; primary content is never hidden for an entrance animation.

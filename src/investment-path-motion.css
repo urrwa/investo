@@ -14,14 +14,14 @@
 .investo-path-route-draw,
 .investo-path-mobile-draw {
   fill: none;
-  stroke-width: 1;
+  stroke-width: 1.6;
   vector-effect: non-scaling-stroke;
 }
 
 .investo-path-route-track { stroke: rgb(255 255 255 / 12%); }
 .investo-path-route-draw,
 .investo-path-mobile-draw {
-  stroke: #d4b27c;
+  stroke: #e5c38c;
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
 }
@@ -49,9 +49,9 @@
   pointer-events: none;
   rotate: -90deg;
   fill: none;
-  stroke: #d4b27c;
-  stroke-width: 1;
-  opacity: .45;
+  stroke: #e5c38c;
+  stroke-width: 1.6;
+  opacity: .8;
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
 }
